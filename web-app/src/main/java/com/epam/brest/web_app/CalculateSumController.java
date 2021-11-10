@@ -4,10 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class CalculateSumController {
 
-    @GetMapping(value = "/")
-    public String defaultPageRedirect() {
-        return "redirect:categories";
+    @GetMapping("/calculate-sum")
+    public String calculateSum() {
+        return "calculate-sum";
     }
+
 }
