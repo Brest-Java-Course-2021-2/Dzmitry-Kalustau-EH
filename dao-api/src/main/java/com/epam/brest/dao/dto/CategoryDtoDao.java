@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CategoryDtoDao {
 
-    List<CategoryDto> findAll();
+    List<CategoryDto> findAllWithSumOfExpenses();
 
 }

@@ -21,7 +21,7 @@ public class CategoryDtoServiceImpl implements CategoryDtoService {
     }
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryDtoDao.findAll();
+    public List<CategoryDto> findAllWithSumOfExpenses() {
+        return categoryDtoDao.findAllWithSumOfExpenses();
     }
 }

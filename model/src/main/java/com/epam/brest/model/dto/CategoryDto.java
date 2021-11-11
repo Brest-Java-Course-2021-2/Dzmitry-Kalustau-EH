@@ -1,10 +1,12 @@
 package com.epam.brest.model.dto;
 
+import java.math.BigDecimal;
+
 public class CategoryDto {
 
-    private Integer categoryId;
-
     private String categoryName;
+
+    private BigDecimal sumOfExpense;
 
     public CategoryDto() {
     }
@@ -13,17 +15,9 @@ public class CategoryDto {
         this.categoryName = categoryName;
     }
 
-    public CategoryDto(Integer categoryId, String categoryName) {
-        this.categoryId = categoryId;
+    public CategoryDto(String categoryName, BigDecimal sumOfExpense) {
         this.categoryName = categoryName;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+        this.sumOfExpense = sumOfExpense;
     }
 
     public String getCategoryName() {
@@ -34,11 +28,12 @@ public class CategoryDto {
         this.categoryName = categoryName;
     }
 
-    @Override
-    public String toString() {
-        return "CategoryDto{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                '}';
+    public BigDecimal getSumOfExpense() {
+        return sumOfExpense;
+    }
+
+    public void setSumOfExpense(BigDecimal sumOfExpense) {
+        this.sumOfExpense = sumOfExpense;
     }
 }
+
