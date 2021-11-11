@@ -1,19 +1,19 @@
-package com.epam.brest.model;
+package com.epam.brest.model.dto;
 
-public class Category {
+public class CategoryDto {
 
     private Integer categoryId;
 
     private String categoryName;
 
-    public Category() {
+    public CategoryDto() {
     }
 
-    public Category(String categoryName) {
+    public CategoryDto(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public Category(Integer categoryId, String categoryName) {
+    public CategoryDto(Integer categoryId, String categoryName) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
     }
@@ -32,5 +32,13 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryDto{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
     }
 }
