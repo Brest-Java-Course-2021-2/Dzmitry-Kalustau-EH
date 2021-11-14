@@ -1,7 +1,7 @@
 package com.epam.brest.service.impl;
 
-import com.epam.brest.model.dto.CategoryDto;
-import com.epam.brest.service.CategoryDtoService;
+import com.epam.brest.model.dto.CalculateSumDto;
+import com.epam.brest.service.dto.CalculateSumDtoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +16,19 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:service-context-test.xml"})
 @Transactional
-class CategoryDtoServiceImplIT {
+class CalculateSumDtoServiceImplIT {
 
     @Autowired
-    CategoryDtoService categoryDtoService;
+    CalculateSumDtoService calculateSumDtoService;
 
     @Test
     public void shouldFindAllWithSumOfExpenses() {
-        List<CategoryDto> categoriesDto = categoryDtoService.findAllWithSumOfExpenses();
-        assertNotNull(categoriesDto);
-        assertTrue(categoriesDto.size() > 0);
+        List<CalculateSumDto> calculateSumDtoList = calculateSumDtoService.findAllWithSumOfExpenses();
+        assertNotNull(calculateSumDtoList);
+        assertTrue(calculateSumDtoList.size() > 0);
 
-//        for (CategoryDto categoryDto : categoriesDto) {
-//            System.out.println(categoryDto.getCategoryName() + " " + categoryDto.getSumOfExpense());
+//        for (CalculateSumDto calculateSumDto : calculateSumDtoList) {
+//            System.out.println(calculateSumDto.getCategoryName() + " " + calculateSumDto.getSumOfExpense());
 //        }
 
     }

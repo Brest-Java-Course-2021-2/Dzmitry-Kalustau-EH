@@ -2,20 +2,20 @@ package com.epam.brest.model.dto;
 
 import java.math.BigDecimal;
 
-public class CategoryDto {
+public class CalculateSumDto {
 
     private String categoryName;
 
     private BigDecimal sumOfExpense;
 
-    public CategoryDto() {
+    public CalculateSumDto() {
     }
 
-    public CategoryDto(String categoryName) {
+    public CalculateSumDto(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public CategoryDto(String categoryName, BigDecimal sumOfExpense) {
+    public CalculateSumDto(String categoryName, BigDecimal sumOfExpense) {
         this.categoryName = categoryName;
         this.sumOfExpense = sumOfExpense;
     }

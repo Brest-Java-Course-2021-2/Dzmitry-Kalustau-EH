@@ -1,6 +1,8 @@
 package com.epam.brest.dao;
 
 import com.epam.brest.model.Category;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,6 +17,8 @@ import java.util.List;
 
 public class CategoryDaoJDBCImpl implements CategoryDao {
 
+    private final Logger logger = LogManager.getLogger(CategoryDaoJDBCImpl.class);
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final String SQL_ALL_CATEGORIES = "SELECT c.category_id, c.category_name FROM category c ORDER BY c.category_name";
@@ -26,12 +30,13 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
 
     @Override
     public List<Category> findAll() {
-
+        logger.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(SQL_ALL_CATEGORIES, new CategoryRowMapper());
     }
 
     @Override
     public Integer create(Category category) {
+        logger.debug("Start: create({})", category);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("category_name", category.getCategoryName());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(SQL_CREATE_CATEGORY, sqlParameterSource, keyHolder);

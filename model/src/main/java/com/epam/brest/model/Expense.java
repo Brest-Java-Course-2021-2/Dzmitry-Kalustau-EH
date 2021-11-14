@@ -1,16 +1,17 @@
 package com.epam.brest.model;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Expense {
 
     private Integer expenseId;
 
-    private Date dateOfExpense;
+    private LocalDate dateOfExpense;
 
     private Integer categoryId;
 
-    private Double sumOfExpense;
+    private BigDecimal sumOfExpense;
 
     public Integer getExpenseId() {
         return expenseId;
@@ -20,11 +21,11 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
-    public Date getDateOfExpense() {
+    public LocalDate getDateOfExpense() {
         return dateOfExpense;
     }
 
-    public void setDateOfExpense(Date dateOfExpense) {
+    public void setDateOfExpense(LocalDate dateOfExpense) {
         this.dateOfExpense = dateOfExpense;
     }
 
@@ -36,11 +37,11 @@ public class Expense {
         this.categoryId = categoryId;
     }
 
-    public Double getSumOfExpense() {
+    public BigDecimal getSumOfExpense() {
         return sumOfExpense;
     }
 
-    public void setSumOfExpense(Double sumOfExpense) {
+    public void setSumOfExpense(BigDecimal sumOfExpense) {
         this.sumOfExpense = sumOfExpense;
     }
 }
