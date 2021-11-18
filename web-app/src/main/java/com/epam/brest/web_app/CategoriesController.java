@@ -1,16 +1,29 @@
 package com.epam.brest.web_app;
 
+import com.epam.brest.model.Category;
+import com.epam.brest.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CategoriesController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoriesController.class);
+
+    private CategoryService categoryService;
+
+    public CategoriesController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
     @GetMapping(value="/categories")
     public final String categories(Model model) {
+        model.addAttribute("categories", categoryService.findAllCategories());
         return "categories";
     }
 
@@ -19,9 +32,19 @@ public class CategoriesController {
         return "edit-categories";
     }
 
-    @GetMapping(value="/edit-categories/add")
+    @GetMapping(value="/edit-categories")
     public final String gotoAddCategoriesPage(Model model) {
+        logger.debug("gotoAddCategoriesPage({})", model);
+        model.addAttribute("isNew", true);
+        model.addAttribute("category", new Category());
         return "edit-categories";
+    }
+
+    @PostMapping(value = "/edit-categories")
+    public final String addCategory(Category category) {
+        logger.debug("add category ({}, {})", category);
+        categoryService.create(category);
+        return "redirect:/categories";
     }
 
 }

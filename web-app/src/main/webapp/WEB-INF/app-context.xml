@@ -32,6 +32,14 @@
         <constructor-arg name="calculateSumDtoDao" ref="calculateSumDtoDao"/>
     </bean>
 
+    <bean id="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="categoryService" class="com.epam.brest.service.impl.CategoryServiceImpl">
+        <constructor-arg name="categoryDao" ref="categoryDao"/>
+    </bean>
+
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">

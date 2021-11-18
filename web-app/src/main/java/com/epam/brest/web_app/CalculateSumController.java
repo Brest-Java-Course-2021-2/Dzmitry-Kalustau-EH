@@ -19,9 +19,6 @@ public class CalculateSumController {
     @GetMapping("/calculate-sum")
     public String calculateSum(Model model) {
         model.addAttribute("CalculateSum", calculateSumDtoService.findAllWithSumOfExpenses());
-
-
-
         return "calculate-sum";
     }
 

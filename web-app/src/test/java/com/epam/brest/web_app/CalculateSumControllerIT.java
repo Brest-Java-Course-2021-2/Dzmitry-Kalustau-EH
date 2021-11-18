@@ -42,7 +42,7 @@ class CalculateSumControllerIT {
     }
 
     @Test
-    void shouldReturnDepartmentsPage() throws Exception {
+    void shouldReturnCalculateSumPage() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/calculate-sum")
         ).andDo(MockMvcResultHandlers.print())

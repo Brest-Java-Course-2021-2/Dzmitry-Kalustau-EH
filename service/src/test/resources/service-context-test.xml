@@ -8,11 +8,24 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="categoryDtoDao" class="com.epam.brest.dao.dto.CalculateSumDtoDaoJdbc">
+
+    <!--Init CalculateSum Test-->
+    <bean id="calculateSumDtoDao" class="com.epam.brest.dao.dto.CalculateSumDtoDaoJdbc">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="categoryDtoService" class="com.epam.brest.service.impl.dto.CalculateSumDtoServiceImpl">
-        <constructor-arg name="categoryDtoDao" ref="categoryDtoDao"/>
+    <bean id="CalculateSumDtoService" class="com.epam.brest.service.impl.dto.CalculateSumDtoServiceImpl">
+        <constructor-arg name="calculateSumDtoDao" ref="calculateSumDtoDao"/>
     </bean>
+
+
+<!--Init Category Test-->
+    <bean id="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="categoryService" class="com.epam.brest.service.impl.CategoryServiceImpl">
+        <constructor-arg name="categoryDao" ref="categoryDao"/>
+    </bean>
+
 </beans>

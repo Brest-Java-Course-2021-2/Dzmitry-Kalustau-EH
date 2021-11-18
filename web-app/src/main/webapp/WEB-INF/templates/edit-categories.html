@@ -47,7 +47,8 @@
                     <i class="bi-arrow-left"></i></a>
             </li>
         </ul>
-        <span class="navbar-brand text-uppercase me-auto">Edit categories</span>
+        <span class="navbar-brand text-uppercase me-auto"
+              th:text="${isNew} ? 'New category' : 'Edit categories'">Edit categories</span>
     </nav>
 </header>
 
@@ -57,20 +58,28 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <form>
+                        <form id="categoryForm"
+                              th:object="${category}"
+                              action="categories.html"
+                              th:action="@{${#httpServletRequest.servletPath}}"
+                              th:method="@{post}">
+
+
                             <div class="mb-3">
                                 <label class="form-label"
                                        for="field_categoryCode">Code</label>
                                 <input class="form-control "
                                        id="field_categoryCode"
-                                       type="text" value="1"/>
+                                       type="text" value="1"
+                                th:field="*{categoryId}"/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label"
                                        for="field_name">Name</label>
                                 <input class="form-control"
                                        id="field_name"
-                                       type="text" value="Food">
+                                       type="text" value="Food"
+                                th:field="*{categoryName}"/>
                             </div>
                             <div class="d-flex justify-content-end">
                                 <a href="categories.html"
@@ -79,6 +88,7 @@
                                    title="Cancel">Cancel</a>
                                 <a href="categories.html"
                                    th:href="@{/categories}"
+                                   th:onclick="@{document.forms['categoryForm'].submit(); return false;}"
                                    class="btn btn-primary"
                                    title="Save category">Save</a>
                             </div>
