@@ -29,7 +29,17 @@ public class CategoriesController {
 
     @GetMapping(value="/edit-categories/{id}")
     public final String gotoEditCategoriesPage(@PathVariable Integer id, Model model) {
+        logger.debug("gotoEditCategoriesPage({})", model);
+        model.addAttribute("isNew", false);
+        model.addAttribute("category", categoryService.getCategoryById(id));
         return "edit-categories";
+    }
+
+    @PostMapping(value = "/edit-categories/{id}")
+    public String updateCategory(Category category) {
+        logger.debug("update Category({}, {})", category);
+        categoryService.update(category);
+        return "redirect:/categories";
     }
 
     @GetMapping(value="/edit-categories")
@@ -44,6 +54,13 @@ public class CategoriesController {
     public final String addCategory(Category category) {
         logger.debug("add category ({}, {})", category);
         categoryService.create(category);
+        return "redirect:/categories";
+    }
+
+    @GetMapping(value = "/edit-categories/{id}/delete")
+    public final String deleteCategoryById(@PathVariable Integer id, Model model) {
+        logger.debug("delete({},{})", id, model);
+        categoryService.delete(id);
         return "redirect:/categories";
     }
 

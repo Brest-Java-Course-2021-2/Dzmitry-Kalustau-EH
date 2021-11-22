@@ -12,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -29,14 +31,14 @@ class CategoryDaoJDBCImplTestIT {
     }
 
     @Test
-    void findAll() {
+    void testFindAll() {
         logger.debug("Execute test: findAll()");
         assertNotNull(categoryDaoJDBC);
         assertNotNull(categoryDaoJDBC.findAllCategories());
     }
 
     @Test
-    void create() {
+    void testCreate() {
         assertNotNull(categoryDaoJDBC);
         int categorySizeBefore = categoryDaoJDBC.count();
         Category category = new Category("Tickets");
@@ -46,7 +48,7 @@ class CategoryDaoJDBCImplTestIT {
     }
 
     @Test
-    void tryToCreateEqualsCategory() {
+    void testCreateEqualsCategory() {
         assertNotNull(categoryDaoJDBC);
         Category category = new Category("Restaurant");
         assertThrows(IllegalArgumentException.class, () -> {
@@ -56,11 +58,47 @@ class CategoryDaoJDBCImplTestIT {
     }
 
     @Test
-    void shouldReturnCount() {
+    void testCount() {
         assertNotNull(categoryDaoJDBC);
         Integer countCategory = categoryDaoJDBC.count();
         assertNotNull(countCategory);
         assertTrue(countCategory > 0);
         assertEquals(Integer.valueOf(6), countCategory);
+    }
+
+    @Test
+    void testGetCategoryByID() {
+        List<Category> categoryList = categoryDaoJDBC.findAllCategories();
+        if (categoryList.size() == 0) {
+            categoryList.add(new Category("Test Category"));
+        }
+        Category categoryFromList = categoryList.get(0);
+        Category categoryFromDao = categoryDaoJDBC.getCategoryById(categoryFromList.getCategoryId());
+        assertEquals(categoryFromList.getCategoryName(), categoryFromDao.getCategoryName());
+    }
+
+    @Test
+    void testUpdate() {
+        List<Category> categoryList = categoryDaoJDBC.findAllCategories();
+        if (categoryList.size() == 0) {
+            categoryDaoJDBC.create(new Category("Test Category"));
+            categoryList = categoryDaoJDBC.findAllCategories();
+        }
+
+        Category categoryFromList = categoryList.get(0);
+        categoryFromList.setCategoryName(categoryFromList.getCategoryName() + "_test");
+        categoryDaoJDBC.update(categoryFromList);
+
+        Category categoryFromDao = categoryDaoJDBC.getCategoryById(categoryFromList.getCategoryId());
+        assertEquals(categoryFromList.getCategoryName(), categoryFromDao.getCategoryName());
+    }
+
+    @Test
+    void testDelete() {
+        categoryDaoJDBC.create(new Category("Test Category"));
+        List<Category> categoryList = categoryDaoJDBC.findAllCategories();
+
+        categoryDaoJDBC.delete(categoryList.get(categoryList.size()-1).getCategoryId());
+        assertEquals(categoryList.size()-1, categoryDaoJDBC.findAllCategories().size());
     }
 }

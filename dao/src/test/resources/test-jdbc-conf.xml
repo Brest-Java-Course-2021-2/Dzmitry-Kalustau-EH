@@ -5,7 +5,11 @@
        https://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean name="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">
-        <constructor-arg name="dataSource" ref="dataSource"/>
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
     </bean>
 
 </beans>

@@ -13,7 +13,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CategoryDaoJDBCImpl implements CategoryDao {
 
@@ -25,10 +27,9 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
     private final String SQL_CREATE_CATEGORY = "INSERT INTO category(category_name) VALUES (:category_name)";
     private final String SQL_CHECK_UNIQUE_CATEGORY_NAME = "SELECT count(c.category_name) FROM category c WHERE lower(c.category_name) = lower(:categoryName)";
     private final String SQL_SELECT_COUNT = "SELECT count(*) FROM category";
-
-    public CategoryDaoJDBCImpl(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-    }
+    private final String SQL_UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
+    private final String SQL_CATEGORY_BY_ID = "SELECT c.category_id, c.category_name FROM category c WHERE c.category_id = :categoryId";
+    private final String SQL_DELETE_CATEGORY_BY_ID = "DELETE FROM category WHERE category_id = :categoryId";
 
     public CategoryDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -62,13 +63,29 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
     }
 
     @Override
+    public Category getCategoryById(Integer categoryId) {
+        logger.debug("Get category by id = {}", categoryId);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("categoryId", categoryId);
+        return namedParameterJdbcTemplate.queryForObject(SQL_CATEGORY_BY_ID, sqlParameterSource, new CategoryRowMapper());
+
+    }
+
+    @Override
     public Integer update(Category category) {
-        return null;
+        logger.debug("Update category {}", category);
+
+        Map<String, Object> paramsOfSql = new HashMap<>();
+        paramsOfSql.put("categoryName", category.getCategoryName());
+        paramsOfSql.put("categoryId", category.getCategoryId());
+
+        return namedParameterJdbcTemplate.update(SQL_UPDATE_CATEGORY, paramsOfSql);
     }
 
     @Override
     public Integer delete(Integer categoryId) {
-        return null;
+        logger.debug("Delete category on id {}", categoryId);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("categoryId", categoryId);
+        return namedParameterJdbcTemplate.update(SQL_DELETE_CATEGORY_BY_ID, sqlParameterSource);
     }
 
     @Override

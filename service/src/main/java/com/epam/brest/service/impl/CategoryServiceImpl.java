@@ -38,4 +38,22 @@ public class CategoryServiceImpl implements CategoryService {
         logger.debug("count()");
         return categoryDao.count();
     }
+
+    @Override
+    public Category getCategoryById(Integer categoryId) {
+        logger.debug("get Category By Id {}", categoryId);
+        return categoryDao.getCategoryById(categoryId);
+    }
+
+    @Override
+    public Integer update(Category category) {
+        logger.debug("update category {}", category);
+        return categoryDao.update(category);
+    }
+
+    @Override
+    public Integer delete(Integer categoryId) {
+        logger.debug("delete category by Id {}", categoryId);
+        return categoryDao.delete(categoryId);
+    }
 }
