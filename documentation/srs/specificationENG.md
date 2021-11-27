@@ -6,7 +6,7 @@ Required to create web app to work with family expenses. The application must im
 * View, add and edit the list of expenses.
 * Ability to view expenses for a selected period of time.
 
-### 1. Categories of expenses
+###1. Categories of expenses
    This program mode is intended for viewing a list of expense categories.
 
 Main scenario:
@@ -21,7 +21,7 @@ The list displays the following columns:
 * Code - expense category code;
 * Name - the name of the expense.
 
-#### 1.1 Adding a new expense category
+####1.1 Adding a new expense category
 Main scenario:
 * User clicks “Add” button;
 * The form for adding a new expense category is displayed;
@@ -35,7 +35,7 @@ Main scenario:
 
 Figure 1.2 - adding a new expense category.
 
-#### 1.2 Editing expense category
+####1.2 Editing expense category
 Main scenario:
 * The user clicks the "Edit" button in the line of the selected category;
 * The editing form with the entered initial data of the current expense category is displayed;
@@ -49,13 +49,13 @@ Main scenario:
 
 Figure 1.3 - editing the category of expenses.
 
-#### 1.3 Deleting an expense category
+####1.3 Deleting an expense category
 Main scenario:
 * The user clicks the (***Delete***) button in the line of the selected category;
 * The selected category of expense is deleted in the database;
 * The updated form for viewing the category of expenses is displayed.
 
-### 2. List of expenses 
+###2. List of expenses 
 This program mode is intended for viewing a list of expenses.
 
 Main scenario:
@@ -72,7 +72,7 @@ The list displays the following columns:
 * Kind of expense - the name of the category of expense;
 * Amount - the amount spent.
 
-#### 2.1 Adding a new expense
+####2.1 Adding a new expense
 Main scenario:
 * User clicks (***Add***) button;
 * The form for adding a new expense is displayed;
@@ -86,7 +86,7 @@ Main scenario:
 
 Figure 2.2 - adding a new expense.
 
-#### 2.2 Editing the list of expenses
+####2.2 Editing the list of expenses
 Main scenario:
 * User presses the (***Edit***) button in the line of the selected expense;
 * The editing form with the entered initial data of the current expense is displayed;
@@ -100,13 +100,13 @@ Main scenario:
 
 Figure 2.3 - editing the list of expenses.
 
-#### 2.3 Deleting an expense field
+####2.3 Deleting an expense field
 Main scenario:
 * User presses the (***Delete***) button in the line of the selected expense field;
 * The selected expense is deleted in the database;
 * The updated form for viewing the list of expenses is displayed.
 
-#### 2.4 Calculation of the amount of expenses
+####2.4 Calculation of the amount of expenses
 Main scenario:
 * The user clicks the button (***Calculate sum***);
 * The form for calculating the amount of expenses is displayed;

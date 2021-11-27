@@ -2,10 +2,12 @@ package com.epam.brest.web_app;
 
 import com.epam.brest.model.Category;
 import com.epam.brest.service.CategoryService;
+import com.epam.brest.web_app.validators.CategoryValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +17,13 @@ public class CategoriesController {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoriesController.class);
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    public CategoriesController(CategoryService categoryService) {
+    private final CategoryValidator categoryValidator;
+
+    public CategoriesController(CategoryService categoryService, CategoryValidator categoryValidator) {
         this.categoryService = categoryService;
+        this.categoryValidator = categoryValidator;
     }
 
     @GetMapping(value="/categories")
@@ -51,7 +56,14 @@ public class CategoriesController {
     }
 
     @PostMapping(value = "/edit-categories")
-    public final String addCategory(Category category) {
+    public final String addCategory(Category category, BindingResult result) {
+
+        categoryValidator.validate(category, result);
+
+        if (result.hasErrors()) {
+            return "edit-categories";
+        }
+
         logger.debug("add category ({}, {})", category);
         categoryService.create(category);
         return "redirect:/categories";

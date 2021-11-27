@@ -69,6 +69,26 @@ public class CategoriesControllerIT {
     }
 
     @Test
+    void shouldFailAddCategoryOnEmptyName() throws Exception {
+        // WHEN
+        Category category = new Category("");
+
+        // THEN
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/edit-categories")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("departmentName", category.getCategoryName())
+        ).andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("edit-categories"))
+                .andExpect(
+                        model().attributeHasFieldErrors(
+                                "category", "categoryName"
+                        )
+                );
+    }
+
+    @Test
     public void shouldOpenEditCategoryPageById() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/edit-categories/1")
