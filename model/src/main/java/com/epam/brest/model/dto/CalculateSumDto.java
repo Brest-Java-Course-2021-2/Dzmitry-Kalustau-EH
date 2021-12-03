@@ -1,6 +1,7 @@
 package com.epam.brest.model.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class CalculateSumDto {
 
@@ -35,5 +36,6 @@ public class CalculateSumDto {
     public void setSumOfExpense(BigDecimal sumOfExpense) {
         this.sumOfExpense = sumOfExpense;
     }
+
 }
 

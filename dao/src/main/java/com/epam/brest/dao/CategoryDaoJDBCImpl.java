@@ -93,6 +93,12 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
         return namedParameterJdbcTemplate.queryForObject(SQL_SELECT_COUNT, new MapSqlParameterSource(), Integer.class);
     }
 
+    @Override
+    public Integer getIdOfLastCategory() {
+        logger.debug("getIdOfLastCategory");
+        return count();
+    }
+
     private class CategoryRowMapper implements RowMapper<Category> {
         @Override
         public Category mapRow(ResultSet resultSet, int i) throws SQLException {

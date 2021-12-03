@@ -17,4 +17,6 @@ public interface CategoryDao {
     Integer delete(Integer categoryId);
 
     Integer count();
+
+    Integer getIdOfLastCategory();
 }

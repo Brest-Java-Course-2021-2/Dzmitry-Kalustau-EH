@@ -40,6 +40,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Integer getIdOfLastCategory() {
+        logger.debug("get Id of last category");
+        return categoryDao.getIdOfLastCategory();
+    }
+
+    @Override
     public Category getCategoryById(Integer categoryId) {
         logger.debug("get Category By Id {}", categoryId);
         return categoryDao.getCategoryById(categoryId);

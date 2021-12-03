@@ -23,7 +23,7 @@
     </div>
     <nav>
         <span>
-            <h1>Edit categories</h1>
+            <h1>Delete category</h1>
         </span>
     </nav>
 </header>
@@ -35,7 +35,7 @@
                 <div>
                     <div>
                         <form action="#"
-                              th:action="@{/edit-categories/{id}}"
+                              th:action="@{/delete-categories/{id}}"
                               th:object="${category}"
                               method="post">
 
@@ -44,19 +44,20 @@
                                         for="field_categoryCode">Code</label>
                                 <input readonly="readonly"
                                         id="field_categoryCode"
-                                        type="text" value="1"
+                                        type="text" value=""
                                         th:field="*{categoryId}"/>
                             </div>
                             <div>
                                 <label
                                         for="field_name">Name</label>
-                                <input
+                                <input readonly="readonly"
                                         id="field_name"
-                                        type="text" value="Food"
+                                        type="text" value=""
                                         th:field="*{categoryName}"/>
                             </div>
                             <div>
-                                <input type="submit" value="Save"/>
+                                <input type="submit" value="Delete"/>
+
                                 <input type="button" value="Cancel" onClick="window.location='../categories'"/>
                             </div>
                         </form>

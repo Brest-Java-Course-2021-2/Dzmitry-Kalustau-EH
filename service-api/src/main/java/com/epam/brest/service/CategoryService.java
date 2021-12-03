@@ -18,4 +18,5 @@ public interface CategoryService {
 
     Integer count();
 
+    Integer getIdOfLastCategory();
 }

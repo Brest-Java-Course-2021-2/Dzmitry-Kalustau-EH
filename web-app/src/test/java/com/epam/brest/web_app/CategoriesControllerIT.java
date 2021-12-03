@@ -47,61 +47,6 @@ public class CategoriesControllerIT {
     }
 
     @Test
-    void shouldAddCategory() throws Exception {
-        // WHEN
-        assertNotNull(categoryService);
-        Integer categoriesSizeBefore = categoryService.count();
-        assertNotNull(categoriesSizeBefore);
-        Category category = new Category("Tickets");
-
-        // THEN
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/edit-categories")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("categoryName", category.getCategoryName())
-        ).andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/categories"))
-                .andExpect(redirectedUrl("/categories"));
-
-        // VERIFY
-        assertEquals(categoriesSizeBefore, categoryService.count() - 1);
-    }
-
-    @Test
-    void shouldFailAddCategoryOnEmptyName() throws Exception {
-        // WHEN
-        Category category = new Category("");
-
-        // THEN
-        mockMvc.perform(
-                MockMvcRequestBuilders.post("/edit-categories")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("departmentName", category.getCategoryName())
-        ).andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andExpect(view().name("edit-categories"))
-                .andExpect(
-                        model().attributeHasFieldErrors(
-                                "category", "categoryName"
-                        )
-                );
-    }
-
-    @Test
-    public void shouldOpenEditCategoryPageById() throws Exception {
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/edit-categories/1")
-        ).andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                .andExpect(view().name("edit-categories"))
-                .andExpect(model().attribute("isNew", is(false)))
-                .andExpect(model().attribute("category", hasProperty("categoryId", is(1))))
-                .andExpect(model().attribute("category", hasProperty("categoryName", is("Food"))));
-    }
-
-    @Test
     public void shouldUpdateCategoryAfterEdit() throws Exception {
 
         String testName = RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE);
@@ -119,20 +64,6 @@ public class CategoriesControllerIT {
         assertEquals(testName, category.getCategoryName());
     }
 
-    @Test
-    public void shouldDeleteCategory() throws Exception {
 
-        Integer countBefore = categoryService.count();
-
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/edit-categories/6/delete")
-        ).andExpect(status().isFound())
-                .andExpect(view().name("redirect:/categories"))
-                .andExpect(redirectedUrl("/categories"));
-
-        // verify database size
-        Integer countAfter = categoryService.count();
-        assertEquals(countBefore - 1, countAfter);
-    }
 
 }

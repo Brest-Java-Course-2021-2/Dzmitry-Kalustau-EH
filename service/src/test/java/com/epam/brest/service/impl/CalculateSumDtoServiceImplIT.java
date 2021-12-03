@@ -21,16 +21,16 @@ class CalculateSumDtoServiceImplIT {
     @Autowired
     CalculateSumDtoService calculateSumDtoService;
 
-    @Test
-    public void shouldFindAllWithSumOfExpenses() {
-        List<CalculateSumDto> calculateSumDtoList = calculateSumDtoService.findAllWithSumOfExpenses();
-        assertNotNull(calculateSumDtoList);
-        assertTrue(calculateSumDtoList.size() > 0);
+//    @Test
+//    public void shouldFindAllWithSumOfExpenses() {
+//        List<CalculateSumDto> calculateSumDtoList = calculateSumDtoService.findAllWithSumOfExpenses();
+//        assertNotNull(calculateSumDtoList);
+//        assertTrue(calculateSumDtoList.size() > 0);
 
 //        for (CalculateSumDto calculateSumDto : calculateSumDtoList) {
 //            System.out.println(calculateSumDto.getCategoryName() + " " + calculateSumDto.getSumOfExpense());
-//        }
-
-    }
+////        }
+//
+//    }
 
 }
