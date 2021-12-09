@@ -28,4 +28,13 @@
         <constructor-arg name="categoryDao" ref="categoryDao"/>
     </bean>
 
+    <!--Init Expense Test-->
+    <bean id="expenseDao" class="com.epam.brest.dao.ExpenseDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="expenseService" class="com.epam.brest.service.impl.ExpenseServiceImpl">
+        <constructor-arg name="expenseDao" ref="expenseDao"/>
+    </bean>
+
 </beans>

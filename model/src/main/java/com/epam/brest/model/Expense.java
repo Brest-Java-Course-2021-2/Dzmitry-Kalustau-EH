@@ -13,6 +13,26 @@ public class Expense {
 
     private BigDecimal sumOfExpense;
 
+    public Expense() {
+    }
+
+    public Expense(Integer expenseId) {
+        this.expenseId = expenseId;
+    }
+
+    public Expense(LocalDate dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
+        this.dateOfExpense = dateOfExpense;
+        this.categoryId = categoryId;
+        this.sumOfExpense = sumOfExpense;
+    }
+
+    public Expense(Integer expenseId, LocalDate dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
+        this.expenseId = expenseId;
+        this.dateOfExpense = dateOfExpense;
+        this.categoryId = categoryId;
+        this.sumOfExpense = sumOfExpense;
+    }
+
     public Integer getExpenseId() {
         return expenseId;
     }

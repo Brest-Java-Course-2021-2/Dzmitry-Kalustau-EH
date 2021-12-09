@@ -19,27 +19,69 @@
     <!-- Component scan for @Controller, @Service... annotations -->
     <context:component-scan base-package="com.epam.brest*"/>
 
-    <import resource="classpath*:test-db.xml"/>
+<!--    <import resource="classpath*:test-db.xml"/>-->
 
-    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
+<!--    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+<!--        <constructor-arg ref="dataSource"/>-->
+<!--    </bean>-->
+
+<!--        <bean id="expenseDao" class="com.epam.brest.>-->
+<!--            <constructor-arg ref="namedParameterJdbcTemplate"/>-->
+<!--        </bean>-->
+
+<!--        <bean id="expenseService" class="com.epam.brest.service.impl.ExpenseServiceImpl">-->
+<!--            <constructor-arg name="expenseDao" ref="expenseDao"/>-->
+<!--        </bean>-->
+
+<!--    <bean id="calculateSumDtoDao" class="com.epam.brest.dao.dto.CalculateSumDtoDaoJdbc">-->
+<!--        <constructor-arg ref="namedParameterJdbcTemplate"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="calculateSumDtoService" class="com.epam.brest.service.impl.dto.CalculateSumDtoServiceImpl">-->
+<!--        <constructor-arg name="calculateSumDtoDao" ref="calculateSumDtoDao"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">-->
+<!--        <constructor-arg ref="namedParameterJdbcTemplate"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="categoryService" class="com.epam.brest.service.impl.CategoryServiceImpl">-->
+<!--        <constructor-arg name="categoryDao" ref="categoryDao"/>-->
+<!--    </bean>-->
+
+    <bean id="categoryService" class="com.epam.brest.service.rest.CategoriesServiceRest">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.categories}"/>
+        <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 
-    <bean id="calculateSumDtoDao" class="com.epam.brest.dao.dto.CalculateSumDtoDaoJdbc">
-        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    <bean id="expenseService" class="com.epam.brest.service.rest.ExpensesServiceRest">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.expenses}"/>
+        <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 
-    <bean id="calculateSumDtoService" class="com.epam.brest.service.impl.dto.CalculateSumDtoServiceImpl">
-        <constructor-arg name="calculateSumDtoDao" ref="calculateSumDtoDao"/>
+    <bean id="calculateSumDtoService" class="com.epam.brest.service.rest.CalculateSumDtoServiceRest">
+        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.calculateSumDto}"/>
+        <constructor-arg index="1" ref="restTemplate"/>
     </bean>
 
-    <bean id="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">
-        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
     </bean>
 
-    <bean id="categoryService" class="com.epam.brest.service.impl.CategoryServiceImpl">
-        <constructor-arg name="categoryDao" ref="categoryDao"/>
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+                <!--                <value>classpath*:test-db.properties</value>-->
+                <!--                <value>classpath*:sql-department.properties</value>-->
+            </list>
+        </property>
     </bean>
+
 
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"

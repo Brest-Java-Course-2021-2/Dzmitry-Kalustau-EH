@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Rollback
 class CategoryDaoJDBCImplTestIT {
 
-    private final Logger logger = LogManager.getLogger(CategoryDaoJDBCImpl.class);
+    private final Logger logger = LogManager.getLogger(CategoryDaoJDBCImplTestIT.class);
 
     private CategoryDaoJDBCImpl categoryDaoJDBC;
 
@@ -32,13 +31,16 @@ class CategoryDaoJDBCImplTestIT {
 
     @Test
     void testFindAll() {
-        logger.debug("Execute test: findAll()");
+
+        logger.debug("Execute IT test: findAll()");
         assertNotNull(categoryDaoJDBC);
         assertNotNull(categoryDaoJDBC.findAllCategories());
     }
 
     @Test
     void testCreate() {
+
+        logger.debug("Execute IT test create()");
         assertNotNull(categoryDaoJDBC);
         int categorySizeBefore = categoryDaoJDBC.count();
         Category category = new Category("Tickets");
@@ -49,6 +51,8 @@ class CategoryDaoJDBCImplTestIT {
 
     @Test
     void testCreateEqualsCategory() {
+
+        logger.debug("Execute IT test createEqualsCategory()");
         assertNotNull(categoryDaoJDBC);
         Category category = new Category("Restaurant");
         assertThrows(IllegalArgumentException.class, () -> {
@@ -59,6 +63,8 @@ class CategoryDaoJDBCImplTestIT {
 
     @Test
     void testCount() {
+
+        logger.debug("Execute IT test count()");
         assertNotNull(categoryDaoJDBC);
         Integer countCategory = categoryDaoJDBC.count();
         assertNotNull(countCategory);
@@ -68,6 +74,8 @@ class CategoryDaoJDBCImplTestIT {
 
     @Test
     void testGetCategoryByID() {
+
+        logger.debug("Execute IT test getCategoryById()");
         List<Category> categoryList = categoryDaoJDBC.findAllCategories();
         if (categoryList.size() == 0) {
             categoryList.add(new Category("Test Category"));
@@ -79,6 +87,8 @@ class CategoryDaoJDBCImplTestIT {
 
     @Test
     void testUpdate() {
+
+        logger.debug("Execute IT test update()");
         List<Category> categoryList = categoryDaoJDBC.findAllCategories();
         if (categoryList.size() == 0) {
             categoryDaoJDBC.create(new Category("Test Category"));
@@ -95,6 +105,8 @@ class CategoryDaoJDBCImplTestIT {
 
     @Test
     void testDelete() {
+
+        logger.debug("Execute IT test delete()");
         categoryDaoJDBC.create(new Category("Test Category"));
         List<Category> categoryList = categoryDaoJDBC.findAllCategories();
 

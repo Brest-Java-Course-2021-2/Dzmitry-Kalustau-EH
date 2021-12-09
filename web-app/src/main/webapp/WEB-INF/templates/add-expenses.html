@@ -29,46 +29,55 @@
 </header>
 
 <section id="expense">
-    <div>
-        <div>
-            <div>
-                <div>
+
                     <div>
-                        <form>
+                        <form action="#"
+                              th:action="@{/add-expenses}"
+                              th:object="${expense}"
+                              method="post">
+
                             <div>
-                                <label
-                                       for="field_typeOfExpense">Type of expense</label>
-                                <select
-                                        id="field_typeOfExpense">
-                                    <option value="0">Food</option>
-                                    <option value="1">Households</option>
-                                    <option value="2">Medicine</option>
-                                    <option value="3">Clothes</option>
-                                    <option value="4">Entertainment</option>
-                                </select>
+                                <div>
+                                    <label
+                                            for="field_expenseId">Expense Id</label>
+                                    <input
+                                           id="field_expenseId"
+                                           type="text" value="1"
+                                           th:field="*{expenseId}"/>
+                                </div>
+                                <div>
+                                    <label
+                                            for="field_expenseDate">Expense Date</label>
+                                    <input
+                                           id="field_expenseDate"
+                                           type="text" value="1"
+                                           th:field="*{dateOfExpense}"/>
+                                </div>
+                                <div>
+                                    <label
+                                            for="field_categoryId">Category Code</label>
+                                    <input
+                                           id="field_categoryId"
+                                           type="text" value="1"
+                                           th:field="*{categoryId}"/>
+                                </div>
                             </div>
                             <div>
                                 <label
-                                       for="field_sum">Sum</label>
+                                        for="field_name">Price</label>
                                 <input
-                                       id="field_sum"
-                                       type="text"
-                                       value=""/>
+                                        id="field_name"
+                                        type="text" value="25"
+                                        th:field="*{sumOfExpense}"/>
                             </div>
                             <div>
-                                <a href="expenses.html"
-                                   th:href="@{/expenses}"
-                                   title="Cancel">Cancel</a>
-                                <a href="expenses.html"
-                                   th:href="@{/expenses}"
-                                   title="Save expense">Save</a>
+                                <input type="submit" value="Save"/>
+                                <input type="button" value="Cancel" onClick="window.location='../expenses'"/>
                             </div>
+
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </section>
 
 <footer>

@@ -3,6 +3,9 @@ package com.epam.brest.dao;
 import com.epam.brest.model.Category;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,11 +20,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 public class CategoryDaoJDBCImplTest {
+
+    private final Logger logger = LogManager.getLogger(CategoryDaoJDBCImplTest.class);
 
     @InjectMocks
     private CategoryDaoJDBCImpl categoryDaoJDBC;
@@ -31,9 +38,10 @@ public class CategoryDaoJDBCImplTest {
 
     @Captor
     private ArgumentCaptor<RowMapper<Category>> captorMapper;
-
     @Captor
     private ArgumentCaptor<SqlParameterSource> captorSource;
+    @Captor
+    private ArgumentCaptor<KeyHolder> captorHolder;
 
     @AfterEach
     public void check() {
@@ -42,6 +50,7 @@ public class CategoryDaoJDBCImplTest {
 
     @Test
     public void testFindAllCategories() {
+        logger.debug("Execute test findAllCategories()");
 
         Category category = new Category();
         List<Category> list = Collections.singletonList(category);
@@ -64,6 +73,8 @@ public class CategoryDaoJDBCImplTest {
 
     @Test
     public void testGetCategoryById() {
+        logger.debug("Execute test getCategoryById()");
+
         int id = 0;
         Category category = new Category();
 
@@ -87,4 +98,6 @@ public class CategoryDaoJDBCImplTest {
         Assertions.assertNotNull(result);
         Assertions.assertSame(category, result);
     }
+
+
 }

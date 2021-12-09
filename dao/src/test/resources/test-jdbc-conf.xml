@@ -4,12 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+<!--    Category DAO-->
     <bean name="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
+<!--    Expense DAO-->
+    <bean id="expenseDao" class = "com.epam.brest.dao.ExpenseDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
 </beans>

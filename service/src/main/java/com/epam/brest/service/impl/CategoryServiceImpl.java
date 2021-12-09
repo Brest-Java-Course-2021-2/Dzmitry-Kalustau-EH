@@ -24,6 +24,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAllCategories() {
+
+        logger.debug("find all categories");
         return categoryDao.findAllCategories();
     }
 

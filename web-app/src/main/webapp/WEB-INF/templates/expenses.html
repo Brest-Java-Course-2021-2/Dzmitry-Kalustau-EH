@@ -10,7 +10,6 @@
 <header>
     <div>
 
-
         <a href="categories.html"
            th:href="@{/categories}">Categories</a>
 
@@ -45,9 +44,6 @@
 </div>
 
 <section id="expenses">
-    <div>
-        <div>
-            <div>
                 <div>
                     <table border>
                         <thead>
@@ -60,90 +56,95 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>13.10.2021</td>
-                            <td>Food</td>
-                            <td>12</td>
+                        <tr th:each="expense : ${expenses}">
+                            <td th:text="${expense.expenseId}">1</td>
+                            <td th:text="${expense.dateOfExpense}">13.10.2021</td>
+                            <td th:text="${expense.categoryId}">Food</td>
+                            <td th:text="${expense.sumOfExpense}">12</td>
                             <td>
                                 <a href="edit-expenses.html"
-                                   th:href="@{/edit-expenses/1}"
+                                   th:href="@{|/edit-expenses/${expense.expenseId}|}"
                                    title="Edit expense">
                                     <span>&nbsp;Edit</span></a>
                                 <span>
-                                    <a
+                                    <a href="delete-expenses.html"
+                                       th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                        title="delete expense">
                                         <span>&nbsp;Delete</span>
                                     </a>
                                 </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>2</td>
                             <td>14.10.2021</td>
                             <td>Clothes</td>
                             <td>20</td>
                             <td>
-                                <a href="edit-expenses.html"
-                                   th:href="@{/edit-expenses/2}"
+                                <a href="delete-expenses.html"
+                                   th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                    title="Edit expense">
                                     <span>&nbsp;Edit</span></a>
                                 <span>
-                                    <a
+                                   <a href="delete-expenses.html"
+                                      th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                             title="delete expense">
                                         <span>&nbsp;Delete</span>
                                     </a>
                                 </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>3</td>
                             <td>14.10.2021</td>
                             <td>Entertainment</td>
                             <td>15</td>
                             <td>
-                                <a href="edit-expenses.html"
-                                   th:href="@{/edit-expenses/3}"
+                                <a href="delete-expenses.html"
+                                   th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                    title="Edit expense">
                                     <span>&nbsp;Edit</span></a>
                                 <span>
-                                    <a
+                                    <a href="delete-expenses.html"
+                                       th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                             title="delete expense">
                                         <span>&nbsp;Delete</span>
                                     </a>
                                 </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>4</td>
                             <td>15.10.2021</td>
                             <td>Medicine</td>
                             <td>42.5</td>
                             <td>
-                                <a href="edit-expenses.html"
-                                   th:href="@{/edit-expenses/4}"
+                                <a href="delete-expenses.html"
+                                   th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                    title="Edit expense">
                                     <span>&nbsp;Edit</span></a>
                                 <span>
-                                    <a
+                                   <a href="delete-expenses.html"
+                                      th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                             title="delete expense">
                                         <span>&nbsp;Delete</span>
                                     </a>
                                 </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>5</td>
                             <td>16.10.2021</td>
                             <td>Food</td>
                             <td>17</td>
                             <td>
-                                <a href="edit-expenses.html"
-                                   th:href="@{/edit-expenses/5}"
+                                <a href="delete-expenses.html"
+                                   th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                    title="Edit expense">
                                     <span>&nbsp;Edit</span></a>
                                 <span>
-                                    <a
+                                    <a href="delete-expenses.html"
+                                       th:href="@{|/delete-expenses/${expense.expenseId}|}"
                                             title="delete expense">
                                         <span>&nbsp;Delete</span>
                                     </a>
@@ -153,9 +154,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
 </section>
 
 <footer>
