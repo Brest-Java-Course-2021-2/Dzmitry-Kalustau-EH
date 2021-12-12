@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+
+    <title>Calculate sum</title>
+</head>
+<body>
+
+<header>
+    <div>
+
+
+        <a href="categories.html"
+           th:href="@{/categories}">Categories</a>
+
+
+        <a href="expenses.html"
+           th:href="@{/expenses}">Expenses</a>
+
+
+    </div>
+    <nav>
+        <div>
+            <span><h1>Calculate Sum</h1></span>
+        </div>
+    </nav>
+</header>
+
+<section id="dateFilter">
+    <div>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <form
+                                action="#"
+                                th:action="@{/calculate-sum}"
+                                th:object="${localDate}"
+                                method="post">
+                            <div>
+                                <label for="field_dateFrom">Filter from</label>
+                                <input
+                                        id="field_dateFrom"
+                                        type="date" value=""
+                                        th:field="*{localDateFrom}">
+
+                                <label
+                                        for="field_dateTo">To</label>
+                                <input
+                                        id="field_dateTo"
+                                        type="date" value=""
+                                        th:field="*{localDateTo}">
+                                <input type="submit" value="Reset"/>
+
+<!--                                <button type="button"><a href="calculate-sum.html"-->
+<!--                                                         th:href="@{/calculate-sum}"><img-->
+<!--                                        src="../../resources/static/img/logo_update.png"-->
+<!--                                        th:src="@{/resources/static/img/logo_update.png}"-->
+<!--                                        height="25" width="25" alt="UP"></a></button>-->
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="sum_list">
+    <div>
+        <div>
+            <div>
+                <div>
+                    <table border>
+                        <thead>
+                        <tr>
+                            <th>Type of expense</th>
+                            <th>Sum</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="nameSum : ${CalculateSum}">
+                            <td th:text="${nameSum.categoryName}">Food</td>
+                            <td th:text="${nameSum.sumOfExpense}">250</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Households</td>
+                            <td>90.5</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Car</td>
+                            <td>70</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Medicine</td>
+                            <td>67</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Clothes</td>
+                            <td>120</td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>Entertainment</td>
+                            <td>100</td>
+                        </tr>
+
+                        <tr th:remove="all">
+                            <td>
+                                <strong>Total Sum</strong></td>
+                            <td><strong>697.5</strong></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <hr/>
+    <p>&copy; 2021</p>
+</footer>
+
+</body>
+</html>

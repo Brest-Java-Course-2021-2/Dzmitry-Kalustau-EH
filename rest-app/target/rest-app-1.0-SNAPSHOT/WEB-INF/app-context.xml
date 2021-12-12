@@ -1,0 +1,55 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Use spring servlet for all requests, including static resources -->
+    <mvc:default-servlet-handler/>
+
+    <!-- Use @MVC annotations -->
+    <mvc:annotation-driven/>
+
+    <!-- Component scan for @Controller, @Service... annotations -->
+    <context:component-scan base-package="com.epam.brest*"/>
+
+    <import resource="classpath*:test-db.xml"/>
+
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+<!--    CalculateSum beans-->
+    <bean id="calculateSumDtoDao" class="com.epam.brest.dao.dto.CalculateSumDtoDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="calculateSumDtoService" class="com.epam.brest.service.impl.dto.CalculateSumDtoServiceImpl">
+        <constructor-arg name="calculateSumDtoDao" ref="calculateSumDtoDao"/>
+    </bean>
+
+<!--    Category beans-->
+    <bean id="categoryDao" class="com.epam.brest.dao.CategoryDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="categoryService" class="com.epam.brest.service.impl.CategoryServiceImpl">
+        <constructor-arg name="categoryDao" ref="categoryDao"/>
+    </bean>
+
+<!--Expense beans-->
+    <bean id="expenseDao" class="com.epam.brest.dao.ExpenseDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="expenseService" class="com.epam.brest.service.impl.ExpenseServiceImpl">
+        <constructor-arg name="expenseDao" ref="expenseDao"/>
+    </bean>
+
+</beans>

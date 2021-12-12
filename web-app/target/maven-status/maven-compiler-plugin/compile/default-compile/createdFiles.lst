@@ -1,0 +1,6 @@
+com/epam/brest/web_app/validators/CategoryValidator.class
+com/epam/brest/web_app/ExceptionHandlingControllerAdvice.class
+com/epam/brest/web_app/ExpensesController.class
+com/epam/brest/web_app/CategoriesController.class
+com/epam/brest/web_app/HomeController.class
+com/epam/brest/web_app/CalculateSumController.class
