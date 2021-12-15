@@ -22,7 +22,7 @@
     </div>
     <nav>
         <span>
-            <h1>Edit expenses</h1>
+            <h1>Delete expense</h1>
         </span>
     </nav>
 
@@ -35,7 +35,7 @@
                 <div>
                     <div>
                         <form action="#"
-                              th:action="@{/edit-expenses/{id}}"
+                              th:action="@{/delete-expenses/{id}}"
                               th:object="${expense}"
                               method="post">
 

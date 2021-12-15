@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.epam.brest.dao.CategoryDaoJDBCImplTest" time="0.58" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.epam.brest.dao.CategoryDaoJDBCImplTest" time="0.62" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="RU"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/medievil/development/Dzmitry-Kalustau-EH/dao/target/surefire/surefirebooter8461361992379757510.jar /home/medievil/development/Dzmitry-Kalustau-EH/dao/target/surefire 2021-12-12T15-20-49_694-jvmRun1 surefire9619398555940404687tmp surefire_05570497353570666801tmp"/>
+    <property name="sun.java.command" value="/home/medievil/development/Dzmitry-Kalustau-EH/dao/target/surefire/surefirebooter16566331169597842444.jar /home/medievil/development/Dzmitry-Kalustau-EH/dao/target/surefire 2021-12-15T16-25-49_612-jvmRun1 surefire16147116701872912154tmp surefire_06354596602770040986tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/medievil/development/Dzmitry-Kalustau-EH/dao/target/test-classes:/home/medievil/development/Dzmitry-Kalustau-EH/dao/target/classes:/home/medievil/development/Dzmitry-Kalustau-EH/dao-api/target/dao-api-1.0-SNAPSHOT.jar:/home/medievil/development/Dzmitry-Kalustau-EH/model/target/model-1.0-SNAPSHOT.jar:/home/medievil/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.13.0/jackson-databind-2.13.0.jar:/home/medievil/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.13.0/jackson-annotations-2.13.0.jar:/home/medievil/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.13.0/jackson-core-2.13.0.jar:/home/medievil/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.13.0/jackson-datatype-jsr310-2.13.0.jar:/home/medievil/development/Dzmitry-Kalustau-EH/test-db/target/test-db-1.0-SNAPSHOT.jar:/home/medievil/.m2/repository/com/h2database/h2/1.4.200/h2-1.4.200.jar:/home/medievil/.m2/repository/org/springframework/spring-context/5.3.4/spring-context-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-aop/5.3.4/spring-aop-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-beans/5.3.4/spring-beans-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-core/5.3.4/spring-core-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-jcl/5.3.4/spring-jcl-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-expression/5.3.4/spring-expression-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-jdbc/5.3.4/spring-jdbc-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-tx/5.3.4/spring-tx-5.3.4.jar:/home/medievil/.m2/repository/org/springframework/spring-test/5.3.4/spring-test-5.3.4.jar:/home/medievil/.m2/repository/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.jar:/home/medievil/.m2/repository/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar:/home/medievil/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.4.0/junit-jupiter-engine-5.4.0.jar:/home/medievil/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/medievil/.m2/repository/org/junit/platform/junit-platform-engine/1.4.0/junit-platform-engine-1.4.0.jar:/home/medievil/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/medievil/.m2/repository/org/junit/platform/junit-platform-commons/1.4.0/junit-platform-commons-1.4.0.jar:/home/medievil/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.4.0/junit-jupiter-api-5.4.0.jar:/home/medievil/.m2/repository/org/mockito/mockito-core/4.1.0/mockito-core-4.1.0.jar:/home/medievil/.m2/repository/net/bytebuddy/byte-buddy/1.12.1/byte-buddy-1.12.1.jar:/home/medievil/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.1/byte-buddy-agent-1.12.1.jar:/home/medievil/.m2/repository/org/objenesis/objenesis/3.2/objenesis-3.2.jar:/home/medievil/.m2/repository/org/mockito/mockito-junit-jupiter/4.1.0/mockito-junit-jupiter-4.1.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/medievil/development/Dzmitry-Kalustau-EH/dao/target/surefire/surefirebooter8461361992379757510.jar"/>
+    <property name="surefire.real.class.path" value="/home/medievil/development/Dzmitry-Kalustau-EH/dao/target/surefire/surefirebooter16566331169597842444.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.11+9-Ubuntu-0ubuntu2.20.04"/>
     <property name="user.name" value="medievil"/>
@@ -57,54 +57,54 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testFindAllCategories" classname="com.epam.brest.dao.CategoryDaoJDBCImplTest" time="0.282">
-    <system-out><![CDATA[2021-12-12 15:20:50,912 main DEBUG Apache Log4j Core 2.14.1 initializing configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@76a4ebf2
-2021-12-12 15:20:50,913 main DEBUG Installed 1 script engine
-2021-12-12 15:20:51,029 main DEBUG Oracle Nashorn version: 11.0.11, language: ECMAScript, threading: Not Thread Safe, compile: true, names: [nashorn, Nashorn, js, JS, JavaScript, javascript, ECMAScript, ecmascript], factory class: jdk.nashorn.api.scripting.NashornScriptEngineFactory
-2021-12-12 15:20:51,030 main DEBUG PluginManager 'Core' found 122 plugins
-2021-12-12 15:20:51,030 main DEBUG PluginManager 'Level' found 0 plugins
-2021-12-12 15:20:51,031 main DEBUG PluginManager 'Lookup' found 16 plugins
-2021-12-12 15:20:51,032 main DEBUG Building Plugin[name=AppenderRef, class=org.apache.logging.log4j.core.config.AppenderRef].
-2021-12-12 15:20:51,036 main DEBUG PluginManager 'TypeConverter' found 26 plugins
-2021-12-12 15:20:51,040 main DEBUG createAppenderRef(ref="STDOUT", level="null", Filter=null)
-2021-12-12 15:20:51,040 main DEBUG Building Plugin[name=root, class=org.apache.logging.log4j.core.config.LoggerConfig$RootLogger].
-2021-12-12 15:20:51,041 main DEBUG createLogger(additivity="null", level="DEBUG", includeLocation="null", ={STDOUT}, ={}, Configuration(PropertiesConfig), Filter=null)
-2021-12-12 15:20:51,042 main DEBUG Building Plugin[name=loggers, class=org.apache.logging.log4j.core.config.LoggersPlugin].
-2021-12-12 15:20:51,042 main DEBUG createLoggers(={root})
-2021-12-12 15:20:51,043 main DEBUG Building Plugin[name=layout, class=org.apache.logging.log4j.core.layout.PatternLayout].
-2021-12-12 15:20:51,045 main DEBUG PatternLayout$Builder(pattern="%d{HH:mm:ss} %-5p %-20.20C{1} %m%n", PatternSelector=null, Configuration(PropertiesConfig), Replace=null, charset="null", alwaysWriteExceptions="null", disableAnsi="null", noConsoleNoAnsi="null", header="null", footer="null")
-2021-12-12 15:20:51,045 main DEBUG PluginManager 'Converter' found 44 plugins
-2021-12-12 15:20:51,049 main DEBUG Building Plugin[name=appender, class=org.apache.logging.log4j.core.appender.ConsoleAppender].
-2021-12-12 15:20:51,052 main DEBUG ConsoleAppender$Builder(target="null", follow="null", direct="null", bufferedIo="null", bufferSize="null", immediateFlush="null", ignoreExceptions="null", PatternLayout(%d{HH:mm:ss} %-5p %-20.20C{1} %m%n), name="STDOUT", Configuration(PropertiesConfig), Filter=null, ={})
-2021-12-12 15:20:51,054 main DEBUG Starting OutputStreamManager SYSTEM_OUT.false.false
-2021-12-12 15:20:51,054 main DEBUG Building Plugin[name=appenders, class=org.apache.logging.log4j.core.config.AppendersPlugin].
-2021-12-12 15:20:51,054 main DEBUG createAppenders(={STDOUT})
-2021-12-12 15:20:51,054 main DEBUG Configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@76a4ebf2 initialized
-2021-12-12 15:20:51,054 main DEBUG Starting configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@76a4ebf2
-2021-12-12 15:20:51,055 main DEBUG Started configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@76a4ebf2 OK.
-2021-12-12 15:20:51,055 main DEBUG Shutting down OutputStreamManager SYSTEM_OUT.false.false-1
-2021-12-12 15:20:51,055 main DEBUG OutputStream closed
-2021-12-12 15:20:51,055 main DEBUG Shut down OutputStreamManager SYSTEM_OUT.false.false-1, all resources released: true
-2021-12-12 15:20:51,055 main DEBUG Appender DefaultConsole-1 stopped with status true
-2021-12-12 15:20:51,056 main DEBUG Stopped org.apache.logging.log4j.core.config.DefaultConfiguration@55183b20 OK
-2021-12-12 15:20:51,086 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057
-2021-12-12 15:20:51,087 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=StatusLogger
-2021-12-12 15:20:51,088 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=ContextSelector
-2021-12-12 15:20:51,088 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=Loggers,name=
-2021-12-12 15:20:51,089 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=Appenders,name=STDOUT
-2021-12-12 15:20:51,090 main DEBUG org.apache.logging.log4j.core.util.SystemClock supports precise timestamps.
-2021-12-12 15:20:51,090 main DEBUG Reconfiguration complete for context[name=55054057] at URI /home/medievil/development/Dzmitry-Kalustau-EH/dao/target/test-classes/log4j2-test.properties (org.apache.logging.log4j.core.LoggerContext@32193bea) with optional ClassLoader: null
-2021-12-12 15:20:51,090 main DEBUG Shutdown hook enabled. Registering a new one.
-2021-12-12 15:20:51,090 main DEBUG LoggerContext[name=55054057, org.apache.logging.log4j.core.LoggerContext@32193bea] started OK.
-15:20:51 DEBUG egoryDaoJDBCImplTest Execute test findAllCategories()
-15:20:51 DEBUG CategoryDaoJDBCImpl  Start: findAllCategories()
+  <testcase name="testFindAllCategories" classname="com.epam.brest.dao.CategoryDaoJDBCImplTest" time="0.28">
+    <system-out><![CDATA[2021-12-15 16:25:50,710 main DEBUG Apache Log4j Core 2.14.1 initializing configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@54c5a2ff
+2021-12-15 16:25:50,712 main DEBUG Installed 1 script engine
+2021-12-15 16:25:50,849 main DEBUG Oracle Nashorn version: 11.0.11, language: ECMAScript, threading: Not Thread Safe, compile: true, names: [nashorn, Nashorn, js, JS, JavaScript, javascript, ECMAScript, ecmascript], factory class: jdk.nashorn.api.scripting.NashornScriptEngineFactory
+2021-12-15 16:25:50,850 main DEBUG PluginManager 'Core' found 122 plugins
+2021-12-15 16:25:50,850 main DEBUG PluginManager 'Level' found 0 plugins
+2021-12-15 16:25:50,852 main DEBUG PluginManager 'Lookup' found 16 plugins
+2021-12-15 16:25:50,854 main DEBUG Building Plugin[name=AppenderRef, class=org.apache.logging.log4j.core.config.AppenderRef].
+2021-12-15 16:25:50,859 main DEBUG PluginManager 'TypeConverter' found 26 plugins
+2021-12-15 16:25:50,863 main DEBUG createAppenderRef(ref="STDOUT", level="null", Filter=null)
+2021-12-15 16:25:50,863 main DEBUG Building Plugin[name=root, class=org.apache.logging.log4j.core.config.LoggerConfig$RootLogger].
+2021-12-15 16:25:50,865 main DEBUG createLogger(additivity="null", level="DEBUG", includeLocation="null", ={STDOUT}, ={}, Configuration(PropertiesConfig), Filter=null)
+2021-12-15 16:25:50,866 main DEBUG Building Plugin[name=loggers, class=org.apache.logging.log4j.core.config.LoggersPlugin].
+2021-12-15 16:25:50,867 main DEBUG createLoggers(={root})
+2021-12-15 16:25:50,868 main DEBUG Building Plugin[name=layout, class=org.apache.logging.log4j.core.layout.PatternLayout].
+2021-12-15 16:25:50,871 main DEBUG PatternLayout$Builder(pattern="%d{HH:mm:ss} %-5p %-20.20C{1} %m%n", PatternSelector=null, Configuration(PropertiesConfig), Replace=null, charset="null", alwaysWriteExceptions="null", disableAnsi="null", noConsoleNoAnsi="null", header="null", footer="null")
+2021-12-15 16:25:50,871 main DEBUG PluginManager 'Converter' found 44 plugins
+2021-12-15 16:25:50,875 main DEBUG Building Plugin[name=appender, class=org.apache.logging.log4j.core.appender.ConsoleAppender].
+2021-12-15 16:25:50,879 main DEBUG ConsoleAppender$Builder(target="null", follow="null", direct="null", bufferedIo="null", bufferSize="null", immediateFlush="null", ignoreExceptions="null", PatternLayout(%d{HH:mm:ss} %-5p %-20.20C{1} %m%n), name="STDOUT", Configuration(PropertiesConfig), Filter=null, ={})
+2021-12-15 16:25:50,880 main DEBUG Starting OutputStreamManager SYSTEM_OUT.false.false
+2021-12-15 16:25:50,880 main DEBUG Building Plugin[name=appenders, class=org.apache.logging.log4j.core.config.AppendersPlugin].
+2021-12-15 16:25:50,880 main DEBUG createAppenders(={STDOUT})
+2021-12-15 16:25:50,881 main DEBUG Configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@54c5a2ff initialized
+2021-12-15 16:25:50,881 main DEBUG Starting configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@54c5a2ff
+2021-12-15 16:25:50,881 main DEBUG Started configuration org.apache.logging.log4j.core.config.properties.PropertiesConfiguration@54c5a2ff OK.
+2021-12-15 16:25:50,881 main DEBUG Shutting down OutputStreamManager SYSTEM_OUT.false.false-1
+2021-12-15 16:25:50,881 main DEBUG OutputStream closed
+2021-12-15 16:25:50,882 main DEBUG Shut down OutputStreamManager SYSTEM_OUT.false.false-1, all resources released: true
+2021-12-15 16:25:50,882 main DEBUG Appender DefaultConsole-1 stopped with status true
+2021-12-15 16:25:50,882 main DEBUG Stopped org.apache.logging.log4j.core.config.DefaultConfiguration@72967906 OK
+2021-12-15 16:25:50,912 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057
+2021-12-15 16:25:50,914 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=StatusLogger
+2021-12-15 16:25:50,914 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=ContextSelector
+2021-12-15 16:25:50,915 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=Loggers,name=
+2021-12-15 16:25:50,915 main DEBUG Registering MBean org.apache.logging.log4j2:type=55054057,component=Appenders,name=STDOUT
+2021-12-15 16:25:50,916 main DEBUG org.apache.logging.log4j.core.util.SystemClock supports precise timestamps.
+2021-12-15 16:25:50,916 main DEBUG Reconfiguration complete for context[name=55054057] at URI /home/medievil/development/Dzmitry-Kalustau-EH/dao/target/test-classes/log4j2-test.properties (org.apache.logging.log4j.core.LoggerContext@2d96543c) with optional ClassLoader: null
+2021-12-15 16:25:50,916 main DEBUG Shutdown hook enabled. Registering a new one.
+2021-12-15 16:25:50,917 main DEBUG LoggerContext[name=55054057, org.apache.logging.log4j.core.LoggerContext@2d96543c] started OK.
+16:25:51 DEBUG egoryDaoJDBCImplTest Execute test findAllCategories()
+16:25:51 DEBUG CategoryDaoJDBCImpl  Start: findAllCategories()
 ]]></system-out>
     <system-err><![CDATA[Warning: Nashorn engine is planned to be removed from a future JDK release
 ]]></system-err>
   </testcase>
   <testcase name="testGetCategoryById" classname="com.epam.brest.dao.CategoryDaoJDBCImplTest" time="0.003">
-    <system-out><![CDATA[15:20:51 DEBUG egoryDaoJDBCImplTest Execute test getCategoryById()
-15:20:51 DEBUG CategoryDaoJDBCImpl  Get category by id = 0
+    <system-out><![CDATA[16:25:51 DEBUG egoryDaoJDBCImplTest Execute test getCategoryById()
+16:25:51 DEBUG CategoryDaoJDBCImpl  Get category by id = 0
 ]]></system-out>
   </testcase>
 </testsuite>

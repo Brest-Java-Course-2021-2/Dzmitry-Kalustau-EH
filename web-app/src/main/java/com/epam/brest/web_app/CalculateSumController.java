@@ -31,13 +31,15 @@ public class CalculateSumController {
 
     @GetMapping("/calculate-sum")
     public String gotoCalculateSum(Model model) {
-        LocalDateContainer localDateContainer = calculateSumDtoService.getLocalDateContainer();
 
+        logger.debug("calculate sum getMapping");
+
+        LocalDateContainer localDateContainer = calculateSumDtoService.getLocalDateContainer();
         model.addAttribute("localDate", localDateContainer);
 
         List<CalculateSumDto> calculateSumDtoList = calculateSumDtoService.findAllWithSumOfExpenses();
-
         model.addAttribute("CalculateSum", calculateSumDtoList);
+
         return "calculate-sum";
     }
 

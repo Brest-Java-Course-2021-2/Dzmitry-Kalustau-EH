@@ -100,7 +100,7 @@ public class ExpensesController {
     @PostMapping(value = "/delete-expenses/{id}")
     public String deleteExpense(Expense expense) {
         logger.debug("delete Expense({}, {})", expense);
-        expenseService.delete(expense.getCategoryId());
+        expenseService.delete(expense.getExpenseId());
         return "redirect:/expenses";
     }
 }

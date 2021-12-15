@@ -49,7 +49,7 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
 
         logger.debug("editLocalDateContainer() with String dates {}, {}", localDateFrom, localDateTo);
         LocalDateContainer localDateContainer = new LocalDateContainer(localDateFrom, localDateTo);
-        restTemplate.put(url, localDateContainer);
+        restTemplate.postForEntity(url, localDateContainer, Integer.class);
     }
 
     @Override
