@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
+@CrossOrigin
 public class ExpensesController {
 
     private static final Logger logger = LogManager.getLogger(CategoriesController.class);

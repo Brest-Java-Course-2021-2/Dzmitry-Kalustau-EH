@@ -70,4 +70,14 @@ public class Expense {
     public void setSumOfExpense(BigDecimal sumOfExpense) {
         this.sumOfExpense = sumOfExpense;
     }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "expenseId=" + expenseId +
+                ", dateOfExpense='" + dateOfExpense + '\'' +
+                ", categoryId=" + categoryId +
+                ", sumOfExpense=" + sumOfExpense +
+                '}';
+    }
 }

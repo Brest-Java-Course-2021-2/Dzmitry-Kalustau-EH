@@ -11,15 +11,18 @@
 
     <artifactId>service-api</artifactId>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.epam.brest</groupId>
             <artifactId>model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.brest</groupId>
+            <artifactId>dao-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.epam.brest</groupId>
+            <artifactId>dao</artifactId>
         </dependency>
     </dependencies>
 </project>
