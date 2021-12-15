@@ -59,7 +59,8 @@
                         <tr th:each="expense : ${expenses}">
                             <td th:text="${expense.expenseId}">1</td>
                             <td th:text="${expense.dateOfExpense}">13.10.2021</td>
-                            <td th:text="${expense.categoryId}">Food</td>
+                            <td th:text="${expense.categoryName}">Food</td>
+<!--                            <td th:text="${expense.categoryId}">Food</td>-->
                             <td th:text="${expense.sumOfExpense}">12</td>
                             <td>
                                 <a href="edit-expenses.html"

@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.beans.IntrospectionException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ExpensesController {
@@ -36,10 +34,10 @@ public class ExpensesController {
     @GetMapping(value="/expenses")
     public final String expenses(Model model) {
 
-//        List<Expense> testList = Arrays.asList(new Expense(1, "2021-03-10", 2, new BigDecimal(15)));
-//        model.addAttribute("expenses", testList);
-
-        model.addAttribute("expenses", expenseService.findAllExpenses());
+        logger.debug("get all expenses({})", model);
+        List<Expense> expenseListOriginal = expenseService.findAllExpenses();
+        List<?> expenseList = setCategoryNameById(expenseListOriginal);
+        model.addAttribute("expenses", expenseList);
         return "expenses";
     }
 
@@ -87,7 +85,6 @@ public class ExpensesController {
     }
 
 
-
     @GetMapping(value="/delete-expenses/{id}")
     public final String gotoDeleteExpensesPage(@PathVariable Integer id, Model model) {
         logger.debug("gotoDeleteExpensesPage({})", model);
@@ -102,5 +99,17 @@ public class ExpensesController {
         logger.debug("delete Expense({}, {})", expense);
         expenseService.delete(expense.getExpenseId());
         return "redirect:/expenses";
+    }
+
+
+
+    private List<?> setCategoryNameById(List<?> expenseList) {
+        List<LinkedHashMap<String, Object>> expenseListWithMaps = (List<LinkedHashMap<String, Object>>) expenseList;
+        for (LinkedHashMap<String, Object> linkedHashMapElement : expenseListWithMaps) {
+            Integer categoryId = (Integer) linkedHashMapElement.get("categoryId");
+            String categoryName = categoryService.getCategoryById(categoryId).getCategoryName();
+            linkedHashMapElement.put("categoryName", categoryName);
+        }
+        return expenseListWithMaps;
     }
 }
