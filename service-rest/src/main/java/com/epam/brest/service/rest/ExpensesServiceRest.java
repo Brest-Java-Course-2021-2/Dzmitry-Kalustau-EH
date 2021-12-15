@@ -49,7 +49,9 @@ public class ExpensesServiceRest implements ExpenseService {
 
     @Override
     public Integer create(Expense expense) throws IncorrectExpense {
-        return null;
+        logger.debug("Create Expense {}", expense);
+        ResponseEntity responseEntity = restTemplate.postForEntity(url, expense, Integer.class);
+        return (Integer) responseEntity.getBody();
     }
 
     @Override
@@ -67,6 +69,39 @@ public class ExpensesServiceRest implements ExpenseService {
 
     @Override
     public Integer delete(Integer expenseId) {
-        return null;
+
+        logger.debug("delete() {}", expenseId);
+        ResponseEntity responseEntity = restTemplate.postForEntity(url + "-delete", expenseId, Integer.class);
+        return (Integer) responseEntity.getBody();
+    }
+
+//    @Override
+//    public Integer delete(Integer expenseId) {
+//
+////        logger.debug("delete() {}", expenseId);
+////        restTemplate.delete(url + "/" + expenseId);
+////        return expenseId;
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+//        HttpEntity<Category> entity = new HttpEntity<>(headers);
+//        ResponseEntity<Integer> result =
+//                restTemplate.exchange(url + "/" + expenseId, HttpMethod.DELETE, entity, Integer.class);
+//        return result.getBody();
+//
+//    }
+
+    @Override
+    public Integer count() {
+        logger.debug("count()");
+        ResponseEntity<Integer> responseEntity = restTemplate.getForEntity(url + "/count" , Integer.class);
+        return responseEntity.getBody();
+    }
+
+    @Override
+    public Integer getIdOfLastExpense() {
+        logger.debug("get id of last expense");
+        ResponseEntity<Integer> responseEntity = restTemplate.getForEntity(url + "/last_id", Integer.class);
+        return responseEntity.getBody();
     }
 }

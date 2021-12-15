@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -35,10 +36,10 @@ public class ExpensesController {
     @GetMapping(value="/expenses")
     public final String expenses(Model model) {
 
-        List<Expense> testList = Arrays.asList(new Expense(1, LocalDate.of(2021, 10, 3), 2, new BigDecimal(15)));
-        model.addAttribute("expenses", testList);
+//        List<Expense> testList = Arrays.asList(new Expense(1, "2021-03-10", 2, new BigDecimal(15)));
+//        model.addAttribute("expenses", testList);
 
-//        model.addAttribute("expenses", expenseService.findAllExpenses());
+        model.addAttribute("expenses", expenseService.findAllExpenses());
         return "expenses";
     }
 
@@ -47,10 +48,10 @@ public class ExpensesController {
 
         logger.debug("gotoEditExpensesPage({})", model);
 
-        model.addAttribute("expense", new Expense(1, LocalDate.of(2021, 10, 3), 2, new BigDecimal(15)));
+//        model.addAttribute("expense", new Expense(1, "2021-03-10", 2, new BigDecimal(15)));
 
 
-//        model.addAttribute("expense", expenseService.getExpenseById(id));
+        model.addAttribute("expense", expenseService.getExpenseById(id));
         return "edit-expenses";
     }
 
@@ -66,17 +67,17 @@ public class ExpensesController {
     public final String gotoAddExpensesPage(Model model) {
         logger.debug("gotoAddExpensesPage({})", model);
 
-        // TODO make get Id of Last Expense
-      //  Integer lastCategoryId = categoryService.getIdOfLastCategory();
+        Integer lastExpenseId = expenseService.getIdOfLastExpense();
+        String currentDate = LocalDate.now().toString();
 
-        Expense expense = new Expense();
+        Expense expense = new Expense(lastExpenseId + 1, currentDate);
         model.addAttribute("expense", expense);
         return "add-expenses";
     }
 
     @PostMapping(value = "/add-expenses")
     public String addExpense(Expense expense) {
-        logger.debug("add Expense({}, {})", expense);
+        logger.debug("add Expense({})", expense);
         try {
             expenseService.create(expense);
         } catch (IncorrectExpense e) {
@@ -91,8 +92,8 @@ public class ExpensesController {
     public final String gotoDeleteExpensesPage(@PathVariable Integer id, Model model) {
         logger.debug("gotoDeleteExpensesPage({})", model);
 
-        model.addAttribute("expense", new Expense(1, LocalDate.of(2021, 10, 3), 2, new BigDecimal(15)));
-//        model.addAttribute("expense", expenseService.getExpenseById(id));
+//        model.addAttribute("expense", new Expense(1, "2021-03-10", 2, new BigDecimal(15)));
+        model.addAttribute("expense", expenseService.getExpenseById(id));
         return "delete-expenses";
     }
 

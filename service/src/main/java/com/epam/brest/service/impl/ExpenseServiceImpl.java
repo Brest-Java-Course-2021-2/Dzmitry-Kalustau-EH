@@ -57,4 +57,16 @@ public class ExpenseServiceImpl implements ExpenseService {
         logger.debug("delete expense by id {}", expenseId);
         return expenseDao.delete(expenseId);
     }
+
+    @Override
+    public Integer count() {
+        logger.debug("count()");
+        return expenseDao.count();
+    }
+
+    @Override
+    public Integer getIdOfLastExpense() {
+        logger.debug("get Id of last expense");
+        return expenseDao.getIdOfLastExpense();
+    }
 }

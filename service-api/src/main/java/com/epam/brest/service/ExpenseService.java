@@ -17,4 +17,8 @@ public interface ExpenseService {
     Integer update(Expense expense);
 
     Integer delete(Integer expenseId);
+
+    Integer getIdOfLastExpense();
+
+    Integer count();
 }

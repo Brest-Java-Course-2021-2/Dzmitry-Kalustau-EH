@@ -1,22 +1,14 @@
 package com.epam.brest.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
 
 public class Expense {
 
     private Integer expenseId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDate dateOfExpense;
+    private String dateOfExpense;
 
     private Integer categoryId;
 
@@ -29,13 +21,18 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
-    public Expense(LocalDate dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
+    public Expense(Integer expenseId, String dateOfExpense) {
+        this.expenseId = expenseId;
+        this.dateOfExpense = dateOfExpense;
+    }
+
+    public Expense(String dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
         this.dateOfExpense = dateOfExpense;
         this.categoryId = categoryId;
         this.sumOfExpense = sumOfExpense;
     }
 
-    public Expense(Integer expenseId, LocalDate dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
+    public Expense(Integer expenseId, String dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
         this.expenseId = expenseId;
         this.dateOfExpense = dateOfExpense;
         this.categoryId = categoryId;
@@ -50,11 +47,11 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
-    public LocalDate getDateOfExpense() {
+    public String getDateOfExpense() {
         return dateOfExpense;
     }
 
-    public void setDateOfExpense(LocalDate dateOfExpense) {
+    public void setDateOfExpense(String dateOfExpense) {
         this.dateOfExpense = dateOfExpense;
     }
 

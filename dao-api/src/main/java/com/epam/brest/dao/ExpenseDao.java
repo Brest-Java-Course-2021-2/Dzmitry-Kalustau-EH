@@ -17,4 +17,8 @@ public interface ExpenseDao {
 
     Integer delete(Integer expenseId);
 
+    Integer count();
+
+    Integer getIdOfLastExpense();
+
 }

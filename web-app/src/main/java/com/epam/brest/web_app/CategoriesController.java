@@ -75,13 +75,4 @@ public class CategoriesController {
         return "redirect:/categories";
     }
 
-
-
-//    @PostMapping(value = "/categories/{id}/delete")
-//    public final String deleteCategoryById(@PathVariable Integer id, Model model) {
-//        logger.debug("delete({},{})", id, model);
-//        categoryService.delete(id);
-//        return "redirect:/categories";
-//    }
-
 }

@@ -29,6 +29,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     private final String SQL_UPDATE_EXPENSE = "UPDATE expense SET category_id = :categoryId, price = :price WHERE expense_id = :expenseId";
     private final String SQL_DELETE_EXPENSE_BY_ID = "DELETE FROM expense WHERE expense_id = :expenseId";
     private final String SQL_ALL_CATEGORIES = "SELECT c.category_id, c.category_name FROM category c ORDER BY c.category_id";
+    private final String SQL_SELECT_COUNT = "SELECT count(*) FROM expense";
 
 
     public ExpenseDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -110,11 +111,23 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         public Expense mapRow(ResultSet resultSet, int i) throws SQLException {
             Expense expense = new Expense();
             expense.setExpenseId(resultSet.getInt("expense_id"));
-            expense.setDateOfExpense((resultSet.getDate("date")).toLocalDate());
+            expense.setDateOfExpense((resultSet.getString("date")));
             expense.setCategoryId(resultSet.getInt("category_id"));
             expense.setSumOfExpense(resultSet.getBigDecimal("price"));
             return expense;
         }
+    }
+
+    @Override
+    public Integer count() {
+        logger.debug("count()");
+        return namedParameterJdbcTemplate.queryForObject(SQL_SELECT_COUNT, new MapSqlParameterSource(), Integer.class);
+    }
+
+    @Override
+    public Integer getIdOfLastExpense() {
+        logger.debug("getIdOfLastExpense");
+        return count();
     }
 
     private class CategoryRowMapper implements RowMapper<Category> {
