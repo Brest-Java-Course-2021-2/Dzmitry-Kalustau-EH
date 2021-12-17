@@ -14,6 +14,6 @@ public interface CalculateSumDtoService {
 
     LocalDateContainer getLocalDateContainer();
 
-    void editLocalDateContainer(String localDateFrom, String localDateTo);
+    void editLocalDateContainer(LocalDate localDateFrom, LocalDate localDateTo);
 
 }

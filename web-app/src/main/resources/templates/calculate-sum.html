@@ -43,14 +43,16 @@
                                 <input
                                         id="field_dateFrom"
                                         type="date" value=""
-                                        th:field="*{localDateFrom}">
+                                        th:value="*{dateFrom}"
+                                        th:field="*{dateFrom}">
 
                                 <label
                                         for="field_dateTo">To</label>
                                 <input
                                         id="field_dateTo"
                                         type="date" value=""
-                                        th:field="*{localDateTo}">
+                                        th:value="*{dateTo}"
+                                        th:field="*{dateTo}">
                                 <input type="submit" value="Reset"/>
 
 <!--                                <button type="button"><a href="calculate-sum.html"-->

@@ -43,7 +43,7 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
             "sumOfExpense";
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private LocalDateContainer localDateContainer = new LocalDateContainer("2021-01-01", "2021-12-29");
+    private LocalDateContainer localDateContainer = new LocalDateContainer(LocalDate.of( 2021, 01, 01), LocalDate.of( 2021, 12, 29));
 
     public CalculateSumDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -52,8 +52,8 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
     @Override
     public List<CalculateSumDto> findAllWithSumOfExpenses()  {
 
-        LocalDate localDateFrom = localDateContainer.parseDateFrom();
-        LocalDate localDateTo = localDateContainer.parseDateTo();
+        LocalDate localDateFrom = localDateContainer.getDateFrom();
+        LocalDate localDateTo = localDateContainer.getDateTo();
 
         Map<String, LocalDate> paramsOfSQL = new HashMap<>();
 
@@ -96,8 +96,8 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
     }
 
     @Override
-    public void editLocalDateContainer(String localDateFrom, String localDateTo) {
-        localDateContainer.setLocalDateFrom(localDateFrom);
-        localDateContainer.setLocalDateTo(localDateTo);
+    public void editLocalDateContainer(LocalDate localDateFrom, LocalDate localDateTo) {
+        localDateContainer.setDateFrom(localDateFrom);
+        localDateContainer.setDateTo(localDateTo);
     }
 }
