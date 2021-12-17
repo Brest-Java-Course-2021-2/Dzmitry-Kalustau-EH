@@ -113,7 +113,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         public Expense mapRow(ResultSet resultSet, int i) throws SQLException {
             Expense expense = new Expense();
             expense.setExpenseId(resultSet.getInt("expense_id"));
-            expense.setDateOfExpense((resultSet.getString("date")));
+            expense.setDateOfExpense((resultSet.getDate("date")).toLocalDate());
             expense.setCategoryId(resultSet.getInt("category_id"));
             expense.setSumOfExpense(resultSet.getBigDecimal("price"));
             return expense;
