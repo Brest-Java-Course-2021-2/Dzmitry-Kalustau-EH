@@ -8,11 +8,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.beans.PropertyEditorSupport;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +52,24 @@ public class CalculateSumController {
 
         logger.debug("calculate sum postMapping");
 
-        calculateSumDtoService.editLocalDateContainer(localDate.getLocalDateFrom(), localDate.getLocalDateTo());
+        calculateSumDtoService.editLocalDateContainer(localDate.getDateFrom(), localDate.getDateTo());
 
         return "redirect:/calculate-sum";
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException{
+                setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            }
+
+            @Override
+            public String getAsText() throws IllegalArgumentException {
+                return DateTimeFormatter.ofPattern("yyyy-MM-dd").format((LocalDate) getValue());
+            }
+        });
     }
 
 }

@@ -37,7 +37,7 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
     }
 
     @Override
-    public void editLocalDateContainer(String localDateFrom, String localDateTo) {
+    public void editLocalDateContainer(LocalDate localDateFrom, LocalDate localDateTo) {
         calculateSumDtoDao.editLocalDateContainer(localDateFrom, localDateTo);
     }
 }

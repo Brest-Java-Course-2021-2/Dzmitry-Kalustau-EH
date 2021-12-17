@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -45,7 +46,7 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
     }
 
     @Override
-    public void editLocalDateContainer(String localDateFrom, String localDateTo) {
+    public void editLocalDateContainer(LocalDate localDateFrom, LocalDate localDateTo) {
 
         logger.debug("editLocalDateContainer() with String dates {}, {}", localDateFrom, localDateTo);
         LocalDateContainer localDateContainer = new LocalDateContainer(localDateFrom, localDateTo);

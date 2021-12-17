@@ -52,7 +52,7 @@ public class CalculateSumController {
     public void addDates(@RequestBody LocalDateContainer localDateContainer) {
 
         logger.debug("add dates ({})", localDateContainer);
-        calculateSumDtoService.editLocalDateContainer(localDateContainer.getLocalDateFrom(), localDateContainer.getLocalDateTo());
+        calculateSumDtoService.editLocalDateContainer(localDateContainer.getDateFrom(), localDateContainer.getDateTo());
     }
 
     // TODO make Post for dates
