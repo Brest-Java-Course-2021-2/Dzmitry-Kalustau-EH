@@ -66,7 +66,7 @@ public class ExpensesController {
         logger.debug("gotoAddExpensesPage({})", model);
 
         Integer lastExpenseId = expenseService.getIdOfLastExpense();
-        String currentDate = LocalDate.now().toString();
+        LocalDate currentDate = LocalDate.now();
 
         Expense expense = new Expense(lastExpenseId + 1, currentDate);
         model.addAttribute("expense", expense);

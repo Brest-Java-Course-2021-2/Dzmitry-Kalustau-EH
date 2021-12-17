@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class ExpenseDaoJDBCImpl implements ExpenseDao {
 
     private final Logger logger = LogManager.getLogger(ExpenseDaoJDBCImpl.class);
@@ -111,7 +113,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         public Expense mapRow(ResultSet resultSet, int i) throws SQLException {
             Expense expense = new Expense();
             expense.setExpenseId(resultSet.getInt("expense_id"));
-            expense.setDateOfExpense((resultSet.getString("date")));
+            expense.setDateOfExpense((resultSet.getDate("date")).toLocalDate());
             expense.setCategoryId(resultSet.getInt("category_id"));
             expense.setSumOfExpense(resultSet.getBigDecimal("price"));
             return expense;

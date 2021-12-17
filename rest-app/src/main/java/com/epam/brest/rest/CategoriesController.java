@@ -13,6 +13,7 @@ import java.util.Collection;
 
 
 @RestController
+@CrossOrigin
 public class CategoriesController {
 
     private static final Logger logger = LogManager.getLogger(CategoriesController.class);

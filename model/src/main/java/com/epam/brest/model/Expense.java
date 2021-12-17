@@ -2,13 +2,14 @@ package com.epam.brest.model;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 
 public class Expense {
 
     private Integer expenseId;
 
-    private String dateOfExpense;
+    private LocalDate dateOfExpense;
 
     private Integer categoryId;
 
@@ -21,18 +22,18 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
-    public Expense(Integer expenseId, String dateOfExpense) {
+    public Expense(Integer expenseId, LocalDate dateOfExpense) {
         this.expenseId = expenseId;
         this.dateOfExpense = dateOfExpense;
     }
 
-    public Expense(String dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
+    public Expense(LocalDate dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
         this.dateOfExpense = dateOfExpense;
         this.categoryId = categoryId;
         this.sumOfExpense = sumOfExpense;
     }
 
-    public Expense(Integer expenseId, String dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
+    public Expense(Integer expenseId, LocalDate dateOfExpense, Integer categoryId, BigDecimal sumOfExpense) {
         this.expenseId = expenseId;
         this.dateOfExpense = dateOfExpense;
         this.categoryId = categoryId;
@@ -47,11 +48,11 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
-    public String getDateOfExpense() {
+    public LocalDate getDateOfExpense() {
         return dateOfExpense;
     }
 
-    public void setDateOfExpense(String dateOfExpense) {
+    public void setDateOfExpense(LocalDate dateOfExpense) {
         this.dateOfExpense = dateOfExpense;
     }
 
@@ -69,5 +70,15 @@ public class Expense {
 
     public void setSumOfExpense(BigDecimal sumOfExpense) {
         this.sumOfExpense = sumOfExpense;
+    }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "expenseId=" + expenseId +
+                ", dateOfExpense='" + dateOfExpense + '\'' +
+                ", categoryId=" + categoryId +
+                ", sumOfExpense=" + sumOfExpense +
+                '}';
     }
 }
