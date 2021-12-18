@@ -30,53 +30,53 @@
 
 <section id="expense">
 
-                    <div>
-                        <form action="#"
-                              th:action="@{/add-expenses}"
-                              th:object="${expense}"
-                              method="post">
+    <div>
+        <form action="#"
+              th:action="@{/add-expenses}"
+              th:object="${expense}"
+              method="post">
 
-                            <div>
-                                <div>
-                                    <label
-                                            for="field_expenseId">Expense Id</label>
-                                    <input readonly="readonly"
-                                           id="field_expenseId"
-                                           type="text" value="1"
-                                           th:field="*{expenseId}"/>
-                                </div>
-                                <div>
-                                    <label
-                                            for="field_expenseDate">Expense Date</label>
-                                    <input readonly="readonly"
-                                           id="field_expenseDate"
-                                           type="text" value="1"
-                                           th:field="*{dateOfExpense}"/>
-                                </div>
-                                <div>
-                                    <label
-                                            for="field_categoryId">Category Code</label>
-                                    <input
-                                           id="field_categoryId"
-                                           type="text" value="1"
-                                           th:field="*{categoryId}"/>
-                                </div>
-                            </div>
-                            <div>
-                                <label
-                                        for="field_name">Price</label>
-                                <input
-                                        id="field_name"
-                                        type="text" value="25"
-                                        th:field="*{sumOfExpense}"/>
-                            </div>
-                            <div>
-                                <input type="submit" value="Save"/>
-                                <input type="button" value="Cancel" onClick="window.location='../expenses'"/>
-                            </div>
+            <div>
+                <div>
+                    <label
+                            for="field_expenseId">Expense Id</label>
+                    <input readonly="readonly"
+                           id="field_expenseId"
+                           type="text" value="1"
+                           th:field="*{expenseId}"/>
+                </div>
+                <div>
+                    <label
+                            for="field_expenseDate">Expense Date</label>
+                    <input readonly="readonly"
+                           id="field_expenseDate"
+                           type="text" value="1"
+                           th:field="*{dateOfExpense}"/>
+                </div>
+                <div>
+                    <label
+                            for="field_categoryId">Category Code</label>
+                    <input
+                            id="field_categoryId"
+                            type="text" value="1"
+                            th:field="*{categoryId}"/>
+                </div>
+            </div>
+            <div>
+                <label
+                        for="field_name">Price</label>
+                <input
+                        id="field_name"
+                        type="text" value="25"
+                        th:field="*{sumOfExpense}"/>
+            </div>
+            <div>
+                <input type="submit" value="Save"/>
+                <input type="button" value="Cancel" onClick="window.location='../expenses'"/>
+            </div>
 
-                        </form>
-                    </div>
+        </form>
+    </div>
 
 </section>
 
