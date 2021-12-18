@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
+    public static final String VALIDATION_ERROR = "validation_error";
+
     @ExceptionHandler(value = {IllegalArgumentException.class})
     public ResponseEntity<String> handleIllegalArgumentException(Exception ex) {
         return new ResponseEntity<>(String.format("Handle: %s", ex.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
