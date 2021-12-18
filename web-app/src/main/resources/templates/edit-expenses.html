@@ -2,93 +2,92 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
+          th:href="@{/resources/static/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../resources/static/css/style.css"
+          th:href="@{/resources/static/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>Expenses</title>
 </head>
 <body>
 
 <header>
-    <div>
-
-
-        <a href="categories.html"
-           th:href="@{/categories}">Categories</a>
-
-
-        <a href="expenses.html"
-           th:href="@{/expenses}">Expenses</a>
-
-
-    </div>
-    <nav>
-        <span>
-            <h1>Edit expenses</h1>
-        </span>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm text-light p-1">
+        <div class="container-fluid">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="index.html" class="navbar-brand"><img src="../../resources/static/img/logo_cash.png"
+                                                           th:src="@{/resources/static/img/logo_cash.png}"
+                                                           height="32" width="32" alt="EH"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html"
+                           th:href="@{/categories}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="expenses.html"
+                           th:href="@{/expenses}">Expenses</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    <nav id="main-header"
+         class="ps-1 py-1 mb-3 navbar navbar-light bg-light text-dark">
 
+        <ul class="navbar-nav float-start">
+            <li class="nav-item"
+                title="Back to list">
+                <a href="expenses.html"
+                   th:href="@{/expenses}"
+                   class="btn btn-light btn-block"><i class="bi-arrow-left"></i></a>
+            </li>
+        </ul>
+        <span class="navbar-brand text-uppercase me-auto">Edit expense</span>
+    </nav>
 </header>
 
 <section id="expense">
-    <div>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <form action="#"
-                              th:action="@{/edit-expenses/{id}}"
-                              th:object="${expense}"
-                              method="post">
-
-                            <div>
-                                <div>
-                                <label
-                                        for="field_expenseId">Expense Id</label>
-                                <input readonly="readonly"
-                                       id="field_expenseId"
-                                       type="text" value="1"
-                                       th:field="*{expenseId}"/>
-                                </div>
-                                <div>
-                                <label
-                                        for="field_expenseDate">Expense Date</label>
-                                <input readonly="readonly"
-                                       id="field_expenseDate"
-                                       type="text" value="1"
-                                       th:field="*{dateOfExpense}"/>
-                                </div>
-                                <div>
-                                <label
-                                        for="field_categoryId">Category Code</label>
-                                <input readonly="readonly"
-                                       id="field_categoryId"
-                                       type="text" value="1"
-                                       th:field="*{categoryId}"/>
-<!--                                <label-->
-<!--                                        for="field_typeOfExpense">Type of expense</label>-->
-<!--                                <select id="field_typeOfExpense">-->
-<!--                                    <option th:each="category : ${categories}"-->
-<!--                                            th:selected=""-->
-<!--                                            th:text="${category.categoryName}">-->
-<!--                                    </option>-->
-<!--                                    <option th:remove="all" value="0">Food</option>-->
-<!--                                    <option th:remove="all" value="1">Households</option>-->
-<!--                                    <option th:remove="all" value="2">Medicine</option>-->
-<!--                                    <option th:remove="all" value="3">Clothes</option>-->
-<!--                                    <option th:remove="all" value="4">Entertainment</option>-->
-<!--                                </select>-->
-                                    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_typeOfExpense">Type of expense</label>
+                                <select class="form-control"
+                                        id="field_typeOfExpense">
+                                    <option value="0">Food</option>
+                                    <option value="1">Households</option>
+                                    <option value="2">Medicine</option>
+                                    <option value="3">Clothes</option>
+                                    <option value="4">Entertainment</option>
+                                </select>
                             </div>
-                            <div>
-                                <label
-                                        for="field_name">Price</label>
-                                <input
-                                        id="field_name"
-                                        type="text" value="25"
-                                        th:field="*{sumOfExpense}"/>
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_sum">Sum</label>
+                                <input class="form-control"
+                                       id="field_sum"
+                                       type="text"
+                                       value="10"/>
                             </div>
-                            <div>
-                                <input type="submit" value="Save"/>
-                                <input type="button" value="Cancel" onClick="window.location='../expenses'"/>
+                            <div class="d-flex justify-content-end">
+                                <a href="expenses.html"
+                                   th:href="@{/expenses}"
+                                   class="btn btn-light me-1"
+                                   title="Cancel">Cancel</a>
+                                <a href="expenses.html"
+                                   th:href="@{/expenses}"
+                                   class="btn btn-primary"
+                                   title="Save expense">Save</a>
                             </div>
                         </form>
                     </div>
@@ -103,5 +102,7 @@
     <p class="text-center">&copy; 2021</p>
 </footer>
 
+<script src="../../resources/static/js/bootstrap.bundle.min.js"
+        th:href="@{/resources/static/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

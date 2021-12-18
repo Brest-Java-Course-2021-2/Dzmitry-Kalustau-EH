@@ -1,153 +1,200 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="utf-8">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../resources/static/css/style.css"
+          th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+
     <title>Categories</title>
 </head>
 <body>
 
-
-<div>
-
-
-    <a href="categories.html"
-       th:href="@{/categories}">Categories</a>
-
-
-    <a href="expenses.html"
-       th:href="@{/expenses}">Expenses</a>
-
-
-</div>
-
-
-<nav>
-    <div>
-        <span><h1>Categories</h1></span>
-        <ul>
-
-            <a href="add-categories.html"
-               th:href="@{/add-categories}"
-               title="Add Category">
-                <span>Add</span>
-            </a>
-
-        </ul>
-    </div>
-</nav>
+<header>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm text-light p-1">
+        <div class="container-fluid">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="index.html" class="navbar-brand"><img src="../../resources/static/img/logo_cash.png"
+                                                           th:src="@{/img/logo_cash.png}"
+                                                           height="32" width="32" alt="EH"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="categories.html"
+                           th:href="@{/categories}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="expenses.html"
+                           th:href="@{/expenses}">Expenses</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-light bg-light text-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand text-uppercase">Categories</span>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="add-categories.html"
+                       th:href="@{/add-categories}"
+                       class="btn btn-primary"
+                       title="Edit Categories">
+                        <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
 <section id="categories">
-    <div>
-        <table border>
-            <thead>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="category : ${categories}">
-                <td th:text="${category.categoryId}">1</td>
-                <td th:text="${category.categoryName}">Food</td>
-                <td>
-                    <a href="edit-categories.html"
-                       th:href="@{|/edit-categories/${category.categoryId}|}"
-                       title="Edit categories">
-                        <span>&nbsp;Edit</span></a>
-                    <span>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${categories}">
+                            <td th:text="${category.categoryId}">1</td>
+                            <td th:text="${category.categoryName}">Food</td>
+                            <td class="text-end">
+                                <a href="edit-categories.html"
+                                   th:href="@{|/edit-categories/${category.categoryId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit categories">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span>
                         <a href="delete-categories.html"
                            th:href="@{|/delete-categories/${category.categoryId}|}"
+                           class="btn-sm btn-outline-secondary"
                            title="Delete category">
-                            <span>&nbsp;Delete</span>
-                        </a></span>
-                </td>
-            </tr>
-            <tr th:remove="all">
-                <td>2</td>
-                <td>Households</td>
-                <td>
-                    <a href="edit-categories.html"
-                       th:href="@{|/edit-categories/${category.categoryId}|}"
-                       title="Edit categories">
-                        <span>&nbsp;Edit</span></a>
-                    <span>
-                                    <a title="delete category">
-                                        <span>&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                </td>
-            </tr>
-            <tr th:remove="all">
-                <td>3</td>
-                <td>Car</td>
-                <td>
-                    <a href="edit-categories.html"
-                       th:href="@{|/edit-categories/${category.categoryId}|}"
-                       title="Edit categories">
-                        <span>&nbsp;Edit</span></a>
-                    <span>
-                                    <a title="delete category">
-                                        <span>&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                </td>
-            </tr>
-            <tr th:remove="all">
-                <td>4</td>
-                <td>Medicine</td>
-                <td>
-                    <a href="edit-categories.html"
-                       th:href="@{|/edit-categories/${category.categoryId}|}"
-                       title="Edit categories">
-                        <span>&nbsp;Edit</span></a>
-                    <span>
-                                    <a title="delete category">
-                                        <span>&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                </td>
-            </tr>
-            <tr th:remove="all">
-                <td>5</td>
-                <td>Clothes</td>
-                <td>
-                    <a href="edit-categories.html"
-                       th:href="@{|/edit-categories/${category.categoryId}|}"
-                       title="Edit categories">
-                        <span>&nbsp;Edit</span></a>
-                    <span>
-                                    <a title="delete category">
-                                        <span>&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                </td>
-            </tr>
-            <tr th:remove="all">
-                <td>6</td>
-                <td>Entertainment</td>
-                <td>
-                    <a href="edit-categories.html"
-                       th:href="@{|/edit-categories/${category.categoryId}|}"
-                       title="Edit categories">
-                        <span>&nbsp;Edit</span></a>
-                    <span>
-                                    <a title="delete category">
-                                        <span>&nbsp;Delete</span>
-                                    </a>
-                                </span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                            <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Delete</span></a>
+                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>2</td>
+                            <td>Households</td>
+                            <td class="text-end">
+                                <a href="edit-categories.html"
+                                   th:href="@{|/edit-categories/${category.categoryId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit categories">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span>
+                        <a href="delete-categories.html"
+                           th:href="@{|/delete-categories/${category.categoryId}|}"
+                           class="btn-sm btn-outline-secondary"
+                           title="Delete category">
+                            <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Delete</span></a>
+                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>3</td>
+                            <td>Car</td>
+                            <td class="text-end">
+                                <a href="edit-categories.html"
+                                   th:href="@{|/edit-categories/${category.categoryId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit categories">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span>
+                        <a href="delete-categories.html"
+                           th:href="@{|/delete-categories/${category.categoryId}|}"
+                           class="btn-sm btn-outline-secondary"
+                           title="Delete category">
+                            <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Delete</span></a>
+                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>4</td>
+                            <td>Medicine</td>
+                            <td class="text-end">
+                                <a href="edit-categories.html"
+                                   th:href="@{|/edit-categories/${category.categoryId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit categories">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span>
+                        <a href="delete-categories.html"
+                           th:href="@{|/delete-categories/${category.categoryId}|}"
+                           class="btn-sm btn-outline-secondary"
+                           title="Delete category">
+                            <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Delete</span></a>
+                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>5</td>
+                            <td>Clothes</td>
+                            <td class="text-end">
+                                <a href="edit-categories.html"
+                                   th:href="@{|/edit-categories/${category.categoryId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit categories">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span>
+                        <a href="delete-categories.html"
+                           th:href="@{|/delete-categories/${category.categoryId}|}"
+                           class="btn-sm btn-outline-secondary"
+                           title="Delete category">
+                            <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Delete</span></a>
+                        </span>
+                            </td>
+                        </tr>
+                        <tr th:remove="all">
+                            <td>6</td>
+                            <td>Entertainment</td>
+                            <td class="text-end">
+                                <a href="edit-categories.html"
+                                   th:href="@{|/edit-categories/${category.categoryId}|}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit categories">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span>
+                        <a href="delete-categories.html"
+                           th:href="@{|/delete-categories/${category.categoryId}|}"
+                           class="btn-sm btn-outline-secondary"
+                           title="Delete category">
+                            <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Delete</span></a>
+                        </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-
 </section>
 
 <footer>
     <hr/>
-    <p>&copy; 2021</p>
+    <p class="text-center">&copy; 2021</p>
 </footer>
+
+
+<script src="../../resources/static/js/bootstrap.bundle.min.js"
+        th:href="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="../../resources/static/js/jquery-3.4.1.slim.min.js"
+        th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 
 </body>
 </html>

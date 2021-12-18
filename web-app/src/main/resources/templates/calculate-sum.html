@@ -2,64 +2,75 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
+          th:href="@{/resources/static/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../resources/static/css/style.css"
+          th:href="@{/resources/static/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <title>Calculate sum</title>
 </head>
 <body>
 
 <header>
-    <div>
-
-
-        <a href="categories.html"
-           th:href="@{/categories}">Categories</a>
-
-
-        <a href="expenses.html"
-           th:href="@{/expenses}">Expenses</a>
-
-
-    </div>
-    <nav>
-        <div>
-            <span><h1>Calculate Sum</h1></span>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm text-light p-1">
+        <div class="container-fluid">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="index.html" class="navbar-brand"><img src="../../resources/static/img/logo_cash.png"
+                                                           th:src="@{/resources/static/img/logo_cash.png}"
+                                                           height="32" width="32" alt="EH"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.html"
+                           th:href="@{/categories}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="expenses.html"
+                           th:href="@{/expenses}">Expenses</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-light bg-light text-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand text-uppercase">Calculate Sum</span>
         </div>
     </nav>
 </header>
 
+<!--ADD FORM DATE FILTER-->
+
 <section id="dateFilter">
-    <div>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <form
-                                action="#"
-                                th:action="@{/calculate-sum}"
-                                th:object="${localDate}"
-                                method="post">
-                            <div>
-                                <label for="field_dateFrom">Filter from</label>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_dateFrom">Filter from</label>
                                 <input
                                         id="field_dateFrom"
-                                        type="date" value=""
-                                        th:value="*{dateFrom}"
-                                        th:field="*{dateFrom}">
+                                        type="text" value=""/>
 
-                                <label
-                                        for="field_dateTo">To</label>
+                                <label class="form-label"
+                                       for="field_dateTo">To</label>
                                 <input
                                         id="field_dateTo"
-                                        type="date" value=""
-                                        th:value="*{dateTo}"
-                                        th:field="*{dateTo}">
-                                <input type="submit" value="Reset"/>
+                                        type="text" value="">
 
-<!--                                <button type="button"><a href="calculate-sum.html"-->
-<!--                                                         th:href="@{/calculate-sum}"><img-->
-<!--                                        src="../../resources/static/img/logo_update.png"-->
-<!--                                        th:src="@{/resources/static/img/logo_update.png}"-->
-<!--                                        height="25" width="25" alt="UP"></a></button>-->
+                                <button type="button"><a href="calculate-sum.html"
+                                                         th:href="@{/calculate-sum}"><img src="../../resources/static/img/logo_update.png"
+                                                                                          th:src="@{/resources/static/img/logo_update.png}"
+                                                                                          height="25" width="25" alt="UP"></a></button>
                             </div>
 
                         </form>
@@ -70,13 +81,15 @@
     </div>
 </section>
 
+
+
 <section id="sum_list">
-    <div>
-        <div>
-            <div>
-                <div>
-                    <table border>
-                        <thead>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
                         <tr>
                             <th>Type of expense</th>
                             <th>Sum</th>
@@ -124,8 +137,11 @@
 
 <footer>
     <hr/>
-    <p>&copy; 2021</p>
+    <p class="text-center">&copy; 2021</p>
 </footer>
+
+<script src="../../resources/static/js/bootstrap.bundle.min.js"
+        th:href="@{/resources/static/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 </html>
