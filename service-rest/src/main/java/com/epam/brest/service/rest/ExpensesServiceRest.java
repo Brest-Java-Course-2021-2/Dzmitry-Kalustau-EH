@@ -71,25 +71,17 @@ public class ExpensesServiceRest implements ExpenseService {
     public Integer delete(Integer expenseId) {
 
         logger.debug("delete() {}", expenseId);
-        ResponseEntity responseEntity = restTemplate.postForEntity(url + "-delete", expenseId, Integer.class);
-        return (Integer) responseEntity.getBody();
-    }
+//        restTemplate.delete(url + "/" + expenseId);
+//        return expenseId;
 
-//    @Override
-//    public Integer delete(Integer expenseId) {
-//
-////        logger.debug("delete() {}", expenseId);
-////        restTemplate.delete(url + "/" + expenseId);
-////        return expenseId;
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//        HttpEntity<Category> entity = new HttpEntity<>(headers);
-//        ResponseEntity<Integer> result =
-//                restTemplate.exchange(url + "/" + expenseId, HttpMethod.DELETE, entity, Integer.class);
-//        return result.getBody();
-//
-//    }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Integer> entity = new HttpEntity<>(expenseId, headers);
+        ResponseEntity<Integer> result =
+                restTemplate.exchange(url, HttpMethod.DELETE, entity, Integer.class);
+        return result.getBody();
+
+    }
 
     @Override
     public Integer count() {

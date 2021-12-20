@@ -55,22 +55,13 @@ public class CategoriesController {
     }
 
 
-    @PostMapping(path = "categories-delete", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Integer> deleteCategory(@RequestBody Integer categoryId) {
+    @DeleteMapping(value = "/categories", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> deleteCategory(@RequestBody Integer id) {
 
-        logger.debug("delete Category({})", categoryId);
-        Integer id = categoryService.delete(categoryId);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        logger.debug("delete Category({})", id);
+        int result = categoryService.delete(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-
-//    @DeleteMapping(value = "/categories", produces = {"application/json"})
-//    public ResponseEntity<Integer> deleteCategory(@RequestBody Integer id) {
-//
-//        logger.debug("delete Category({})", id);
-//        int result = categoryService.delete(id);
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
 
     @GetMapping(value="/categories/last_id")
     public final Integer getCategoryById() {

@@ -61,22 +61,13 @@ public class ExpensesController {
     }
 
 
-    @PostMapping(path = "expenses-delete", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Integer> deleteExpense(@RequestBody Integer expenseId) {
+    @DeleteMapping(value = "/expenses", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> deleteExpense(@RequestBody Integer id) {
 
-        logger.debug("delete Expense({})", expenseId);
-        Integer id = expenseService.delete(expenseId);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        logger.debug("delete Expense({})", id);
+        int result = expenseService.delete(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-
-//    @DeleteMapping(value = "/expenses", produces = {"application/json"})
-//    public ResponseEntity<Integer> deleteExpense(@RequestBody Integer id) {
-//
-//        logger.debug("delete Expense({})", id);
-//        int result = expenseService.delete(id);
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
 
     @GetMapping(value="/expenses/last_id")
     public final Integer getExpenseById() {

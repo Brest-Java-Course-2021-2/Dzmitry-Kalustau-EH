@@ -66,29 +66,23 @@ public class CategoriesServiceRest implements CategoryService {
         return result.getBody();
     }
 
+
+
     @Override
     public Integer delete(Integer categoryId) {
 
         logger.debug("delete() {}", categoryId);
-        ResponseEntity responseEntity = restTemplate.postForEntity(url + "-delete", categoryId, Integer.class);
-        return (Integer) responseEntity.getBody();
-    }
+//        restTemplate.delete(url + "/" + categoryId);
+//        return categoryId;
 
-//    @Override
-//    public Integer delete(Integer categoryId) {
-//
-////        logger.debug("delete() {}", categoryId);
-////        restTemplate.delete(url + "/" + categoryId);
-////        return categoryId;
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//        HttpEntity<Category> entity = new HttpEntity<>(headers);
-//        ResponseEntity<Integer> result =
-//                restTemplate.exchange(url + "/" + categoryId, HttpMethod.DELETE, entity, Integer.class);
-//        return result.getBody();
-//
-//    }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Integer> entity = new HttpEntity<>(categoryId, headers);
+        ResponseEntity<Integer> result =
+                restTemplate.exchange(url, HttpMethod.DELETE, entity, Integer.class);
+        return result.getBody();
+
+    }
 
     @Override
     public Integer count() {
