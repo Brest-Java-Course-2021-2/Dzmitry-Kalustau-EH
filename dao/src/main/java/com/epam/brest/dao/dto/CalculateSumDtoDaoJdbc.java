@@ -53,6 +53,7 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private LocalDateContainer localDateContainer;
+    private CalculateSumDto calculateSumDtoTotalSum;
 
     public CalculateSumDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -78,15 +79,14 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
     }
 
     //Add final Sum of all expenses (Total Sum in the table)
-    private List<CalculateSumDto> addTotalSum(List<CalculateSumDto> calculateSumDtoList) {
+    private void addTotalSum(List<CalculateSumDto> calculateSumDtoList) {
 
-        logger.debug("Add total Sum to calculateSumDto List");
+        logger.debug("Add total Sum to CalculateSumDto Total Sum");
         BigDecimal finalSumofExpenses = new BigDecimal(0);
         for (CalculateSumDto sum : calculateSumDtoList) {
             finalSumofExpenses = finalSumofExpenses.add(sum.getSumOfExpense());
         }
-        calculateSumDtoList.add(new CalculateSumDto("Total Sum", finalSumofExpenses));
-        return calculateSumDtoList;
+        calculateSumDtoTotalSum = new CalculateSumDto("Total Sum", finalSumofExpenses);
     }
 
     @Override
@@ -100,6 +100,14 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
         logger.debug("edit localDateConteiner with dates {}, {}", localDateFrom, localDateTo);
         localDateContainer.setDateFrom(localDateFrom);
         localDateContainer.setDateTo(localDateTo);
+    }
+
+    @Override
+    public CalculateSumDto getTotalSum() {
+        if (calculateSumDtoTotalSum == null) {
+            return new CalculateSumDto("Total Sum", new BigDecimal("0"));
+        }
+        return calculateSumDtoTotalSum;
     }
 
     //find all dates from expeses

@@ -53,4 +53,11 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
         restTemplate.postForEntity(url, localDateContainer, Integer.class);
     }
 
+    @Override
+    public CalculateSumDto getTotalSum() {
+
+        logger.debug("getTotalSum()");
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "/totalsum", CalculateSumDto.class);
+        return (CalculateSumDto) responseEntity.getBody();
+    }
 }

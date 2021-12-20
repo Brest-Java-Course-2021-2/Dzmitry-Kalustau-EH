@@ -44,6 +44,9 @@ public class CalculateSumController {
         List<CalculateSumDto> calculateSumDtoList = calculateSumDtoService.findAllWithSumOfExpenses();
         model.addAttribute("CalculateSum", calculateSumDtoList);
 
+        CalculateSumDto calculateSumDtoTotalSum = calculateSumDtoService.getTotalSum();
+        model.addAttribute("totalSum", calculateSumDtoTotalSum);
+
         return "calculate-sum";
     }
 

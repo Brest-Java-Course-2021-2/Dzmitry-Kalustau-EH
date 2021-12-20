@@ -30,4 +30,9 @@ public interface CalculateSumDtoService {
      */
     void editLocalDateContainer(LocalDate localDateFrom, LocalDate localDateTo);
 
+    /**
+     * Get CalculateSum Dto with Total Sum
+     * @return CalculateSumDto object with Total SUm
+     */
+    CalculateSumDto getTotalSum();
 }

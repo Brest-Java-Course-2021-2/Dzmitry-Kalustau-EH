@@ -55,6 +55,12 @@ public class CalculateSumController {
         calculateSumDtoService.editLocalDateContainer(localDateContainer.getDateFrom(), localDateContainer.getDateTo());
     }
 
-    // TODO make Post for dates
+    @GetMapping("/calculate-sum/totalsum")
+    public final CalculateSumDto getCalculateSumDtoTotalSum() {
+
+        logger.debug("get CalculateSumDto Total Sum");
+        CalculateSumDto calculateSumDtoTotalSum = calculateSumDtoService.getTotalSum();
+        return calculateSumDtoTotalSum;
+    }
 
 }
