@@ -47,18 +47,18 @@
                     <i class="bi-arrow-left"></i></a>
             </li>
         </ul>
-        <span class="navbar-brand text-uppercase me-auto">Edit expense</span>
+        <span class="navbar-brand text-uppercase me-auto">Delete expense</span>
     </nav>
 </header>
 
-<section id="expennse">
+<section id="expense">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <form action="#"
-                              th:action="@{/edit-expenses/{id}}"
+                              th:action="@{/delete-expenses/{id}}"
                               th:object="${expense}"
                               method="post">
 
@@ -91,25 +91,12 @@
                                        id="field_categoryId"
                                        type="text" value="1"
                                        th:field="*{categoryId}"/>
-                                <!--                                <label-->
-                                <!--                                        for="field_typeOfExpense">Type of expense</label>-->
-                                <!--                                <select id="field_typeOfExpense">-->
-                                <!--                                    <option th:each="category : ${categories}"-->
-                                <!--                                            th:selected=""-->
-                                <!--                                            th:text="${category.categoryName}">-->
-                                <!--                                    </option>-->
-                                <!--                                    <option th:remove="all" value="0">Food</option>-->
-                                <!--                                    <option th:remove="all" value="1">Households</option>-->
-                                <!--                                    <option th:remove="all" value="2">Medicine</option>-->
-                                <!--                                    <option th:remove="all" value="3">Clothes</option>-->
-                                <!--                                    <option th:remove="all" value="4">Entertainment</option>-->
-                                <!--                                </select>-->
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label"
                                        for="field_price">Price</label>
-                                <input class="form-control"
+                                <input readonly="readonly" class="form-control"
                                        id="field_price"
                                        type="text" value="25"
                                        th:field="*{sumOfExpense}"/>
@@ -120,7 +107,7 @@
                                      th:errors="*{expenseId}">[errors]</div>
 
                             <div>
-                                <input class="btn btn-primary"  type="submit" value="Save"/>
+                                <input class="btn btn-primary"  type="submit" value="Delete"/>
                                 <input class="btn btn-light me-1" type="button" value="Cancel" onClick="window.location='../expenses'"/>
                             </div>
 

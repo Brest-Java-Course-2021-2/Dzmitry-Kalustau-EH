@@ -20,7 +20,7 @@
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="../categories" class="navbar-brand"><img src="../../resources/static/img/logo_cash.png"
+            <a href="categories" class="navbar-brand"><img src="../../resources/static/img/logo_cash.png"
                                                            th:src="@{/img/logo_cash.png}"
                                                            height="32" width="32" alt="EH"></a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -47,18 +47,18 @@
                     <i class="bi-arrow-left"></i></a>
             </li>
         </ul>
-        <span class="navbar-brand text-uppercase me-auto">Edit expense</span>
+        <span class="navbar-brand text-uppercase me-auto">Add expense</span>
     </nav>
 </header>
 
-<section id="expennse">
+<section id="expense">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
                         <form action="#"
-                              th:action="@{/edit-expenses/{id}}"
+                              th:action="@{/add-expenses}"
                               th:object="${expense}"
                               method="post">
 
@@ -87,23 +87,10 @@
                             <div class="mb-3">
                                 <label class="form-label"
                                        for="field_categoryId">Category Code</label>
-                                <input readonly="readonly" class="form-control "
+                                <input class="form-control "
                                        id="field_categoryId"
                                        type="text" value="1"
                                        th:field="*{categoryId}"/>
-                                <!--                                <label-->
-                                <!--                                        for="field_typeOfExpense">Type of expense</label>-->
-                                <!--                                <select id="field_typeOfExpense">-->
-                                <!--                                    <option th:each="category : ${categories}"-->
-                                <!--                                            th:selected=""-->
-                                <!--                                            th:text="${category.categoryName}">-->
-                                <!--                                    </option>-->
-                                <!--                                    <option th:remove="all" value="0">Food</option>-->
-                                <!--                                    <option th:remove="all" value="1">Households</option>-->
-                                <!--                                    <option th:remove="all" value="2">Medicine</option>-->
-                                <!--                                    <option th:remove="all" value="3">Clothes</option>-->
-                                <!--                                    <option th:remove="all" value="4">Entertainment</option>-->
-                                <!--                                </select>-->
                             </div>
 
                             <div class="mb-3">
@@ -136,6 +123,7 @@
     <hr/>
     <p class="text-center">&copy; 2021</p>
 </footer>
+
 
 </body>
 </html>
