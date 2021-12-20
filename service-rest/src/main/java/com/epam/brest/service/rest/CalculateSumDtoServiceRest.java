@@ -53,8 +53,4 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
         restTemplate.postForEntity(url, localDateContainer, Integer.class);
     }
 
-    @Override
-    public List<CalculateSumDto> findSumOfExpensesBetweenDates(String localDateFrom, String localDateTo) {
-        return null;
-    }
 }

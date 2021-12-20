@@ -18,14 +18,6 @@ public interface CalculateSumDtoDao {
     List<CalculateSumDto> findAllWithSumOfExpenses();
 
     /**
-     * Get categories with total expenses between dates
-     * @param localDateFrom - date from
-     * @param localDateTo- date to
-     * @return - CalculateSumDto list
-     */
-    List<CalculateSumDto> findSumOfExpensesBetweenDates(String localDateFrom, String localDateTo);
-
-    /**
      * Get LocalDate Container with current dates
      * @return LocalDate Container
      */

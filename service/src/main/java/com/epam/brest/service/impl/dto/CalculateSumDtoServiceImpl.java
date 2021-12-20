@@ -26,11 +26,6 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
         return calculateSumDtoDao.findAllWithSumOfExpenses();
     }
 
-    public List<CalculateSumDto> findSumOfExpensesBetweenDates(String localDateFrom, String localDateTo) {
-        return calculateSumDtoDao.findSumOfExpensesBetweenDates(localDateFrom, localDateTo);
-    }
-
-
     @Override
     public LocalDateContainer getLocalDateContainer() {
         return calculateSumDtoDao.getLocalDateContainer();
