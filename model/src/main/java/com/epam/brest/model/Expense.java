@@ -22,6 +22,15 @@ public class Expense {
         this.expenseId = expenseId;
     }
 
+    public Expense(LocalDate dateOfExpense, Integer categoryId) {
+        this.dateOfExpense = dateOfExpense;
+        this.categoryId = categoryId;
+    }
+
+    public Expense(BigDecimal sumOfExpense) {
+        this.sumOfExpense = sumOfExpense;
+    }
+
     public Expense(Integer expenseId, LocalDate dateOfExpense) {
         this.expenseId = expenseId;
         this.dateOfExpense = dateOfExpense;
