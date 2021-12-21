@@ -1,0 +1,8 @@
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/CategoriesController.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/CalculateSumController.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/ExceptionHandlingControllerAdvice.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/config/ApplicationConfig.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/EhApplication.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/ExpensesController.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/HomeController.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/web-app/src/main/java/com/epam/brest/web_app/validators/CategoryValidator.java

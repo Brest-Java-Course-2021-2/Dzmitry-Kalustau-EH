@@ -1,0 +1,10 @@
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/Expense.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/dto/CalculateSumDto.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/Category.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/constants/CategoryConstants.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/constants/package-info.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/exceptions/package-info.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/dto/LocalDateContainer.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/package-info.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/exceptions/IncorrectExpense.java
+/home/medievil/development/Dzmitry-Kalustau-SpringBoot/model/src/main/java/com/epam/brest/model/dto/package-info.java
