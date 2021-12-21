@@ -2,7 +2,6 @@ package com.epam.brest.rest;
 
 import com.epam.brest.model.Category;
 import com.epam.brest.rest.exception.CustomExceptionHandler;
-import com.epam.brest.rest.exception.ErrorResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -131,26 +130,26 @@ public class CategoriesControllerIT {
 
     }
 
-//    @Test
-//    public void testDeleteCategory() throws Exception {
-//        // given
-//        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
-//        Integer id = categoriesService.create(category);
-//
-//        List<Category> categories = categoriesService.findAllCategories();
-//        assertNotNull(categories);
-//
-//        // when
-//        int result = categoriesService.delete(id);
-//
-//        // then
-//        assertTrue(1 == result);
-//
-//        List<Category> currentCategories = categoriesService.findAllCategories();
-//        assertNotNull(currentCategories);
-//
-//        assertTrue(categories.size() - 1 == currentCategories.size());
-//    }
+    @Test
+    public void testDeleteCategory() throws Exception {
+        // given
+        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
+        Integer id = categoriesService.create(category);
+
+        List<Category> categories = categoriesService.findAllCategories();
+        assertNotNull(categories);
+
+        // when
+        int result = categoriesService.delete(id);
+
+        // then
+        assertTrue(1 == result);
+
+        List<Category> currentCategories = categoriesService.findAllCategories();
+        assertNotNull(currentCategories);
+
+        assertTrue(categories.size() - 1 == currentCategories.size());
+    }
 
 //    @Test
 //    public void shouldReturnDepartmentNotFoundError() throws Exception {
@@ -246,8 +245,9 @@ public class CategoriesControllerIT {
 
             LOGGER.debug("delete(id:{})", categoryId);
             MockHttpServletResponse response = mockMvc.perform(
-                            MockMvcRequestBuilders.delete(new StringBuilder(CATEGORIES_ENDPOINT).append("/")
-                                            .append(categoryId).toString())
+                            MockMvcRequestBuilders.delete(CATEGORIES_ENDPOINT)
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(objectMapper.writeValueAsString(categoryId))
                                     .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
