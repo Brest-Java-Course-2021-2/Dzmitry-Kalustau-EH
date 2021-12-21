@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,11 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
 
         logger.debug("Create expense {}", expense);
 
+        if (expense.getDateOfExpense() == null) {
+            logger.info("LocalDate was null in {}", expense);
+            expense.setDateOfExpense(LocalDate.now());
+        }
+
         if (!isExist(expense.getCategoryId())) {
             logger.error("such categoryId = {} with expenseId = {} does not exists", expense.getCategoryId(), expense.getExpenseId());
             throw new IncorrectExpense("Such value of category does not exists", expense.getCategoryId());
@@ -76,6 +82,11 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     @Override
     public Integer update(Expense expense) {
         logger.debug("Update expense {}", expense);
+
+        if (expense.getDateOfExpense() == null) {
+            logger.info("LocalDate was null in {}", expense);
+            expense.setDateOfExpense(LocalDate.now());
+        }
 
         Map<String, Object> paramsOfSql = new HashMap<>();
         paramsOfSql.put("categoryId", expense.getCategoryId());
