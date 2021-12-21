@@ -1,14 +1,15 @@
 //package com.epam.brest.service.rest;
 //
+//
 //import com.epam.brest.model.Category;
 //import com.epam.brest.service.config.ServiceRestTestConfig;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import org.apache.commons.lang3.RandomStringUtils;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Import;
 //import org.springframework.http.HttpMethod;
@@ -33,7 +34,7 @@
 //@Import({ServiceRestTestConfig.class})
 //public class CategoriesServiceRestTest {
 //
-//    private static final Logger LOGGER = LoggerFactory.getLogger(CategoriesServiceRestTest.class);
+//    private final Logger LOGGER = LogManager.getLogger(CategoriesServiceRestTest.class);
 //
 //    public static final String CATEGORIES_URL = "http://localhost:8088/categories";
 //
@@ -65,12 +66,12 @@
 //                );
 //
 //        // when
-//        List<Category> categories = categoriesService.findAllCategories();
+//        List<Category> list = categoriesService.findAllCategories();
 //
 //        // then
 //        mockServer.verify();
-//        assertNotNull(categories);
-//        assertTrue(categories.size() > 0);
+//        assertNotNull(list);
+//        assertTrue(list.size() > 0);
 //    }
 //
 //    @Test
@@ -157,24 +158,24 @@
 //        assertEquals(updatedCategory.getCategoryName(), category.getCategoryName());
 //    }
 //
-////    @Test
-////    public void testDeleteCategory() throws Exception {
-////
-////        // given
-////        Integer id = 1;
-////        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + id)))
-////                .andExpect(method(HttpMethod.DELETE))
-////                .andRespond(withStatus(HttpStatus.OK)
-////                        .contentType(MediaType.APPLICATION_JSON)
-////                        .body(mapper.writeValueAsString("1"))
-////                );
-////        // when
-////        int result = categoriesService.delete(id);
-////
-////        // then
-////        mockServer.verify();
-////        assertTrue(1 == result);
-////    }
+//    @Test
+//    public void testDeleteCategory() throws Exception {
+//
+//        // given
+//        Integer id = 1;
+//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+//                .andExpect(method(HttpMethod.DELETE))
+//                .andRespond(withStatus(HttpStatus.OK)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .body(mapper.writeValueAsString("1"))
+//                );
+//        // when
+//        int result = categoriesService.delete(id);
+//
+//        // then
+//        mockServer.verify();
+//        assertTrue(1 == result);
+//    }
 //
 //    private Category create(int index) {
 //        Category category = new Category();
