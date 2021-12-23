@@ -146,25 +146,25 @@ class CategoriesControllerTest {
 //                );
 //    }
 
-//    @Test
-//    public void testOpenEditCategoryPageById() throws Exception {
-//        Category category = createCategory(1, "Food");
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + category.getCategoryId())))
-//                .andExpect(method(HttpMethod.GET))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString(category))
-//                );
-//
-//        mockMvc.perform(
-//                        MockMvcRequestBuilders.get("/edit-categories/1")
-//                ).andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                .andExpect(view().name("edit-categories"))
-//                .andExpect(model().attribute("edit-categories", hasProperty("categoryId", is(1))))
-//                .andExpect(model().attribute("edit-categories", hasProperty("categoryName", is("Food"))));
-//    }
+    @Test
+    public void testOpenEditCategoryPageById() throws Exception {
+        Category category = createCategory(7, "Fuel");
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + category.getCategoryId())))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(category))
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/edit-categories/7")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("edit-categories"))
+                .andExpect(model().attribute("category", hasProperty("categoryId", is(7))))
+                .andExpect(model().attribute("category", hasProperty("categoryName", is("Fuel"))));
+    }
 
     @Test
     public void testUpdateCategoryAfterEdit() throws Exception {
@@ -193,7 +193,7 @@ class CategoriesControllerTest {
 //    public void testDeleteCategory() throws Exception {
 //
 //        int id = 6;
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + id)))
+//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
 //                .andExpect(method(HttpMethod.DELETE))
 //                .andRespond(withStatus(HttpStatus.OK)
 //                        .contentType(MediaType.APPLICATION_JSON)
