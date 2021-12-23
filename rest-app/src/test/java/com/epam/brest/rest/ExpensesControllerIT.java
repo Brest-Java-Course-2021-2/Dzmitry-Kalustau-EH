@@ -4,8 +4,6 @@ import com.epam.brest.model.Expense;
 import com.epam.brest.rest.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -26,7 +23,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -42,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class ExpensesControllerIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExpensesControllerIT.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExpensesControllerIT.class);
 
     private Expense testExpense;
 
@@ -80,6 +76,7 @@ public class ExpensesControllerIT {
     @Test
     public void testCreateExpense() throws Exception {
 
+        logger.debug("test CreateExpense()");
         Integer id = expensesService.create(testExpense);
         assertNotNull(id);
     }
@@ -87,6 +84,7 @@ public class ExpensesControllerIT {
     @Test
     public void testFindAllExpenses() throws Exception {
 
+        logger.debug("test FindAllExpenses()");
         // given
         Integer id = expensesService.create(testExpense);
 
@@ -101,6 +99,7 @@ public class ExpensesControllerIT {
     @Test
     public void testFindExpenseById() throws Exception {
 
+        logger.debug("test FindExpenseById");
         // given
         Integer id = expensesService.create(testExpense);
 
@@ -118,6 +117,7 @@ public class ExpensesControllerIT {
     @Test
     public void testUpdateExpense() throws Exception {
 
+        logger.debug("test UpdateExpense");
         // given
         Integer id = expensesService.create(testExpense);
         assertNotNull(id);
@@ -143,6 +143,8 @@ public class ExpensesControllerIT {
 
     @Test
     public void testDeleteExpense() throws Exception {
+
+        logger.debug("test DeleteExpense");
         // given
         Integer id = expensesService.create(testExpense);
 
@@ -166,7 +168,7 @@ public class ExpensesControllerIT {
 
         public List<Expense> findAllExpenses() throws Exception {
 
-            LOGGER.debug("findAllExpenses()");
+            logger.debug("findAllExpenses()");
             MockHttpServletResponse response = mockMvc.perform(get(EXPENSES_ENDPOINT)
                             .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk())
@@ -180,7 +182,7 @@ public class ExpensesControllerIT {
 
         public Optional<Expense> getExpenseById(Integer id) throws Exception {
 
-            LOGGER.debug("getExpenseById{})", id);
+            logger.debug("getExpenseById{})", id);
             MockHttpServletResponse response = mockMvc.perform(get(EXPENSES_ENDPOINT + "/" + id)
                             .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk())
@@ -190,7 +192,7 @@ public class ExpensesControllerIT {
 
         public Integer create(Expense expense) throws Exception {
 
-            LOGGER.debug("create({})", expense);
+            logger.debug("create({})", expense);
             String json = objectMapper.writeValueAsString(expense);
             MockHttpServletResponse response =
                     mockMvc.perform(post(EXPENSES_ENDPOINT)
@@ -205,7 +207,7 @@ public class ExpensesControllerIT {
 
         private int update(Expense expense) throws Exception {
 
-            LOGGER.debug("update({})", expense);
+            logger.debug("update({})", expense);
             MockHttpServletResponse response =
                     mockMvc.perform(put(EXPENSES_ENDPOINT)
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -218,7 +220,7 @@ public class ExpensesControllerIT {
 
         private int delete(Integer expenseId) throws Exception {
 
-            LOGGER.debug("delete(id:{})", expenseId);
+            logger.debug("delete(id:{})", expenseId);
             MockHttpServletResponse response = mockMvc.perform(
                             MockMvcRequestBuilders.delete(EXPENSES_ENDPOINT)
                                     .contentType(MediaType.APPLICATION_JSON)
