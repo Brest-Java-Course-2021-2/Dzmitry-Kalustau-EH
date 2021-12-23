@@ -3,6 +3,8 @@ package com.epam.brest.web_app;
 import com.epam.brest.model.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -37,6 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CategoriesControllerTest {
 
     private static final String CATEGORIES_URL = "http://localhost:8088/categories";
+
+    private static final Logger logger = LogManager.getLogger(CategoriesControllerTest.class);
 
     @Autowired
     private WebApplicationContext wac;
@@ -100,6 +104,8 @@ class CategoriesControllerTest {
 
     @Test
     void testAddCategory() throws Exception {
+
+        logger.debug("test AddCategory()");
         // WHEN
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
                 .andExpect(method(HttpMethod.POST))
@@ -148,6 +154,8 @@ class CategoriesControllerTest {
 
     @Test
     public void testOpenEditCategoryPageById() throws Exception {
+
+        logger.debug("test OpenEditCategoryPageById");
         Category category = createCategory(7, "Fuel");
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + category.getCategoryId())))
                 .andExpect(method(HttpMethod.GET))
@@ -169,6 +177,7 @@ class CategoriesControllerTest {
     @Test
     public void testUpdateCategoryAfterEdit() throws Exception {
 
+        logger.debug("test UpdateCategoryAfterEdit()");
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
                 .andExpect(method(HttpMethod.PUT))
                 .andRespond(withStatus(HttpStatus.OK)
@@ -189,27 +198,55 @@ class CategoriesControllerTest {
         mockServer.verify();
     }
 
-//    @Test
-//    public void testDeleteCategory() throws Exception {
-//
-//        int id = 6;
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
-//                .andExpect(method(HttpMethod.DELETE))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body("1")
-//                );
-//
-//        mockMvc.perform(
-//                        MockMvcRequestBuilders.get("/delete-categories/6")
-//                ).andExpect(status().isOk())
-//                .andExpect(view().name("redirect:/categories"))
-//                .andExpect(redirectedUrl("/categories"));
-//
-//        mockServer.verify();
-//    }
+    @Test
+    public void testOpenDeleteCategoryPage() throws Exception {
+
+        logger.debug("test OpenDeleteCategoryPage()");
+        Category category = createCategory(7, "Fuel");
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + category.getCategoryId())))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(category))
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/delete-categories/7")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("delete-categories"))
+                .andExpect(model().attribute("category", hasProperty("categoryId", is(7))))
+                .andExpect(model().attribute("category", hasProperty("categoryName", is("Fuel"))));
+    }
+
+    @Test
+    public void testDeleteCategory() throws Exception {
+
+        logger.debug("test DeleteCategory");
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+                .andExpect(method(HttpMethod.DELETE))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body("1")
+                );
+        String testName = RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/delete-categories/1")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("categoryId", "1")
+                                .param("categoryName", testName)
+                ).andExpect(status().isFound())
+                .andExpect(view().name("redirect:/categories"))
+                .andExpect(redirectedUrl("/categories"));
+
+        mockServer.verify();
+    }
 
     private Category createCategory(int id, String name) {
+
+        logger.info("create category with id={}, name={}", id, name);
         Category category = new Category();
         category.setCategoryId(id);
         category.setCategoryName(name);
