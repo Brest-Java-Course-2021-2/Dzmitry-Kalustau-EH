@@ -55,7 +55,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     }
 
     @Override
-    public Integer create(Expense expense) throws IncorrectExpense {
+    public Integer create(Expense expense) {
 
         logger.debug("Create expense {}", expense);
 
@@ -65,7 +65,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         }
 
         if (!isExist(expense.getCategoryId())) {
-            logger.error("such categoryId = {} with expenseId = {} does not exists", expense.getCategoryId(), expense.getExpenseId());
+            logger.error("such categoryId = {} with expenseId = {} does not exists ", expense.getCategoryId(), expense.getExpenseId());
             throw new IncorrectExpense("Such value of category does not exists", expense.getCategoryId());
         }
         Map<String, Object> mapParams = new HashMap<>();

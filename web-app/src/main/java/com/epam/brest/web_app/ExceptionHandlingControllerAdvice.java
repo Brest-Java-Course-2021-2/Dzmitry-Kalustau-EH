@@ -16,12 +16,24 @@ public class ExceptionHandlingControllerAdvice {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlingControllerAdvice.class);
 
-
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({SQLException.class, DataAccessException.class})
     public ModelAndView handleDataIntegrityViolationException(HttpServletRequest req, Exception ex) {
         logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 
         ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", ex);
+        mav.addObject("url", req.getRequestURL());
+        mav.addObject("timestamp", new Date());
+        mav.setViewName("error-db");
+        return mav;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleError(HttpServletRequest req, Exception ex) {
+        logger.error("Request: " + req.getRequestURL() + " raised " + ex);
+
+        ModelAndView mav = new ModelAndView();
+        System.out.println(ex);
         mav.addObject("exception", ex);
         mav.addObject("url", req.getRequestURL());
         mav.addObject("timestamp", new Date());
