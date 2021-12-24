@@ -59,12 +59,15 @@ class CalculateSumControllerTest {
 
     private MockRestServiceServer mockServer;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper;
 
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
         mockServer = MockRestServiceServer.createServer(restTemplate);
+
+        mapper = new ObjectMapper();
+        mapper.findAndRegisterModules();
     }
 
 //    @Test
