@@ -16,6 +16,7 @@ public class ExceptionHandlingControllerAdvice {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlingControllerAdvice.class);
 
+
     @ExceptionHandler({Exception.class})
     public ModelAndView handleDataIntegrityViolationException(HttpServletRequest req, Exception ex) {
         logger.error("Request: " + req.getRequestURL() + " raised " + ex);

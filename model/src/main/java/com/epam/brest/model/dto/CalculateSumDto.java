@@ -1,7 +1,6 @@
 package com.epam.brest.model.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class CalculateSumDto {
 

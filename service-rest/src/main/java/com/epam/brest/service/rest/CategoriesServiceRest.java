@@ -72,8 +72,6 @@ public class CategoriesServiceRest implements CategoryService {
     public Integer delete(Integer categoryId) {
 
         logger.debug("delete() {}", categoryId);
-//        restTemplate.delete(url + "/" + categoryId);
-//        return categoryId;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

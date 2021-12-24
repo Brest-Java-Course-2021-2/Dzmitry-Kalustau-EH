@@ -1,6 +1,5 @@
 package com.epam.brest.service;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.model.exceptions.IncorrectExpense;
 

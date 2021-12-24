@@ -1,9 +1,7 @@
 package com.epam.brest.rest;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.model.exceptions.IncorrectExpense;
-import com.epam.brest.service.CategoryService;
 import com.epam.brest.service.ExpenseService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

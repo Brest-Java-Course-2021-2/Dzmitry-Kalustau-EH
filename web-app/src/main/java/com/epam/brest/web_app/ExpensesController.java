@@ -1,6 +1,5 @@
 package com.epam.brest.web_app;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.model.exceptions.IncorrectExpense;
 import com.epam.brest.service.CategoryService;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.beans.IntrospectionException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -45,9 +42,6 @@ public class ExpensesController {
     public final String gotoEditExpensesPage(@PathVariable Integer id, Model model) {
 
         logger.debug("gotoEditExpensesPage({})", model);
-
-//        model.addAttribute("expense", new Expense(1, "2021-03-10", 2, new BigDecimal(15)));
-
 
         model.addAttribute("expense", expenseService.getExpenseById(id));
         return "edit-expenses";
@@ -89,7 +83,6 @@ public class ExpensesController {
     public final String gotoDeleteExpensesPage(@PathVariable Integer id, Model model) {
         logger.debug("gotoDeleteExpensesPage({})", model);
 
-//        model.addAttribute("expense", new Expense(1, "2021-03-10", 2, new BigDecimal(15)));
         model.addAttribute("expense", expenseService.getExpenseById(id));
         return "delete-expenses";
     }

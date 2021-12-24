@@ -1,6 +1,5 @@
 package com.epam.brest.service.rest;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.model.exceptions.IncorrectExpense;
 import com.epam.brest.service.ExpenseService;
@@ -58,8 +57,6 @@ public class ExpensesServiceRest implements ExpenseService {
     public Integer update(Expense expense) {
 
         logger.debug("update() {}", expense);
-        // restTemplate.put(url, expense);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Expense> entity = new HttpEntity<>(expense, headers);
@@ -71,9 +68,6 @@ public class ExpensesServiceRest implements ExpenseService {
     public Integer delete(Integer expenseId) {
 
         logger.debug("delete() {}", expenseId);
-//        restTemplate.delete(url + "/" + expenseId);
-//        return expenseId;
-
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Integer> entity = new HttpEntity<>(expenseId, headers);

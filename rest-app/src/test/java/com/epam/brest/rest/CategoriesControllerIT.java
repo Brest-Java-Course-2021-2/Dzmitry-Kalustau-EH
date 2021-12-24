@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.epam.brest.model.constants.CategoryConstants.CATEGORY_NAME_SIZE;
-import static com.epam.brest.rest.exception.CustomExceptionHandler.VALIDATION_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -151,42 +150,6 @@ public class CategoriesControllerIT {
         assertTrue(categories.size() - 1 == currentCategories.size());
     }
 
-//    @Test
-//    public void shouldReturnDepartmentNotFoundError() throws Exception {
-//
-//        LOGGER.debug("shouldReturnDepartmentNotFoundError()");
-//        MockHttpServletResponse response =
-//                mockMvc.perform(MockMvcRequestBuilders.get(DEPARTMENTS_ENDPOINT + "/999999")
-//                                .accept(MediaType.APPLICATION_JSON)
-//                        ).andExpect(status().isNotFound())
-//                        .andReturn().getResponse();
-//        assertNotNull(response);
-//        ErrorResponse errorResponse = objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-//        assertNotNull(errorResponse);
-//        assertEquals(errorResponse.getMessage(), DEPARTMENT_NOT_FOUND);
-//    }
-
-//    @Test
-//    public void testFailCreateCategoryWithDuplicateName() throws Exception {
-//        Category category1 = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
-//        Integer id = categoriesService.create(category1);
-//        assertNotNull(id);
-//
-//        Category category2 = new Category(category1.getCategoryName());
-//
-//        MockHttpServletResponse response =
-//                mockMvc.perform(post(CATEGORIES_ENDPOINT)
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(objectMapper.writeValueAsString(category2))
-//                                .accept(MediaType.APPLICATION_JSON)
-//                        ).andExpect(status().isUnprocessableEntity())
-//                        .andReturn().getResponse();
-//
-//        assertNotNull(response);
-//        ErrorResponse errorResponse = objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-//        assertNotNull(errorResponse);
-//        assertEquals(errorResponse.getMessage(), VALIDATION_ERROR);
-//    }
 
 
     class MockMvcCategoriesService {
