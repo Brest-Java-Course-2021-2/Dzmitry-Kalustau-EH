@@ -156,25 +156,25 @@ class ExpensesServiceRestTest {
         assertEquals(updatedExpense.getExpenseId(), id);
         assertEquals(updatedExpense.getSumOfExpense(), expense.getSumOfExpense());
     }
-//
-//    @Test
-//    public void shouldDeleteDepartment() throws Exception {
-//
-//        // given
-//        Integer id = 1;
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
-//                .andExpect(method(HttpMethod.DELETE))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString("1"))
-//                );
-//        // when
-//        int result = expensesServiceRest.delete(id);
-//
-//        // then
-//        mockServer.verify();
-//        assertTrue(1 == result);
-//    }
+
+    @Test
+    public void testDelete() throws Exception {
+
+        // given
+        Integer id = 1;
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
+                .andExpect(method(HttpMethod.DELETE))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString("1"))
+                );
+        // when
+        int result = expensesServiceRest.delete(id);
+
+        // then
+        mockServer.verify();
+        assertTrue(1 == result);
+    }
 
     private Expense createExpense(int index) {
         Expense expense = new Expense(index, LocalDate.now().minusDays(1), 1, BigDecimal.valueOf(12));
