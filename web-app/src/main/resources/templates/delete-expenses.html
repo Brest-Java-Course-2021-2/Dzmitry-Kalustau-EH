@@ -62,9 +62,6 @@
                               th:object="${expense}"
                               method="post">
 
-                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                <p>Please fix errors below:</p>
-                            </div>
 
                             <div class="mb-3">
                                 <label class="form-label"
@@ -102,9 +99,6 @@
                                        th:field="*{sumOfExpense}"/>
                             </div>
 
-                                <div th:if="${#fields.hasErrors('expenseId')}"
-                                     class="text-danger"
-                                     th:errors="*{expenseId}">[errors]</div>
 
                             <div>
                                 <input class="btn btn-primary"  type="submit" value="Delete"/>
