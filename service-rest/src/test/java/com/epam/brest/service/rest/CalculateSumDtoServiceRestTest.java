@@ -1,6 +1,7 @@
 package com.epam.brest.service.rest;
 
 import com.epam.brest.model.dto.CalculateSumDto;
+import com.epam.brest.model.dto.LocalDateContainer;
 import com.epam.brest.service.config.ServiceRestTestConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
@@ -20,11 +21,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
@@ -50,6 +51,7 @@ class CalculateSumDtoServiceRestTest {
     public void before() {
         mockServer = MockRestServiceServer.createServer(restTemplate);
         calculateSumDtoServiceRest = new CalculateSumDtoServiceRest(URL, restTemplate);
+        mapper.findAndRegisterModules();
     }
 
     @Test
@@ -61,7 +63,7 @@ class CalculateSumDtoServiceRestTest {
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(Arrays.asList(create(0), create(1))))
+                        .body(mapper.writeValueAsString(Arrays.asList(createCalculateSumDto(0), createCalculateSumDto(1))))
                 );
 
         // when
@@ -74,10 +76,69 @@ class CalculateSumDtoServiceRestTest {
 
     }
 
-    private CalculateSumDto create(int index) {
+    @Test
+    void testGetLocalDateContainer() throws Exception {
+
+        logger.debug("test GetLocalDateContainer()");
+        // given
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(URL + "/dates")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(createLocalDateContainer()))
+                );
+
+        // when
+        LocalDateContainer localDateContainer = calculateSumDtoServiceRest.getLocalDateContainer();
+
+        // then
+        mockServer.verify();
+        assertNotNull(localDateContainer);
+        assertNotNull(localDateContainer.getDateFrom());
+        assertNotNull(localDateContainer.getDateTo());
+
+    }
+
+    @Test
+    void testGetTotalSum() throws Exception {
+
+        logger.debug("test GetTotalSum()");
+        // given
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(URL + "/totalsum")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(createCalculateSumDtoTotalSum()))
+                );
+
+        // when
+        CalculateSumDto calculateSumDtoTotalSum = calculateSumDtoServiceRest.getTotalSum();
+
+        // then
+        mockServer.verify();
+        assertNotNull(calculateSumDtoTotalSum);
+        assertEquals("Total Sum", calculateSumDtoTotalSum.getCategoryName());
+
+    }
+
+    private CalculateSumDto createCalculateSumDto(int index) {
         CalculateSumDto calculateSumDto = new CalculateSumDto();
         calculateSumDto.setCategoryName("Category number " + index);
         calculateSumDto.setSumOfExpense(BigDecimal.valueOf(100 + index));
         return calculateSumDto;
+    }
+
+    private LocalDateContainer createLocalDateContainer() {
+        LocalDateContainer localDateContainer = new LocalDateContainer();
+        localDateContainer.setDateFrom(LocalDate.now().minusMonths(1));
+        localDateContainer.setDateTo(LocalDate.now());
+        return localDateContainer;
+    }
+
+    private CalculateSumDto createCalculateSumDtoTotalSum() {
+        CalculateSumDto calculateSumDtoTotalSum = new CalculateSumDto();
+        calculateSumDtoTotalSum.setCategoryName("Total Sum");
+        calculateSumDtoTotalSum.setSumOfExpense(BigDecimal.valueOf(120));
+        return calculateSumDtoTotalSum;
     }
 }
