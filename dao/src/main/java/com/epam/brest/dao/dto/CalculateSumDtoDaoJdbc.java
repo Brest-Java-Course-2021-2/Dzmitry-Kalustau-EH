@@ -79,11 +79,11 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
     private void addTotalSum(List<CalculateSumDto> calculateSumDtoList) {
 
         logger.debug("Add total Sum to CalculateSumDto Total Sum");
-        BigDecimal finalSumofExpenses = new BigDecimal(0);
+        BigDecimal finalSumOfExpenses = new BigDecimal(0);
         for (CalculateSumDto sum : calculateSumDtoList) {
-            finalSumofExpenses = finalSumofExpenses.add(sum.getSumOfExpense());
+            finalSumOfExpenses = finalSumOfExpenses.add(sum.getSumOfExpense());
         }
-        calculateSumDtoTotalSum = new CalculateSumDto("Total Sum", finalSumofExpenses);
+        calculateSumDtoTotalSum = new CalculateSumDto("Total Sum", finalSumOfExpenses);
     }
 
     @Override
@@ -101,7 +101,10 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
 
     @Override
     public CalculateSumDto getTotalSum() {
+
+        logger.debug("getTotalSum()");
         if (calculateSumDtoTotalSum == null) {
+            logger.info("CalculateSumDtoTotalSum was null");
             return new CalculateSumDto("Total Sum", new BigDecimal("0"));
         }
         return calculateSumDtoTotalSum;
@@ -121,7 +124,7 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
             return expense;
         });
 
-        TreeSet<LocalDate> localDateSet = new TreeSet<LocalDate>();
+        TreeSet<LocalDate> localDateSet = new TreeSet<>();
             for (Expense expense : expenseList) {
                 localDateSet.add(expense.getDateOfExpense());
         }
