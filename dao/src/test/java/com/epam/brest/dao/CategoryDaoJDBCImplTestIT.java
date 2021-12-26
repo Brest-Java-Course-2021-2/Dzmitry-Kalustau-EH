@@ -81,6 +81,21 @@ class CategoryDaoJDBCImplTestIT {
     }
 
     @Test
+    void testGetIdOfLastCategory() {
+
+        logger.debug("Execute IT test getIdOfLastCategory()");
+        assertNotNull(categoryDaoJDBC);
+
+        List<Category> categoryList = categoryDaoJDBC.findAllCategories();
+        Category categoryBeforeAdd = categoryList.get(categoryList.size() - 1);
+
+        categoryDaoJDBC.create(new Category("Toys"));
+        Integer idOfLastCategoryAfterAdd = categoryDaoJDBC.getIdOfLastCategory();
+        assertNotNull(idOfLastCategoryAfterAdd);
+        assertEquals(categoryBeforeAdd.getCategoryId() +1, idOfLastCategoryAfterAdd);
+    }
+
+    @Test
     void testGetCategoryByID() {
 
         logger.debug("Execute IT test getCategoryById()");
