@@ -25,8 +25,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
@@ -100,6 +99,28 @@ class CalculateSumDtoServiceRestTest {
 
     }
 
+    @Test
+    void testGetTotalSum() throws Exception {
+
+        logger.debug("test GetTotalSum()");
+        // given
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(URL + "/totalsum")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(createCalculateSumDtoTotalSum()))
+                );
+
+        // when
+        CalculateSumDto calculateSumDtoTotalSum = calculateSumDtoServiceRest.getTotalSum();
+
+        // then
+        mockServer.verify();
+        assertNotNull(calculateSumDtoTotalSum);
+        assertEquals("Total Sum", calculateSumDtoTotalSum.getCategoryName());
+
+    }
+
     private CalculateSumDto createCalculateSumDto(int index) {
         CalculateSumDto calculateSumDto = new CalculateSumDto();
         calculateSumDto.setCategoryName("Category number " + index);
@@ -112,5 +133,12 @@ class CalculateSumDtoServiceRestTest {
         localDateContainer.setDateFrom(LocalDate.now().minusMonths(1));
         localDateContainer.setDateTo(LocalDate.now());
         return localDateContainer;
+    }
+
+    private CalculateSumDto createCalculateSumDtoTotalSum() {
+        CalculateSumDto calculateSumDtoTotalSum = new CalculateSumDto();
+        calculateSumDtoTotalSum.setCategoryName("Total Sum");
+        calculateSumDtoTotalSum.setSumOfExpense(BigDecimal.valueOf(120));
+        return calculateSumDtoTotalSum;
     }
 }
