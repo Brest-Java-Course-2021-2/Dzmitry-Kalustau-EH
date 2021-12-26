@@ -47,7 +47,7 @@ public class ExpensesServiceRest implements ExpenseService {
     }
 
     @Override
-    public Integer create(Expense expense) throws IncorrectExpense {
+    public Integer create(Expense expense) {
         logger.debug("Create Expense {}", expense);
         ResponseEntity responseEntity = restTemplate.postForEntity(url, expense, Integer.class);
         return (Integer) responseEntity.getBody();

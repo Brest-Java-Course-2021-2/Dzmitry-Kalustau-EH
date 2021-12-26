@@ -1,13 +1,13 @@
 package com.epam.brest.model.exceptions;
 
 
-public class IncorrectExpense extends Exception {
+public class IncorrectExpense extends RuntimeException {
 
     private Integer categoryId;
     private String exceptionMessage;
 
     public IncorrectExpense(String message, Integer categoryId) {
-        super(message);
+        super(message + categoryId);
         this.categoryId = categoryId;
     }
 

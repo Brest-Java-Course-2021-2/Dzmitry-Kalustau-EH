@@ -70,11 +70,7 @@ public class ExpensesController {
     @PostMapping(value = "/add-expenses")
     public String addExpense(Expense expense) {
         logger.debug("add Expense({})", expense);
-        try {
             expenseService.create(expense);
-        } catch (IncorrectExpense e) {
-            e.printStackTrace();
-        }
         return "redirect:/expenses";
     }
 

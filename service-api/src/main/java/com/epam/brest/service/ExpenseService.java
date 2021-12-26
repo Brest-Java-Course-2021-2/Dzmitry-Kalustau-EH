@@ -29,7 +29,7 @@ public interface ExpenseService {
      * @return - id of the created expense
      * @throws - expense with a nonexistent category
      */
-    Integer create(Expense expense) throws IncorrectExpense;
+    Integer create(Expense expense);
 
     /**
      * Update Expense

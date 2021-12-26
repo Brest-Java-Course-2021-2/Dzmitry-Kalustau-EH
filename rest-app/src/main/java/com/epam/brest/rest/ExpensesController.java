@@ -42,11 +42,7 @@ public class ExpensesController {
 
         logger.debug("add Expense({})", expense);
         Integer id = null;
-        try {
             id = expenseService.create(expense);
-        } catch (IncorrectExpense incorrectExpense) {
-            incorrectExpense.printStackTrace();
-        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
