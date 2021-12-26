@@ -3,7 +3,6 @@ package com.epam.brest.service.rest;
 import com.epam.brest.model.Expense;
 import com.epam.brest.service.config.ServiceRestTestConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -102,6 +101,7 @@ class ExpensesServiceRestTest {
     @Test
     public void testGetExpenseById() throws Exception {
 
+        logger.debug("test GetExpenseById()");
         // given
         Integer id = 1;
         Expense expense = createExpense(id);
@@ -126,6 +126,7 @@ class ExpensesServiceRestTest {
     @Test
     public void testUpdate() throws Exception {
 
+        logger.debug("test Update()");
         // given
         Integer id = 1;
         Expense expense = createExpense(id);
@@ -160,6 +161,7 @@ class ExpensesServiceRestTest {
     @Test
     public void testDelete() throws Exception {
 
+        logger.debug("test Delete()");
         // given
         Integer id = 1;
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
@@ -174,6 +176,52 @@ class ExpensesServiceRestTest {
         // then
         mockServer.verify();
         assertTrue(1 == result);
+    }
+
+    @Test
+    public void testCount() throws Exception {
+
+        logger.debug("test Count()");
+        // given
+        Integer count = 8;
+
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/count")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(count))
+                );
+
+        // when
+        Integer countExpenses = expensesServiceRest.count();
+
+        // then
+        mockServer.verify();
+        assertNotNull(countExpenses);
+        assertEquals(countExpenses, 8);
+    }
+
+    @Test
+    public void testGetIdOfLastExpense() throws Exception {
+
+        logger.debug("test getIdOfLastExpense()");
+        // given
+        Integer id = 1;
+
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/last_id")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(id))
+                );
+
+        // when
+        Integer idOfLastExpense = expensesServiceRest.getIdOfLastExpense();
+
+        // then
+        mockServer.verify();
+        assertNotNull(idOfLastExpense);
+        assertEquals(idOfLastExpense, id);
     }
 
     private Expense createExpense(int index) {
