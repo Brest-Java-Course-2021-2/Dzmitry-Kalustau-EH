@@ -54,6 +54,21 @@ public class ExpenseServiceImplIT {
     }
 
     @Test
+    void testGetIdOfLastExpense() {
+        logger.debug("Execute IT test getIdOfLastExpense()");
+
+        assertNotNull(expenseService);
+
+        List<Expense> expenseList = expenseService.findAllExpenses();
+        Expense expenseBeforeAdd = expenseList.get(expenseList.size() - 1);
+
+        expenseService.create(new Expense(LocalDate.now(), 1, BigDecimal.valueOf(1)));
+        Integer idOfLastExpenseAfterAdd = expenseService.getIdOfLastExpense();
+        assertNotNull(idOfLastExpenseAfterAdd);
+        assertEquals(expenseBeforeAdd.getExpenseId() +1, idOfLastExpenseAfterAdd);
+    }
+
+    @Test
     void testCreate() throws IncorrectExpense {
         logger.debug("Execute IT test create()");
 
@@ -75,6 +90,17 @@ public class ExpenseServiceImplIT {
         assertThrows(IncorrectExpense.class, () -> {
             expenseService.create(expense);
         });
+    }
+
+    @Test
+    void testCount() {
+
+        logger.debug("Execute IT test count()");
+        assertNotNull(expenseService);
+        Integer countExpense = expenseService.count();
+        assertNotNull(countExpense);
+        assertTrue(countExpense > 0);
+        assertEquals(Integer.valueOf(8), countExpense);
     }
 
     @Test

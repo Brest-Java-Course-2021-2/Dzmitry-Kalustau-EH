@@ -70,6 +70,21 @@ class CategoryServiceImplIT {
     }
 
     @Test
+    void testGetIdOfLastCategory() {
+
+        logger.debug("Execute IT test getIdOfLastCategory()");
+        assertNotNull(categoryService);
+
+        List<Category> categoryList = categoryService.findAllCategories();
+        Category categoryBeforeAdd = categoryList.get(categoryList.size() - 1);
+
+        categoryService.create(new Category("Toys"));
+        Integer idOfLastCategoryAfterAdd = categoryService.getIdOfLastCategory();
+        assertNotNull(idOfLastCategoryAfterAdd);
+        assertEquals(categoryBeforeAdd.getCategoryId() +1, idOfLastCategoryAfterAdd);
+    }
+
+    @Test
     void testGetCategoryByID() {
         logger.debug("Execute IT test getCategoryById()");
         List<Category> categoryList = categoryService.findAllCategories();
