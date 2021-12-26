@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -98,31 +99,29 @@ class ExpensesServiceRestTest {
         assertNotNull(id);
     }
 //
-//    @Test
-//    public void shouldFindDepartmentById() throws Exception {
-//
-//        // given
-//        Integer id = 1;
-//        Department department = new Department()
-//                .setDepartmentId(id)
-//                .setDepartmentName(RandomStringUtils.randomAlphabetic(DEPARTMENT_NAME_SIZE));
-//
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
-//                .andExpect(method(HttpMethod.GET))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString(department))
-//                );
-//
-//        // when
-//        Department resultDepartment = expensesServiceRest.getDepartmentById(id);
-//
-//        // then
-//        mockServer.verify();
-//        assertNotNull(resultDepartment);
-//        assertEquals(resultDepartment.getDepartmentId(), id);
-//        assertEquals(resultDepartment.getDepartmentName(), department.getDepartmentName());
-//    }
+    @Test
+    public void testGetExpenseById() throws Exception {
+
+        // given
+        Integer id = 1;
+        Expense expense = createExpense(id);
+
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(expense))
+                );
+
+        // when
+        Expense resultExpense = expensesServiceRest.getExpenseById(id);
+
+        // then
+        mockServer.verify();
+        assertNotNull(resultExpense);
+        assertEquals(resultExpense.getExpenseId(), id);
+        assertEquals(resultExpense.getSumOfExpense(), expense.getSumOfExpense());
+    }
 //
 //    @Test
 //    public void shouldUpdateDepartment() throws Exception {
