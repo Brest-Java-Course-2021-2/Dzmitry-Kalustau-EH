@@ -122,42 +122,40 @@ class ExpensesServiceRestTest {
         assertEquals(resultExpense.getExpenseId(), id);
         assertEquals(resultExpense.getSumOfExpense(), expense.getSumOfExpense());
     }
-//
-//    @Test
-//    public void shouldUpdateDepartment() throws Exception {
-//
-//        // given
-//        Integer id = 1;
-//        Department department = new Department()
-//                .setDepartmentId(id)
-//                .setDepartmentName(RandomStringUtils.randomAlphabetic(DEPARTMENT_NAME_SIZE));
-//
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
-//                .andExpect(method(HttpMethod.PUT))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString("1"))
-//                );
-//
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
-//                .andExpect(method(HttpMethod.GET))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString(department))
-//                );
-//
-//        // when
-//        int result = expensesServiceRest.update(department);
-//        Department updatedDepartment = expensesServiceRest.getDepartmentById(id);
-//
-//        // then
-//        mockServer.verify();
-//        assertTrue(1 == result);
-//
-//        assertNotNull(updatedDepartment);
-//        assertEquals(updatedDepartment.getDepartmentId(), id);
-//        assertEquals(updatedDepartment.getDepartmentName(), department.getDepartmentName());
-//    }
+
+    @Test
+    public void testUpdate() throws Exception {
+
+        // given
+        Integer id = 1;
+        Expense expense = createExpense(id);
+
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
+                .andExpect(method(HttpMethod.PUT))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString("1"))
+                );
+
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(expense))
+                );
+
+        // when
+        int result = expensesServiceRest.update(expense);
+        Expense updatedExpense = expensesServiceRest.getExpenseById(id);
+
+        // then
+        mockServer.verify();
+        assertTrue(1 == result);
+
+        assertNotNull(updatedExpense);
+        assertEquals(updatedExpense.getExpenseId(), id);
+        assertEquals(updatedExpense.getSumOfExpense(), expense.getSumOfExpense());
+    }
 //
 //    @Test
 //    public void shouldDeleteDepartment() throws Exception {
