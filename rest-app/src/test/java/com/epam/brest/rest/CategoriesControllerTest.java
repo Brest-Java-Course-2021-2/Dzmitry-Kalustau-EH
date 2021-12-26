@@ -64,18 +64,4 @@ class CategoriesControllerTest {
         Assertions.assertEquals(123, id);
     }
 
-    @Test
-    public void getCategoryByIdException() throws Exception {
-
-        Mockito.when(categoryService.getCategoryById(anyInt()))
-                .thenThrow(new IllegalArgumentException("test message"));
-
-        mockMvc.perform(
-                MockMvcRequestBuilders.get("/categories/123")
-        ).andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
-                .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-                .andExpect(MockMvcResultMatchers.content().string("Handle: test message"))
-        ;
-    }
 }
