@@ -1,5 +1,6 @@
 package com.epam.brest.rest;
 
+import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.rest.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -115,6 +117,24 @@ public class ExpensesControllerIT {
     }
 
     @Test
+    public void testGetIdOfLastExpense() throws Exception {
+
+        // given
+        List<Expense> expenseList = expensesService.findAllExpenses();
+        Integer idOfLastExpenseBeforeAdd = expenseList.get(expenseList.size()-1).getExpenseId();
+        assertNotNull(idOfLastExpenseBeforeAdd);
+
+        expensesService.create(new Expense(LocalDate.now(), 1, BigDecimal.valueOf(2)));
+
+        // when
+        Integer idOfLastExpense = expensesService.getIdOfLastExpense();
+
+        // then
+        assertNotNull(idOfLastExpense);
+        assertEquals(idOfLastExpense, idOfLastExpenseBeforeAdd + 1);
+    }
+
+    @Test
     public void testUpdateExpense() throws Exception {
 
         logger.debug("test UpdateExpense");
@@ -188,6 +208,16 @@ public class ExpensesControllerIT {
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
             return Optional.of(objectMapper.readValue(response.getContentAsString(), Expense.class));
+        }
+
+        public Integer getIdOfLastExpense() throws Exception {
+
+            logger.debug("getIdOfLastExpense()");
+            MockHttpServletResponse response = mockMvc.perform(get(EXPENSES_ENDPOINT + "/last_id")
+                            .accept(MediaType.APPLICATION_JSON)
+                    ).andExpect(status().isOk())
+                    .andReturn().getResponse();
+            return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
         public Integer create(Expense expense) throws Exception {

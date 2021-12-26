@@ -103,6 +103,24 @@ public class CategoriesControllerIT {
     }
 
     @Test
+    public void testGetIdOfLastCategory() throws Exception {
+
+        // given
+        List<Category> categoryList = categoriesService.findAllCategories();
+        Integer idOfLastCategoryBeforeAdd = categoryList.get(categoryList.size()-1).getCategoryId();
+        assertNotNull(idOfLastCategoryBeforeAdd);
+
+        categoriesService.create(new Category("Toys"));
+
+        // when
+        Integer idOfLastCategory = categoriesService.getIdOfLastCategory();
+
+        // then
+        assertNotNull(idOfLastCategory);
+        assertEquals(idOfLastCategory, idOfLastCategoryBeforeAdd + 1);
+    }
+
+    @Test
     public void testUpdateCategory() throws Exception {
 
         // given
@@ -175,6 +193,16 @@ public class CategoriesControllerIT {
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
             return Optional.of(objectMapper.readValue(response.getContentAsString(), Category.class));
+        }
+
+        public Integer getIdOfLastCategory() throws Exception {
+
+            LOGGER.debug("getIdOfLastCategory()");
+            MockHttpServletResponse response = mockMvc.perform(get(CATEGORIES_ENDPOINT + "/last_id")
+                            .accept(MediaType.APPLICATION_JSON)
+                    ).andExpect(status().isOk())
+                    .andReturn().getResponse();
+            return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
         public Integer create(Category category) throws Exception {
