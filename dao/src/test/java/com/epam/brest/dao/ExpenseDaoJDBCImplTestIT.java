@@ -105,6 +105,17 @@ public class ExpenseDaoJDBCImplTestIT {
     }
 
     @Test
+    void testCount() {
+
+        logger.debug("Execute IT test count()");
+        assertNotNull(expenseDao);
+        Integer countExpense = expenseDao.count();
+        assertNotNull(countExpense);
+        assertTrue(countExpense > 0);
+        assertEquals(Integer.valueOf(8), countExpense);
+    }
+
+    @Test
     void testUpdate() throws IncorrectExpense {
         logger.debug("Execute IT test update()");
 
