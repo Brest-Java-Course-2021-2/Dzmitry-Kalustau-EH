@@ -76,27 +76,27 @@ class ExpensesServiceRestTest {
         assertTrue(expenseList.size() > 0);
     }
 
-//    @Test
-//    public void shouldCreateDepartment() throws Exception {
-//
-//        logger.debug("shouldCreateDepartment()");
-//        // given
-//        Department department = new Department()
-//                .setDepartmentName(RandomStringUtils.randomAlphabetic(DEPARTMENT_NAME_SIZE));
-//
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
-//                .andExpect(method(HttpMethod.POST))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString("1"))
-//                );
-//        // when
-//        Integer id = expensesServiceRest.create(department);
-//
-//        // then
-//        mockServer.verify();
-//        assertNotNull(id);
-//    }
+    @Test
+    public void testCreate() throws Exception {
+
+        logger.debug("test Create()");
+        // given
+        Expense expense = createExpense(1);
+
+
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString("1"))
+                );
+        // when
+        Integer id = expensesServiceRest.create(expense);
+
+        // then
+        mockServer.verify();
+        assertNotNull(id);
+    }
 //
 //    @Test
 //    public void shouldFindDepartmentById() throws Exception {
