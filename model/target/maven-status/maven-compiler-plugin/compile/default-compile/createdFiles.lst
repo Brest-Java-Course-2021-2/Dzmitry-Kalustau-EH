@@ -1,6 +1,0 @@
-com/epam/brest/model/constants/CategoryConstants.class
-com/epam/brest/model/Expense.class
-com/epam/brest/model/Category.class
-com/epam/brest/model/dto/LocalDateContainer.class
-com/epam/brest/model/exceptions/IncorrectExpense.class
-com/epam/brest/model/dto/CalculateSumDto.class

@@ -1,19 +1,16 @@
 package com.epam.brest.dao.dto;
 
-import com.epam.brest.dao.ExpenseDaoJDBCImpl;
 import com.epam.brest.model.Expense;
 import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
+
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -82,11 +79,11 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
     private void addTotalSum(List<CalculateSumDto> calculateSumDtoList) {
 
         logger.debug("Add total Sum to CalculateSumDto Total Sum");
-        BigDecimal finalSumofExpenses = new BigDecimal(0);
+        BigDecimal finalSumOfExpenses = new BigDecimal(0);
         for (CalculateSumDto sum : calculateSumDtoList) {
-            finalSumofExpenses = finalSumofExpenses.add(sum.getSumOfExpense());
+            finalSumOfExpenses = finalSumOfExpenses.add(sum.getSumOfExpense());
         }
-        calculateSumDtoTotalSum = new CalculateSumDto("Total Sum", finalSumofExpenses);
+        calculateSumDtoTotalSum = new CalculateSumDto("Total Sum", finalSumOfExpenses);
     }
 
     @Override
@@ -104,7 +101,10 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
 
     @Override
     public CalculateSumDto getTotalSum() {
+
+        logger.debug("getTotalSum()");
         if (calculateSumDtoTotalSum == null) {
+            logger.info("CalculateSumDtoTotalSum was null");
             return new CalculateSumDto("Total Sum", new BigDecimal("0"));
         }
         return calculateSumDtoTotalSum;
@@ -124,7 +124,7 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
             return expense;
         });
 
-        TreeSet<LocalDate> localDateSet = new TreeSet<LocalDate>();
+        TreeSet<LocalDate> localDateSet = new TreeSet<>();
             for (Expense expense : expenseList) {
                 localDateSet.add(expense.getDateOfExpense());
         }

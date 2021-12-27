@@ -1,6 +1,6 @@
 package com.epam.brest.service.rest;
 
-import com.epam.brest.model.Category;
+import com.epam.brest.model.Expense;
 import com.epam.brest.service.config.ServiceRestTestConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +18,9 @@ import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,11 +33,11 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ExtendWith(SpringExtension.class)
 @Import({ServiceRestTestConfig.class})
-class CategoriesServiceRestTest {
+class ExpensesServiceRestTest {
 
-    private final Logger logger = LogManager.getLogger(CategoriesServiceRestTest.class);
+    private final Logger logger = LogManager.getLogger(ExpensesServiceRestTest.class);
 
-    public static final String CATEGORIES_URL = "http://localhost:8088/categories";
+    public static final String EXPENSES_URL = "http://localhost:8088/expenses";
 
     @Autowired
     RestTemplate restTemplate;
@@ -44,34 +46,34 @@ class CategoriesServiceRestTest {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    CategoriesServiceRest categoriesServiceRest;
+    ExpensesServiceRest expensesServiceRest;
 
     @BeforeEach
     public void before() {
         mockServer = MockRestServiceServer.createServer(restTemplate);
-        categoriesServiceRest = new CategoriesServiceRest(CATEGORIES_URL, restTemplate);
+        expensesServiceRest = new ExpensesServiceRest(EXPENSES_URL, restTemplate);
         mapper.findAndRegisterModules();
     }
 
     @Test
-    public void testFindAllCategories() throws Exception {
+    public void testFindAllExpenses() throws Exception {
 
-        logger.debug("test FindAllCategories()");
+        logger.debug("test FindAllExpenses()");
         // given
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(Arrays.asList(createCategory(0), createCategory(1))))
+                        .body(mapper.writeValueAsString(Arrays.asList(createExpense(0), createExpense(1))))
                 );
 
         // when
-        List<Category> categoryList = categoriesServiceRest.findAllCategories();
+        List<Expense> expenseList = expensesServiceRest.findAllExpenses();
 
         // then
         mockServer.verify();
-        assertNotNull(categoryList);
-        assertTrue(categoryList.size() > 0);
+        assertNotNull(expenseList);
+        assertTrue(expenseList.size() > 0);
     }
 
     @Test
@@ -79,46 +81,46 @@ class CategoriesServiceRestTest {
 
         logger.debug("test Create()");
         // given
-        Category category = createCategory(1);
+        Expense expense = createExpense(1);
 
 
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
                 .andExpect(method(HttpMethod.POST))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(mapper.writeValueAsString("1"))
                 );
         // when
-        Integer id = categoriesServiceRest.create(category);
+        Integer id = expensesServiceRest.create(expense);
 
         // then
         mockServer.verify();
         assertNotNull(id);
     }
-    //
+//
     @Test
-    public void testGetCategoryById() throws Exception {
+    public void testGetExpenseById() throws Exception {
 
-        logger.debug("test GetCategoryById()");
+        logger.debug("test GetExpenseById()");
         // given
         Integer id = 1;
-        Category category = createCategory(id);
+        Expense expense = createExpense(id);
 
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + id)))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(category))
+                        .body(mapper.writeValueAsString(expense))
                 );
 
         // when
-        Category resultCategory = categoriesServiceRest.getCategoryById(id);
+        Expense resultExpense = expensesServiceRest.getExpenseById(id);
 
         // then
         mockServer.verify();
-        assertNotNull(resultCategory);
-        assertEquals(resultCategory.getCategoryId(), id);
-        assertEquals(resultCategory.getCategoryName(), category.getCategoryName());
+        assertNotNull(resultExpense);
+        assertEquals(resultExpense.getExpenseId(), id);
+        assertEquals(resultExpense.getSumOfExpense(), expense.getSumOfExpense());
     }
 
     @Test
@@ -127,33 +129,33 @@ class CategoriesServiceRestTest {
         logger.debug("test Update()");
         // given
         Integer id = 1;
-        Category category = createCategory(id);
+        Expense expense = createExpense(id);
 
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
                 .andExpect(method(HttpMethod.PUT))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(mapper.writeValueAsString("1"))
                 );
 
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/" + id)))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/" + id)))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(category))
+                        .body(mapper.writeValueAsString(expense))
                 );
 
         // when
-        int result = categoriesServiceRest.update(category);
-        Category updatedCategory = categoriesServiceRest.getCategoryById(id);
+        int result = expensesServiceRest.update(expense);
+        Expense updatedExpense = expensesServiceRest.getExpenseById(id);
 
         // then
         mockServer.verify();
         assertTrue(1 == result);
 
-        assertNotNull(updatedCategory);
-        assertEquals(updatedCategory.getCategoryId(), id);
-        assertEquals(updatedCategory.getCategoryName(), category.getCategoryName());
+        assertNotNull(updatedExpense);
+        assertEquals(updatedExpense.getExpenseId(), id);
+        assertEquals(updatedExpense.getSumOfExpense(), expense.getSumOfExpense());
     }
 
     @Test
@@ -162,14 +164,14 @@ class CategoriesServiceRestTest {
         logger.debug("test Delete()");
         // given
         Integer id = 1;
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL)))
                 .andExpect(method(HttpMethod.DELETE))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(mapper.writeValueAsString("1"))
                 );
         // when
-        int result = categoriesServiceRest.delete(id);
+        int result = expensesServiceRest.delete(id);
 
         // then
         mockServer.verify();
@@ -183,7 +185,7 @@ class CategoriesServiceRestTest {
         // given
         Integer count = 8;
 
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/count")))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/count")))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -191,22 +193,22 @@ class CategoriesServiceRestTest {
                 );
 
         // when
-        Integer countCategories = categoriesServiceRest.count();
+        Integer countExpenses = expensesServiceRest.count();
 
         // then
         mockServer.verify();
-        assertNotNull(countCategories);
-        assertEquals(countCategories, 8);
+        assertNotNull(countExpenses);
+        assertEquals(countExpenses, 8);
     }
 
     @Test
-    public void testGetIdOfLastCategory() throws Exception {
+    public void testGetIdOfLastExpense() throws Exception {
 
-        logger.debug("test GetIdOfLastCategory()");
+        logger.debug("test getIdOfLastExpense()");
         // given
         Integer id = 1;
 
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/last_id")))
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/last_id")))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -214,17 +216,17 @@ class CategoriesServiceRestTest {
                 );
 
         // when
-        Integer idOfLastCategory = categoriesServiceRest.getIdOfLastCategory();
+        Integer idOfLastExpense = expensesServiceRest.getIdOfLastExpense();
 
         // then
         mockServer.verify();
-        assertNotNull(idOfLastCategory);
-        assertEquals(idOfLastCategory, id);
+        assertNotNull(idOfLastExpense);
+        assertEquals(idOfLastExpense, id);
     }
 
-    private Category createCategory(int index) {
-        Category category = new Category(index, "TestCategory");
-        return category;
+    private Expense createExpense(int index) {
+        Expense expense = new Expense(index, LocalDate.now().minusDays(1), 1, BigDecimal.valueOf(12));
+        return expense;
     }
 }
 

@@ -70,42 +70,6 @@ class CalculateSumControllerTest {
         mapper.findAndRegisterModules();
     }
 
-//    @Test
-//    void testReturnCalculateSumPage() throws Exception {
-//
-//        logger.debug("test ReturnCalculateSumPage()");
-//        CalculateSumDto c1 = createCalculateSumDto("Food", BigDecimal.valueOf(150));
-//        CalculateSumDto c2 = createCalculateSumDto("Households", BigDecimal.valueOf(400));
-//        CalculateSumDto c3 = createCalculateSumDto("Car", null);
-//        LocalDateContainer localDateContainer = new LocalDateContainer(LocalDate.of(2021, 10, 1), LocalDate.of(2021, 10, 4));
-//        CalculateSumDto calculateSumDtoTotalSum = new CalculateSumDto("Total Sum", new BigDecimal(100));
-//
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CALCULATESUM_URL)))
-//                .andExpect(method(HttpMethod.GET))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString(Arrays.asList(c1, c2, c3)))
-//                        .body(mapper.writeValueAsString(localDateContainer))
-//                        .body(mapper.writeValueAsString(calculateSumDtoTotalSum))
-//                );
-//
-//        mockMvc.perform(
-//                        MockMvcRequestBuilders.get("/calculate-sum")
-//                ).andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                .andExpect(view().name("calculate-sum"))
-//                .andExpect(model().attribute("CalculateSum", hasItem(
-//                        allOf(
-//                                hasProperty("categoryName", is(c1.getCategoryName())),
-//                                hasProperty("sumOfExpense", is(c1.getSumOfExpense()))
-//                        )
-//                )))
-//
-//        ;
-//
-//        mockServer.verify();
-//    }
 
     @Test
     public void testUpdateDatesAfterEdit() throws Exception {

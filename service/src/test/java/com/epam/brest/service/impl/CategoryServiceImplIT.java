@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,6 +67,21 @@ class CategoryServiceImplIT {
             categoryService.create(category);
             categoryService.create(category);
         });
+    }
+
+    @Test
+    void testGetIdOfLastCategory() {
+
+        logger.debug("Execute IT test getIdOfLastCategory()");
+        assertNotNull(categoryService);
+
+        List<Category> categoryList = categoryService.findAllCategories();
+        Category categoryBeforeAdd = categoryList.get(categoryList.size() - 1);
+
+        categoryService.create(new Category("Toys"));
+        Integer idOfLastCategoryAfterAdd = categoryService.getIdOfLastCategory();
+        assertNotNull(idOfLastCategoryAfterAdd);
+        assertEquals(categoryBeforeAdd.getCategoryId() +1, idOfLastCategoryAfterAdd);
     }
 
     @Test

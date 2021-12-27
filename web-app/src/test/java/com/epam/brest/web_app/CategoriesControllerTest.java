@@ -23,9 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Arrays;
 
 import static com.epam.brest.model.constants.CategoryConstants.CATEGORY_NAME_SIZE;
 import static org.hamcrest.Matchers.*;
@@ -60,47 +58,6 @@ class CategoriesControllerTest {
         mockServer = MockRestServiceServer.createServer(restTemplate);
     }
 
-//    @Test
-//    void testReturnCategoriesPage() throws Exception {
-//
-//        Category c1 = createCategory(1, "Food");
-//        Category c2 = createCategory(2, "Households");
-//        Category c3 = createCategory(3, "Car");
-//        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
-//                .andExpect(method(HttpMethod.GET))
-//                .andRespond(withStatus(HttpStatus.OK)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(mapper.writeValueAsString(Arrays.asList(c1, c2, c3)))
-//                );
-//
-//        mockMvc.perform(
-//                        MockMvcRequestBuilders.get("/categories")
-//                ).andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-//                .andExpect(view().name("categories"))
-//                .andExpect(model().attribute("categories", hasItem(
-//                        allOf(
-//                                hasProperty("categoryId", is(c1.getCategoryId())),
-//                                hasProperty("categoryName", is(c1.getCategoryName()))
-//                        )
-//                )))
-////                .andExpect(model().attribute("categories", hasItem(
-////                        allOf(
-////                                hasProperty("departmentId", is(c2.getCategoryId())),
-////                                hasProperty("departmentName", is(c2.getCategoryName()))
-////                        )
-////                )))
-////                .andExpect(model().attribute("categories", hasItem(
-////                        allOf(
-////                                hasProperty("departmentId", is(c3.getCategoryId())),
-////                                hasProperty("departmentName", is(c3.getCategoryName()))
-////                        )
-////                )))
-//        ;
-//
-//        mockServer.verify();
-//    }
 
     @Test
     void testAddCategory() throws Exception {
@@ -131,26 +88,6 @@ class CategoriesControllerTest {
         // VERIFY
         mockServer.verify();
     }
-
-//    @Test
-//    void testFailAddCategoryOnEmptyName() throws Exception {
-//        // WHEN
-//        Category category = new Category("");
-//
-//        // THEN
-//        mockMvc.perform(
-//                        MockMvcRequestBuilders.post("/add-categories")
-//                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                                .param("categoryName", category.getCategoryName())
-//                ).andDo(MockMvcResultHandlers.print())
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("add-categories"))
-//                .andExpect(
-//                        model().attributeHasFieldErrors(
-//                                "add-categories", "categoryName"
-//                        )
-//                );
-//    }
 
     @Test
     public void testOpenEditCategoryPageById() throws Exception {

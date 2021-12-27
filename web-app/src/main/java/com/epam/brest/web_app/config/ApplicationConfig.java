@@ -1,6 +1,5 @@
 package com.epam.brest.web_app.config;
 
-import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.service.CategoryService;
 import com.epam.brest.service.ExpenseService;
 import com.epam.brest.service.dto.CalculateSumDtoService;

@@ -1,49 +1,62 @@
-package com.epam.brest.service.impl;
+package com.epam.brest.dao;
 
+import com.epam.brest.dao.dto.CalculateSumDtoDao;
+import com.epam.brest.dao.dto.CalculateSumDtoDaoJdbc;
+import com.epam.brest.model.Category;
 import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
-import com.epam.brest.service.config.ServiceTestConfig;
-import com.epam.brest.service.dto.CalculateSumDtoService;
+import com.epam.brest.testdb.SpringJdbcConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJdbcTest
+@Import({CalculateSumDtoDaoJdbc.class})
 @ExtendWith(SpringExtension.class)
-@Import({ServiceTestConfig.class})
+@ContextConfiguration(classes = SpringJdbcConfig.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-class CalculateSumDtoServiceImplIT {
+@Rollback
+class CalculateSumDtoDaoJDBCTestIT {
 
-    private final Logger logger = LogManager.getLogger(CalculateSumDtoServiceImplIT.class);
+    private final Logger logger = LogManager.getLogger(CalculateSumDtoDaoJDBCTestIT.class);
 
-    @Autowired
-    CalculateSumDtoService calculateSumDtoService;
+    private CalculateSumDtoDaoJdbc calculateSumDtoDaoJdbc;
+
+    public CalculateSumDtoDaoJDBCTestIT(@Autowired CalculateSumDtoDao calculateSumDtoDaoJdbc) {
+        this.calculateSumDtoDaoJdbc = (CalculateSumDtoDaoJdbc) calculateSumDtoDaoJdbc;
+    }
 
     @Test
-    public void testFindAllWithSumOfExpenses() {
+    void testFindAllWithSumOfExpenses() {
 
-        logger.debug("FindAllWithSumOfExpenses");
-        List<CalculateSumDto> calculateSumDtoList = calculateSumDtoService.findAllWithSumOfExpenses();
-        assertNotNull(calculateSumDtoList);
-        assertTrue(calculateSumDtoList.size() > 0);
+        logger.debug("Execute IT test: findAllWithSumOfExpenses()");
+        assertNotNull(calculateSumDtoDaoJdbc);
+        assertNotNull(calculateSumDtoDaoJdbc.findAllWithSumOfExpenses());
     }
 
     @Test
     void testGetTotalSum() {
 
         logger.debug("Execute IT test: getTotalSum()");
-        assertNotNull(calculateSumDtoService);
+        assertNotNull(calculateSumDtoDaoJdbc);
 
-        CalculateSumDto calculateSumDtoTotalSum = calculateSumDtoService.getTotalSum();
+        CalculateSumDto calculateSumDtoTotalSum = calculateSumDtoDaoJdbc.getTotalSum();
         assertNotNull(calculateSumDtoTotalSum);
 
         assertEquals("Total Sum", calculateSumDtoTotalSum.getCategoryName());
@@ -54,9 +67,9 @@ class CalculateSumDtoServiceImplIT {
     void testGetLocalDateContainer() {
 
         logger.debug("Execute IT test: getLocalDateContainer()");
-        assertNotNull(calculateSumDtoService);
+        assertNotNull(calculateSumDtoDaoJdbc);
 
-        LocalDateContainer localDateContainer = calculateSumDtoService.getLocalDateContainer();
+        LocalDateContainer localDateContainer = calculateSumDtoDaoJdbc.getLocalDateContainer();
         assertNotNull(localDateContainer);
         assertNotNull(localDateContainer.getDateFrom());
         assertNotNull(localDateContainer.getDateTo());
@@ -67,9 +80,9 @@ class CalculateSumDtoServiceImplIT {
     void testEditLocalDateContainer() {
 
         logger.debug("Execute IT test: editLocalDateContainer()");
-        assertNotNull(calculateSumDtoService);
+        assertNotNull(calculateSumDtoDaoJdbc);
 
-        LocalDateContainer localDateContainerBefore = calculateSumDtoService.getLocalDateContainer();
+        LocalDateContainer localDateContainerBefore = calculateSumDtoDaoJdbc.getLocalDateContainer();
         assertNotNull(localDateContainerBefore);
 
         LocalDate localDateFromBefore = localDateContainerBefore.getDateFrom();
@@ -78,9 +91,9 @@ class CalculateSumDtoServiceImplIT {
         assertNotNull(localDateToBefore);
 
         LocalDateContainer localDateContainerAfter = new LocalDateContainer(localDateFromBefore.minusMonths(1), localDateToBefore.plusMonths(2));
-        calculateSumDtoService.editLocalDateContainer(localDateContainerAfter.getDateFrom(), localDateContainerAfter.getDateTo());
+        calculateSumDtoDaoJdbc.editLocalDateContainer(localDateContainerAfter.getDateFrom(), localDateContainerAfter.getDateTo());
 
-        LocalDateContainer updatedLocalDateContainer = calculateSumDtoService.getLocalDateContainer();
+        LocalDateContainer updatedLocalDateContainer = calculateSumDtoDaoJdbc.getLocalDateContainer();
         assertNotNull(updatedLocalDateContainer);
         assertNotNull(updatedLocalDateContainer.getDateFrom());
         assertNotNull(updatedLocalDateContainer.getDateTo());

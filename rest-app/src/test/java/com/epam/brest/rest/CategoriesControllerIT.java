@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.epam.brest.model.constants.CategoryConstants.CATEGORY_NAME_SIZE;
-import static com.epam.brest.rest.exception.CustomExceptionHandler.VALIDATION_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -104,6 +103,24 @@ public class CategoriesControllerIT {
     }
 
     @Test
+    public void testGetIdOfLastCategory() throws Exception {
+
+        // given
+        List<Category> categoryList = categoriesService.findAllCategories();
+        Integer idOfLastCategoryBeforeAdd = categoryList.get(categoryList.size()-1).getCategoryId();
+        assertNotNull(idOfLastCategoryBeforeAdd);
+
+        categoriesService.create(new Category("Toys"));
+
+        // when
+        Integer idOfLastCategory = categoriesService.getIdOfLastCategory();
+
+        // then
+        assertNotNull(idOfLastCategory);
+        assertEquals(idOfLastCategory, idOfLastCategoryBeforeAdd + 1);
+    }
+
+    @Test
     public void testUpdateCategory() throws Exception {
 
         // given
@@ -151,42 +168,6 @@ public class CategoriesControllerIT {
         assertTrue(categories.size() - 1 == currentCategories.size());
     }
 
-//    @Test
-//    public void shouldReturnDepartmentNotFoundError() throws Exception {
-//
-//        LOGGER.debug("shouldReturnDepartmentNotFoundError()");
-//        MockHttpServletResponse response =
-//                mockMvc.perform(MockMvcRequestBuilders.get(DEPARTMENTS_ENDPOINT + "/999999")
-//                                .accept(MediaType.APPLICATION_JSON)
-//                        ).andExpect(status().isNotFound())
-//                        .andReturn().getResponse();
-//        assertNotNull(response);
-//        ErrorResponse errorResponse = objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-//        assertNotNull(errorResponse);
-//        assertEquals(errorResponse.getMessage(), DEPARTMENT_NOT_FOUND);
-//    }
-
-//    @Test
-//    public void testFailCreateCategoryWithDuplicateName() throws Exception {
-//        Category category1 = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
-//        Integer id = categoriesService.create(category1);
-//        assertNotNull(id);
-//
-//        Category category2 = new Category(category1.getCategoryName());
-//
-//        MockHttpServletResponse response =
-//                mockMvc.perform(post(CATEGORIES_ENDPOINT)
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(objectMapper.writeValueAsString(category2))
-//                                .accept(MediaType.APPLICATION_JSON)
-//                        ).andExpect(status().isUnprocessableEntity())
-//                        .andReturn().getResponse();
-//
-//        assertNotNull(response);
-//        ErrorResponse errorResponse = objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-//        assertNotNull(errorResponse);
-//        assertEquals(errorResponse.getMessage(), VALIDATION_ERROR);
-//    }
 
 
     class MockMvcCategoriesService {
@@ -212,6 +193,16 @@ public class CategoriesControllerIT {
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
             return Optional.of(objectMapper.readValue(response.getContentAsString(), Category.class));
+        }
+
+        public Integer getIdOfLastCategory() throws Exception {
+
+            LOGGER.debug("getIdOfLastCategory()");
+            MockHttpServletResponse response = mockMvc.perform(get(CATEGORIES_ENDPOINT + "/last_id")
+                            .accept(MediaType.APPLICATION_JSON)
+                    ).andExpect(status().isOk())
+                    .andReturn().getResponse();
+            return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
         public Integer create(Category category) throws Exception {

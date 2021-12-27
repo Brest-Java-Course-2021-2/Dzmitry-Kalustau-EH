@@ -1,9 +1,6 @@
 package com.epam.brest.rest;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
-import com.epam.brest.model.exceptions.IncorrectExpense;
-import com.epam.brest.service.CategoryService;
 import com.epam.brest.service.ExpenseService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +30,7 @@ public class ExpensesController {
     }
 
     @GetMapping(value="/expenses/{id}")
-    public final Expense getExpenseById(@PathVariable Integer id) {
+    public final Expense getIdOfLastExpense(@PathVariable Integer id) {
 
         logger.debug("get expense by id");
         return expenseService.getExpenseById(id);
@@ -44,11 +41,7 @@ public class ExpensesController {
 
         logger.debug("add Expense({})", expense);
         Integer id = null;
-        try {
             id = expenseService.create(expense);
-        } catch (IncorrectExpense incorrectExpense) {
-            incorrectExpense.printStackTrace();
-        }
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
@@ -70,7 +63,7 @@ public class ExpensesController {
     }
 
     @GetMapping(value="/expenses/last_id")
-    public final Integer getExpenseById() {
+    public final Integer getIdOfLastExpense() {
 
         logger.debug("get id of last expense");
         return expenseService.getIdOfLastExpense();

@@ -66,6 +66,21 @@ public class ExpenseDaoJDBCImplTestIT {
     }
 
     @Test
+    void testGetIdOfLastExpense() {
+        logger.debug("Execute IT test getIdOfLastExpense()");
+
+        assertNotNull(expenseDao);
+
+        List<Expense> expenseList = expenseDao.findAllExpenses();
+        Expense expenseBeforeAdd = expenseList.get(expenseList.size() - 1);
+
+        expenseDao.create(new Expense(LocalDate.now(), 1, BigDecimal.valueOf(1)));
+        Integer idOfLastExpenseAfterAdd = expenseDao.getIdOfLastExpense();
+        assertNotNull(idOfLastExpenseAfterAdd);
+        assertEquals(expenseBeforeAdd.getExpenseId() +1, idOfLastExpenseAfterAdd);
+    }
+
+    @Test
     void testCreate() throws IncorrectExpense {
         logger.debug("Execute IT test create()");
 
@@ -87,6 +102,17 @@ public class ExpenseDaoJDBCImplTestIT {
         assertThrows(IncorrectExpense.class, () -> {
             expenseDao.create(expense);
         });
+    }
+
+    @Test
+    void testCount() {
+
+        logger.debug("Execute IT test count()");
+        assertNotNull(expenseDao);
+        Integer countExpense = expenseDao.count();
+        assertNotNull(countExpense);
+        assertTrue(countExpense > 0);
+        assertEquals(Integer.valueOf(8), countExpense);
     }
 
     @Test

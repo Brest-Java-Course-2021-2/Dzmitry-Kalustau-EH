@@ -1,9 +1,7 @@
 package com.epam.brest.web_app;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +26,6 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
 
-import static com.epam.brest.model.constants.CategoryConstants.CATEGORY_NAME_SIZE;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;

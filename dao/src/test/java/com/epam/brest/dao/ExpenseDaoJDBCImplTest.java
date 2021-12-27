@@ -1,6 +1,5 @@
 package com.epam.brest.dao;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

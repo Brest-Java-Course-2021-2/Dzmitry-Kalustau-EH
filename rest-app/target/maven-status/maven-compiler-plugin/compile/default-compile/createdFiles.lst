@@ -1,7 +1,0 @@
-com/epam/brest/rest/CalculateSumController.class
-com/epam/brest/rest/ExpensesController.class
-com/epam/brest/rest/CategoriesController.class
-com/epam/brest/rest/exception/CustomExceptionHandler.class
-com/epam/brest/rest/exception/ErrorResponse.class
-com/epam/brest/rest/VersionController.class
-com/epam/brest/RestApplication.class

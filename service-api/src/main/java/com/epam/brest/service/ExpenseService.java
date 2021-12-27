@@ -1,6 +1,5 @@
 package com.epam.brest.service;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.model.exceptions.IncorrectExpense;
 
@@ -30,7 +29,7 @@ public interface ExpenseService {
      * @return - id of the created expense
      * @throws - expense with a nonexistent category
      */
-    Integer create(Expense expense) throws IncorrectExpense;
+    Integer create(Expense expense);
 
     /**
      * Update Expense

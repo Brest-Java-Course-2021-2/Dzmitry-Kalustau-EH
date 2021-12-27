@@ -1,11 +1,10 @@
 package com.epam.brest.rest;
 
+import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.rest.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -42,10 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class ExpensesControllerIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExpensesControllerIT.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExpensesControllerIT.class);
 
-    private static Integer categoryId;
-    private static BigDecimal sumOfExpense;
+    private Expense testExpense;
 
     public static final String EXPENSES_ENDPOINT = "/expenses";
 
@@ -55,7 +52,7 @@ public class ExpensesControllerIT {
     @Autowired
     private CustomExceptionHandler customExceptionHandler;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
 
@@ -69,116 +66,135 @@ public class ExpensesControllerIT {
                 .alwaysDo(MockMvcResultHandlers.print())
                 .build();
 
+        objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+
         Random random = new Random(1);
-        categoryId = random.nextInt(5)+1;
-        sumOfExpense = new BigDecimal(random.nextDouble()*10);
+        testExpense = new Expense();
+        testExpense.setCategoryId(random.nextInt(5)+1);
+        testExpense.setSumOfExpense( new BigDecimal(random.nextDouble()*10));
     }
 
     @Test
     public void testCreateExpense() throws Exception {
-        Expense expense = new Expense();
-        expense.setCategoryId(categoryId);
-        expense.setSumOfExpense(sumOfExpense);
-        Integer id = expensesService.create(expense);
+
+        logger.debug("test CreateExpense()");
+        Integer id = expensesService.create(testExpense);
         assertNotNull(id);
     }
 
-//    @Test
-//    public void testFindAllExpenses() throws Exception {
-//
-//        // given
-//        Expense expense = new Expense();
-//        expense.setCategoryId(categoryId);
-//        Integer id = expensesService.create(expense);
-//
-//        // when
-//        List<Expense> expenses = expensesService.findAllExpenses();
-//
-//        // then
-//        assertNotNull(expenses);
-//        assertTrue(expenses.size() > 0);
-//    }
-//
-//    @Test
-//    public void testFindExpenseById() throws Exception {
-//
-//        // given
-//        Expense expense = new Expense();
-//        expense.setCategoryId(categoryId);
-//        Integer id = expensesService.create(expense);
-//
-//        assertNotNull(id);
-//
-//        // when
-//        Optional<Expense> optionalExpense = expensesService.getExpenseById(id);
-//
-//        // then
-//        assertTrue(optionalExpense.isPresent());
-//        assertEquals(optionalExpense.get().getCategoryId(), id);
-//        assertEquals(expense.getExpenseId(), optionalExpense.get().getExpenseId());
-//    }
-//
-//    @Test
-//    public void testUpdateExpense() throws Exception {
-//
-//        // given
-//        Expense expense = new Expense(new BigDecimal("22.5"));
-//        expense.setCategoryId(categoryId);
-//        Integer id = expensesService.create(expense);
-//        assertNotNull(id);
-//
-//        Optional<Expense> expenseOptional = expensesService.getExpenseById(id);
-//        assertTrue(expenseOptional.isPresent());
-//
-//        expenseOptional.get().
-//                setSumOfExpense(new BigDecimal("15"));
-//
-//        // when
-//        int result = expensesService.update(expenseOptional.get());
-//
-//        // then
-//        assertTrue(1 == result);
-//
-//        Optional<Expense> updatedExpenseOptional = expensesService.getExpenseById(id);
-//        assertTrue(updatedExpenseOptional.isPresent());
-//        assertEquals(updatedExpenseOptional.get().getCategoryId(), id);
-//        assertEquals(updatedExpenseOptional.get().getSumOfExpense(), expenseOptional.get().getSumOfExpense());
-//
-//    }
-//
-//    @Test
-//    public void testDeleteExpense() throws Exception {
-//        // given
-//        Expense expense = new Expense(categoryId);
-//        expense.setCategoryId(categoryId);
-//        Integer id = expensesService.create(expense);
-//
-//        List<Expense> expenses = expensesService.findAllExpenses();
-//        assertNotNull(expenses);
-//
-//        // when
-//        int result = expensesService.delete(id);
-//
-//        // then
-//        assertTrue(1 == result);
-//
-//        List<Expense> currentExpenses = expensesService.findAllExpenses();
-//        assertNotNull(currentExpenses);
-//
-//        assertTrue(expenses.size() - 1 == currentExpenses.size());
-//    }
+    @Test
+    public void testFindAllExpenses() throws Exception {
+
+        logger.debug("test FindAllExpenses()");
+        // given
+        Integer id = expensesService.create(testExpense);
+
+        // when
+        List<Expense> expenses = expensesService.findAllExpenses();
+
+        // then
+        assertNotNull(expenses);
+        assertTrue(expenses.size() > 0);
+    }
+
+    @Test
+    public void testFindExpenseById() throws Exception {
+
+        logger.debug("test FindExpenseById");
+        // given
+        Integer id = expensesService.create(testExpense);
+
+        assertNotNull(id);
+
+        // when
+        Optional<Expense> optionalExpense = expensesService.getExpenseById(id);
+
+        // then
+        assertTrue(optionalExpense.isPresent());
+        assertEquals(optionalExpense.get().getExpenseId(), id);
+        assertEquals(testExpense.getSumOfExpense(), optionalExpense.get().getSumOfExpense());
+    }
+
+    @Test
+    public void testGetIdOfLastExpense() throws Exception {
+
+        // given
+        List<Expense> expenseList = expensesService.findAllExpenses();
+        Integer idOfLastExpenseBeforeAdd = expenseList.get(expenseList.size()-1).getExpenseId();
+        assertNotNull(idOfLastExpenseBeforeAdd);
+
+        expensesService.create(new Expense(LocalDate.now(), 1, BigDecimal.valueOf(2)));
+
+        // when
+        Integer idOfLastExpense = expensesService.getIdOfLastExpense();
+
+        // then
+        assertNotNull(idOfLastExpense);
+        assertEquals(idOfLastExpense, idOfLastExpenseBeforeAdd + 1);
+    }
+
+    @Test
+    public void testUpdateExpense() throws Exception {
+
+        logger.debug("test UpdateExpense");
+        // given
+        Integer id = expensesService.create(testExpense);
+        assertNotNull(id);
+
+        Optional<Expense> expenseOptional = expensesService.getExpenseById(id);
+        assertTrue(expenseOptional.isPresent());
+
+        expenseOptional.get().
+                setSumOfExpense(new BigDecimal("15"));
+
+        // when
+        int result = expensesService.update(expenseOptional.get());
+
+        // then
+        assertTrue(1 == result);
+
+        Optional<Expense> updatedExpenseOptional = expensesService.getExpenseById(id);
+        assertTrue(updatedExpenseOptional.isPresent());
+        assertEquals(updatedExpenseOptional.get().getExpenseId(), id);
+        assertEquals(updatedExpenseOptional.get().getSumOfExpense(), expenseOptional.get().getSumOfExpense());
+
+    }
+
+    @Test
+    public void testDeleteExpense() throws Exception {
+
+        logger.debug("test DeleteExpense");
+        // given
+        Integer id = expensesService.create(testExpense);
+
+        List<Expense> expenses = expensesService.findAllExpenses();
+        assertNotNull(expenses);
+
+        // when
+        int result = expensesService.delete(id);
+
+        // then
+        assertTrue(1 == result);
+
+        List<Expense> currentExpenses = expensesService.findAllExpenses();
+        assertNotNull(currentExpenses);
+
+        assertTrue(expenses.size() - 1 == currentExpenses.size());
+    }
 
 
     class MockMvcExpensesService {
 
         public List<Expense> findAllExpenses() throws Exception {
 
-            LOGGER.debug("findAllExpenses()");
+            logger.debug("findAllExpenses()");
             MockHttpServletResponse response = mockMvc.perform(get(EXPENSES_ENDPOINT)
                             .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
             assertNotNull(response);
+
 
             return objectMapper.readValue(response.getContentAsString(), new TypeReference<List<Expense>>() {
             });
@@ -186,7 +202,7 @@ public class ExpensesControllerIT {
 
         public Optional<Expense> getExpenseById(Integer id) throws Exception {
 
-            LOGGER.debug("getExpenseById{})", id);
+            logger.debug("getExpenseById{})", id);
             MockHttpServletResponse response = mockMvc.perform(get(EXPENSES_ENDPOINT + "/" + id)
                             .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk())
@@ -194,9 +210,19 @@ public class ExpensesControllerIT {
             return Optional.of(objectMapper.readValue(response.getContentAsString(), Expense.class));
         }
 
+        public Integer getIdOfLastExpense() throws Exception {
+
+            logger.debug("getIdOfLastExpense()");
+            MockHttpServletResponse response = mockMvc.perform(get(EXPENSES_ENDPOINT + "/last_id")
+                            .accept(MediaType.APPLICATION_JSON)
+                    ).andExpect(status().isOk())
+                    .andReturn().getResponse();
+            return objectMapper.readValue(response.getContentAsString(), Integer.class);
+        }
+
         public Integer create(Expense expense) throws Exception {
 
-            LOGGER.debug("create({})", expense);
+            logger.debug("create({})", expense);
             String json = objectMapper.writeValueAsString(expense);
             MockHttpServletResponse response =
                     mockMvc.perform(post(EXPENSES_ENDPOINT)
@@ -205,12 +231,13 @@ public class ExpensesControllerIT {
                                     .accept(MediaType.APPLICATION_JSON)
                             ).andExpect(status().isOk())
                             .andReturn().getResponse();
+
             return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
         private int update(Expense expense) throws Exception {
 
-            LOGGER.debug("update({})", expense);
+            logger.debug("update({})", expense);
             MockHttpServletResponse response =
                     mockMvc.perform(put(EXPENSES_ENDPOINT)
                                     .contentType(MediaType.APPLICATION_JSON)
@@ -223,7 +250,7 @@ public class ExpensesControllerIT {
 
         private int delete(Integer expenseId) throws Exception {
 
-            LOGGER.debug("delete(id:{})", expenseId);
+            logger.debug("delete(id:{})", expenseId);
             MockHttpServletResponse response = mockMvc.perform(
                             MockMvcRequestBuilders.delete(EXPENSES_ENDPOINT)
                                     .contentType(MediaType.APPLICATION_JSON)

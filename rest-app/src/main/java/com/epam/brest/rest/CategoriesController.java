@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class CategoriesController {
     }
 
     @GetMapping(value="/categories/{id}")
-    public final Category getCategoryById(@PathVariable Integer id) {
+    public final Category getIdOfLastCategory(@PathVariable Integer id) {
 
         logger.debug("get category by id");
         return categoryService.getCategoryById(id);
@@ -64,7 +63,7 @@ public class CategoriesController {
     }
 
     @GetMapping(value="/categories/last_id")
-    public final Integer getCategoryById() {
+    public final Integer getIdOfLastCategory() {
 
         logger.debug("get id of last category");
         return categoryService.getIdOfLastCategory();

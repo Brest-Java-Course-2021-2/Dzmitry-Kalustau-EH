@@ -62,10 +62,6 @@
                               th:object="${category}"
                               method="post">
 
-                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                <p>Please fix errors below:</p>
-                            </div>
-
                             <div class="mb-3">
                                 <label class="form-label"
                                        for="field_categoryCode">Code</label>
@@ -82,9 +78,7 @@
                                        type="text" value="Food"
                                        th:field="*{categoryName}"/>
                             </div>
-                            <div th:if="${#fields.hasErrors('categoryName')}"
-                                 class="text-danger"
-                                 th:errors="*{categoryName}">[errors]</div>
+
 
                             <div>
                                 <input class="btn btn-primary"  type="submit" value="Save"/>

@@ -38,7 +38,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Integer create(Expense expense) throws IncorrectExpense {
+    public Integer create(Expense expense) {
 
         logger.debug("create expense {}", expense);
         return expenseDao.create(expense);
