@@ -122,10 +122,13 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
         Integer[] numbersArray = new Integer[categoryIdList.size()];
         for (int i=0; i<numbersArray.length; i++) numbersArray[i] = i + 1;
 
-        for (int i=0; i<categoryIdList.size(); i++) {
+        if (categoryIdList.get(0) != numbersArray[0]) {
+            return 1;
+        }
+
+        for (int i=1; i<categoryIdList.size(); i++) {
             if (categoryIdList.get(i) != numbersArray[i]) {
-                missedId = categoryIdList.get(i-1) + 1;
-                break;
+                return categoryIdList.get(i-1) + 1;
             }
         }
         return missedId;

@@ -62,7 +62,7 @@ public class ExpensesController {
         Integer lastExpenseId = expenseService.getIdOfLastExpense();
         LocalDate currentDate = LocalDate.now();
 
-        Expense expense = new Expense(lastExpenseId + 1, currentDate);
+        Expense expense = new Expense(lastExpenseId, currentDate);
         model.addAttribute("expense", expense);
         return "add-expenses";
     }

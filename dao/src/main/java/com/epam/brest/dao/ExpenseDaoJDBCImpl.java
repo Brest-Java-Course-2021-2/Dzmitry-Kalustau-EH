@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class ExpenseDaoJDBCImpl implements ExpenseDao {
@@ -28,7 +29,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
 
     private final String SQL_ALL_EXPENSES = "SELECT * FROM expense";
     private final String SQL_EXPENSE_BY_ID = "SELECT * FROM expense WHERE expense_id = :expenseId";
-    private final String SQL_CREATE_EXPENSE = "INSERT INTO expense(date, category_id, price) VALUES (:date, :category_id, :price)";
+    private final String SQL_CREATE_EXPENSE = "INSERT INTO expense(expense_id, date, category_id, price) VALUES (:expense_id, :date, :category_id, :price)";
     private final String SQL_UPDATE_EXPENSE = "UPDATE expense SET category_id = :categoryId, price = :price WHERE expense_id = :expenseId";
     private final String SQL_DELETE_EXPENSE_BY_ID = "DELETE FROM expense WHERE expense_id = :expenseId";
     private final String SQL_ALL_CATEGORIES = "SELECT c.category_id, c.category_name FROM category c ORDER BY c.category_id";
@@ -69,6 +70,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
             throw new IncorrectExpense("Such value of category does not exists", expense.getCategoryId());
         }
         Map<String, Object> mapParams = new HashMap<>();
+        mapParams.put("expense_id", expense.getExpenseId());
         mapParams.put("date", expense.getDateOfExpense());
         mapParams.put("category_id", expense.getCategoryId());
         mapParams.put("price", expense.getSumOfExpense());
@@ -119,18 +121,6 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     }
 
 
-    private class ExpenseRowMapper implements RowMapper<Expense> {
-        @Override
-        public Expense mapRow(ResultSet resultSet, int i) throws SQLException {
-            Expense expense = new Expense();
-            expense.setExpenseId(resultSet.getInt("expense_id"));
-            expense.setDateOfExpense((resultSet.getDate("date")).toLocalDate());
-            expense.setCategoryId(resultSet.getInt("category_id"));
-            expense.setSumOfExpense(resultSet.getBigDecimal("price"));
-            return expense;
-        }
-    }
-
     @Override
     public Integer count() {
         logger.debug("count()");
@@ -140,8 +130,35 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     @Override
     public Integer getIdOfLastExpense() {
         logger.debug("getIdOfLastExpense");
-        return count();
+        List<Expense> expenseList = namedParameterJdbcTemplate.query(SQL_ALL_EXPENSES, new ExpenseRowMapper());
+        Integer idOfLastExpense = 1;
+        if (expenseList.isEmpty()) {
+            return idOfLastExpense;
+        }
+
+        idOfLastExpense = findMissedId(expenseList);
+        return idOfLastExpense;
     }
+
+
+    private Integer findMissedId(List<Expense> expenseList) {
+        Integer missedId = expenseList.size()+1;
+        List<Integer> expenseIdList = expenseList.stream().map((expense) -> expense.getExpenseId()).collect(Collectors.toList());
+        Integer[] numbersArray = new Integer[expenseIdList.size()];
+        for (int i=0; i<numbersArray.length; i++) numbersArray[i] = i + 1;
+
+        if (expenseIdList.get(0) != numbersArray[0]) {
+            return 1;
+        }
+
+        for (int i=1; i<expenseIdList.size(); i++) {
+            if (expenseIdList.get(i) != numbersArray[i]) {
+                return expenseIdList.get(i-1) + 1;
+            }
+        }
+        return missedId;
+    }
+
 
     private class CategoryRowMapper implements RowMapper<Category> {
         @Override
@@ -150,6 +167,18 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
             category.setCategoryId(resultSet.getInt("category_id"));
             category.setCategoryName(resultSet.getString("category_name"));
             return category;
+        }
+    }
+
+    private class ExpenseRowMapper implements RowMapper<Expense> {
+        @Override
+        public Expense mapRow(ResultSet resultSet, int i) throws SQLException {
+            Expense expense = new Expense();
+            expense.setExpenseId(resultSet.getInt("expense_id"));
+            expense.setDateOfExpense((resultSet.getDate("date")).toLocalDate());
+            expense.setCategoryId(resultSet.getInt("category_id"));
+            expense.setSumOfExpense(resultSet.getBigDecimal("price"));
+            return expense;
         }
     }
 }
