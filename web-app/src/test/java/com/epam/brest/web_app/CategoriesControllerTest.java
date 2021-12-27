@@ -23,7 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.math.BigDecimal;
 import java.net.URI;
+import java.util.Arrays;
 
 import static com.epam.brest.model.constants.CategoryConstants.CATEGORY_NAME_SIZE;
 import static org.hamcrest.Matchers.*;
@@ -58,6 +60,49 @@ class CategoriesControllerTest {
         mockServer = MockRestServiceServer.createServer(restTemplate);
     }
 
+    @Test
+    void testReturnCategoriesPage() throws Exception {
+
+        Category category1 = createCategory(1, "Food");
+        Category category2 = createCategory(2, "Households");
+        Category category3 = createCategory(3, "Car");
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(Arrays.asList(category1, category2, category3)))
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/categories")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("categories"));
+
+        mockServer.verify();
+    }
+
+    @Test
+    public void testOpenAddCategoryPage() throws Exception {
+
+        logger.debug("test OpenAddCategoryPage");
+        Integer lastId = 7;
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/last_id")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(lastId))
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/add-categories")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("add-categories"))
+                .andExpect(model().attribute("category", hasProperty("categoryId", is(8))));
+    }
 
     @Test
     void testAddCategory() throws Exception {

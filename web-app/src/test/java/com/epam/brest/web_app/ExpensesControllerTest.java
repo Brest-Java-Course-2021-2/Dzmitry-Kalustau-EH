@@ -1,5 +1,6 @@
 package com.epam.brest.web_app;
 
+import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
@@ -59,6 +61,26 @@ class ExpensesControllerTest {
         mockServer = MockRestServiceServer.createServer(restTemplate);
     }
 
+    @Test
+    public void testOpenAddExpensePage() throws Exception {
+
+        logger.debug("test OpenAddExpensePage");
+        Integer lastId = 9;
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(EXPENSES_URL + "/last_id")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(lastId))
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/add-expenses")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("add-expenses"))
+                .andExpect(model().attribute("expense", hasProperty("expenseId", is(10))));
+    }
 
     @Test
     void testAddExpense() throws Exception {
@@ -189,6 +211,15 @@ class ExpensesControllerTest {
                 .andExpect(redirectedUrl("/expenses"));
 
         mockServer.verify();
+    }
+
+    private Expense createExpense(int id) {
+
+        logger.info("create expense with id={}", id);
+        Expense expense = new Expense(id);
+        expense.setCategoryId(2);
+        expense.setSumOfExpense(new BigDecimal(5));
+        return expense;
     }
 
 }
