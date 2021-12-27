@@ -11,7 +11,7 @@ CREATE TABLE category
 
 CREATE TABLE expense
 (
-  expense_id INT NOT NULL AUTO_INCREMENT,
+  expense_id INT NOT NULL,
   date DATE NOT NULL,
   category_id INT NOT NULL,
   price DECIMAL NOT NULL,
