@@ -49,7 +49,7 @@ public class CategoriesController {
     public final String gotoAddCategoriesPage(Model model) {
         logger.debug("gotoAddCategoriesPage({})", model);
         Integer lastCategoryId = categoryService.getIdOfLastCategory();
-        Category category = new Category(lastCategoryId+1);
+        Category category = new Category(lastCategoryId);
         model.addAttribute("category", category);
         return "add-categories";
     }
