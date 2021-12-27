@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class CategoryDaoJDBCImpl implements CategoryDao {
@@ -25,7 +27,7 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final String SQL_ALL_CATEGORIES = "SELECT c.category_id, c.category_name FROM category c ORDER BY c.category_id";
-    private final String SQL_CREATE_CATEGORY = "INSERT INTO category(category_name) VALUES (:category_name)";
+    private final String SQL_CREATE_CATEGORY = "INSERT INTO category(category_id, category_name) VALUES (:categoryId, :categoryName)";
     private final String SQL_CHECK_UNIQUE_CATEGORY_NAME = "SELECT count(c.category_name) FROM category c WHERE lower(c.category_name) = lower(:categoryName)";
     private final String SQL_SELECT_COUNT = "SELECT count(*) FROM category";
     private final String SQL_UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
@@ -51,7 +53,11 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
             throw new IllegalArgumentException("Category with the same name already exists in DB.");
         }
 
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("category_name", category.getCategoryName());
+        Map<String, Object> paramsOfSql = new HashMap<>();
+        paramsOfSql.put("categoryName", category.getCategoryName());
+        paramsOfSql.put("categoryId", category.getCategoryId());
+
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(paramsOfSql);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(SQL_CREATE_CATEGORY, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
@@ -98,7 +104,31 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
     @Override
     public Integer getIdOfLastCategory() {
         logger.debug("getIdOfLastCategory");
-        return count();
+
+        List<Category> categoryList = namedParameterJdbcTemplate.query(SQL_ALL_CATEGORIES, new CategoryRowMapper());
+        Integer idOfLastCategory = 1;
+        if (categoryList.isEmpty()) {
+            return idOfLastCategory;
+        }
+
+        idOfLastCategory = findMissedId(categoryList);
+        return idOfLastCategory;
+        }
+
+
+    private Integer findMissedId(List<Category> categoryList) {
+        Integer missedId = categoryList.size()+1;
+        List<Integer> categoryIdList = categoryList.stream().map((category) -> category.getCategoryId()).collect(Collectors.toList());
+        Integer[] numbersArray = new Integer[categoryIdList.size()];
+        for (int i=0; i<numbersArray.length; i++) numbersArray[i] = i + 1;
+
+        for (int i=0; i<categoryIdList.size(); i++) {
+            if (categoryIdList.get(i) != numbersArray[i]) {
+                missedId = categoryIdList.get(i-1) + 1;
+                break;
+            }
+        }
+        return missedId;
     }
 
     private class CategoryRowMapper implements RowMapper<Category> {
