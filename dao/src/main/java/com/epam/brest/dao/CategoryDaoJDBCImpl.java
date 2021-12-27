@@ -108,6 +108,7 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
         List<Category> categoryList = namedParameterJdbcTemplate.query(SQL_ALL_CATEGORIES, new CategoryRowMapper());
         Integer idOfLastCategory = 1;
         if (categoryList.isEmpty()) {
+            logger.info("categoryList was empty");
             return idOfLastCategory;
         }
 

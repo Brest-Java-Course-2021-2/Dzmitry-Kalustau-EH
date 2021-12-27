@@ -133,6 +133,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         List<Expense> expenseList = namedParameterJdbcTemplate.query(SQL_ALL_EXPENSES, new ExpenseRowMapper());
         Integer idOfLastExpense = 1;
         if (expenseList.isEmpty()) {
+            logger.info("expenseList was empty");
             return idOfLastExpense;
         }
 
