@@ -58,6 +58,26 @@ class CategoriesControllerTest {
         mockServer = MockRestServiceServer.createServer(restTemplate);
     }
 
+    @Test
+    public void testOpenAddCategoryPage() throws Exception {
+
+        logger.debug("test OpenAddCategoryPage");
+        Integer lastId = 7;
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(CATEGORIES_URL + "/last_id")))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(lastId))
+                );
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/add-categories")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("add-categories"))
+                .andExpect(model().attribute("category", hasProperty("categoryId", is(8))));
+    }
 
     @Test
     void testAddCategory() throws Exception {
