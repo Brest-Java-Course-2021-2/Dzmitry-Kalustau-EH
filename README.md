@@ -8,7 +8,7 @@ The main idea of this application is to keep track of expenses and display detai
 For more detailed information: [Software requirements specification](documentation/srs)
 
 ## Requirements
-* JVM 11+
+* JDK 11+
 * Apache Maven
 * Git
 
