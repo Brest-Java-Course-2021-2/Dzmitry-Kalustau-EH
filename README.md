@@ -58,6 +58,12 @@ curl --request PUT 'http://localhost:8088/categories' \
 "categoryName": "Gifts"
 }'
 ```
+Delete Category
+```
+curl --request DELETE 'http://localhost:8088/categories' \
+--header 'Content-Type: application/json' \
+--data-raw '6'
+```
 
 #### Expenses
 Get all expenses:
@@ -94,6 +100,12 @@ curl --request PUT 'http://localhost:8088/expenses' \
 "categoryId": "1",
 "sumOfExpense": "1"
 }'
+```
+Delete Expense
+```
+curl --request DELETE 'http://localhost:8088/expenses' \
+--header 'Content-Type: application/json' \
+--data-raw '8'
 ```
 
 #### Calculate Sum
