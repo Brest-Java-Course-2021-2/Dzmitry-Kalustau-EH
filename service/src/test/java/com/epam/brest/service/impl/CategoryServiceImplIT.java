@@ -51,7 +51,7 @@ class CategoryServiceImplIT {
         logger.debug("Execute IT test create()");
         assertNotNull(categoryService);
         Integer categoryCountBefore = categoryService.count();
-        Category category = new Category("Tickets");
+        Category category = new Category(7, "Tickets");
         Integer categoryId = categoryService.create(category);
         assertNotNull(categoryId);
         assertEquals(categoryCountBefore, categoryService.count() - 1);
@@ -62,7 +62,7 @@ class CategoryServiceImplIT {
 
         logger.debug("Execute IT test CreateEqualsCategory()");
         assertNotNull(categoryService);
-        Category category = new Category("Restaurant");
+        Category category = new Category(7, "Restaurant");
         assertThrows(IllegalArgumentException.class, () -> {
             categoryService.create(category);
             categoryService.create(category);
@@ -78,10 +78,10 @@ class CategoryServiceImplIT {
         List<Category> categoryList = categoryService.findAllCategories();
         Category categoryBeforeAdd = categoryList.get(categoryList.size() - 1);
 
-        categoryService.create(new Category("Toys"));
+        categoryService.create(new Category(7, "Toys"));
         Integer idOfLastCategoryAfterAdd = categoryService.getIdOfLastCategory();
         assertNotNull(idOfLastCategoryAfterAdd);
-        assertEquals(categoryBeforeAdd.getCategoryId() +1, idOfLastCategoryAfterAdd);
+        assertEquals(categoryBeforeAdd.getCategoryId() +2, idOfLastCategoryAfterAdd);
     }
 
     @Test
@@ -118,7 +118,7 @@ class CategoryServiceImplIT {
     void testDelete() {
 
         logger.debug("Execute IT test delete()");
-        categoryService.create(new Category("Test Category"));
+        categoryService.create(new Category(7, "Test Category"));
         List<Category> categoryList = categoryService.findAllCategories();
 
         categoryService.delete(categoryList.get(categoryList.size()-1).getCategoryId());

@@ -79,7 +79,7 @@ class ExpensesControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(view().name("add-expenses"))
-                .andExpect(model().attribute("expense", hasProperty("expenseId", is(10))));
+                .andExpect(model().attribute("expense", hasProperty("expenseId", is(9))));
     }
 
     @Test

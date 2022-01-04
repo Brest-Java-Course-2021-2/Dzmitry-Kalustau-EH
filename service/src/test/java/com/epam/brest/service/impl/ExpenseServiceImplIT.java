@@ -62,10 +62,10 @@ public class ExpenseServiceImplIT {
         List<Expense> expenseList = expenseService.findAllExpenses();
         Expense expenseBeforeAdd = expenseList.get(expenseList.size() - 1);
 
-        expenseService.create(new Expense(LocalDate.now(), 1, BigDecimal.valueOf(1)));
+        expenseService.create(new Expense(9, LocalDate.now(), 1, BigDecimal.valueOf(1)));
         Integer idOfLastExpenseAfterAdd = expenseService.getIdOfLastExpense();
         assertNotNull(idOfLastExpenseAfterAdd);
-        assertEquals(expenseBeforeAdd.getExpenseId() +1, idOfLastExpenseAfterAdd);
+        assertEquals(expenseBeforeAdd.getExpenseId() +2, idOfLastExpenseAfterAdd);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ExpenseServiceImplIT {
 
         assertNotNull(expenseService);
         int countOfExpensesBefore = (expenseService.findAllExpenses()).size();
-        Expense expense = new Expense(LocalDate.of(2021, 9,1), 1, new BigDecimal(15.5));
+        Expense expense = new Expense(9, LocalDate.of(2021, 9,1), 1, new BigDecimal(15.5));
         Integer expenseId = expenseService.create(expense);
         assertNotNull(expenseId);
         int countOfExpensesAfter = (expenseService.findAllExpenses().size());
@@ -127,7 +127,7 @@ public class ExpenseServiceImplIT {
         logger.debug("Execute IT test delete()");
 
         assertNotNull(expenseService);
-        Expense expenseForDelete = new Expense(LocalDate.of(2021, 9,1), 1, new BigDecimal(15.5));
+        Expense expenseForDelete = new Expense(9, LocalDate.of(2021, 9,1), 1, new BigDecimal(15.5));
         expenseService.create(expenseForDelete);
         List<Expense> expenseListBeforeDelete = expenseService.findAllExpenses();
         int sizeBeforeDelete = expenseListBeforeDelete.size();

@@ -101,7 +101,7 @@ class CategoriesControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(view().name("add-categories"))
-                .andExpect(model().attribute("category", hasProperty("categoryId", is(8))));
+                .andExpect(model().attribute("category", hasProperty("categoryId", is(7))));
     }
 
     @Test

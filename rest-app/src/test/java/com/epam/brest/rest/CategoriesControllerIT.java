@@ -66,7 +66,7 @@ public class CategoriesControllerIT {
     public void testFindAllCategories() throws Exception {
 
         // given
-        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
+        Category category = new Category(7, RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
         Integer id = categoriesService.create(category);
 
         // when
@@ -79,7 +79,7 @@ public class CategoriesControllerIT {
 
     @Test
     public void testCreateCategory() throws Exception {
-        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
+        Category category = new Category(7, RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
         Integer id = categoriesService.create(category);
         assertNotNull(id);
     }
@@ -88,7 +88,7 @@ public class CategoriesControllerIT {
     public void testFindCategoryById() throws Exception {
 
         // given
-        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
+        Category category = new Category(7, RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
         Integer id = categoriesService.create(category);
 
         assertNotNull(id);
@@ -110,21 +110,21 @@ public class CategoriesControllerIT {
         Integer idOfLastCategoryBeforeAdd = categoryList.get(categoryList.size()-1).getCategoryId();
         assertNotNull(idOfLastCategoryBeforeAdd);
 
-        categoriesService.create(new Category("Toys"));
+        categoriesService.create(new Category(7, "Toys"));
 
         // when
         Integer idOfLastCategory = categoriesService.getIdOfLastCategory();
 
         // then
         assertNotNull(idOfLastCategory);
-        assertEquals(idOfLastCategory, idOfLastCategoryBeforeAdd + 1);
+        assertEquals(idOfLastCategory, idOfLastCategoryBeforeAdd + 2);
     }
 
     @Test
     public void testUpdateCategory() throws Exception {
 
         // given
-        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
+        Category category = new Category(7, RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
         Integer id = categoriesService.create(category);
         assertNotNull(id);
 
@@ -150,7 +150,7 @@ public class CategoriesControllerIT {
     @Test
     public void testDeleteCategory() throws Exception {
         // given
-        Category category = new Category(RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
+        Category category = new Category(7, RandomStringUtils.randomAlphabetic(CATEGORY_NAME_SIZE));
         Integer id = categoriesService.create(category);
 
         List<Category> categories = categoriesService.findAllCategories();

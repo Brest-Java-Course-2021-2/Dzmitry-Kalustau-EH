@@ -70,7 +70,7 @@ public class ExpensesControllerIT {
         objectMapper.findAndRegisterModules();
 
         Random random = new Random(1);
-        testExpense = new Expense();
+        testExpense = new Expense(9);
         testExpense.setCategoryId(random.nextInt(5)+1);
         testExpense.setSumOfExpense( new BigDecimal(random.nextDouble()*10));
     }
@@ -124,14 +124,14 @@ public class ExpensesControllerIT {
         Integer idOfLastExpenseBeforeAdd = expenseList.get(expenseList.size()-1).getExpenseId();
         assertNotNull(idOfLastExpenseBeforeAdd);
 
-        expensesService.create(new Expense(LocalDate.now(), 1, BigDecimal.valueOf(2)));
+        expensesService.create(new Expense(9, LocalDate.now(), 1, BigDecimal.valueOf(2)));
 
         // when
         Integer idOfLastExpense = expensesService.getIdOfLastExpense();
 
         // then
         assertNotNull(idOfLastExpense);
-        assertEquals(idOfLastExpense, idOfLastExpenseBeforeAdd + 1);
+        assertEquals(idOfLastExpense, idOfLastExpenseBeforeAdd + 2);
     }
 
     @Test

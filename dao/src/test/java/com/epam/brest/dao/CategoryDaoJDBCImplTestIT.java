@@ -51,7 +51,7 @@ class CategoryDaoJDBCImplTestIT {
         logger.debug("Execute IT test create()");
         assertNotNull(categoryDaoJDBC);
         int categorySizeBefore = categoryDaoJDBC.count();
-        Category category = new Category("Tickets");
+        Category category = new Category(7, "Tickets");
         Integer categoryId = categoryDaoJDBC.create(category);
         assertNotNull(categoryId);
         assertEquals(categorySizeBefore, categoryDaoJDBC.count() - 1);
@@ -62,7 +62,7 @@ class CategoryDaoJDBCImplTestIT {
 
         logger.debug("Execute IT test createEqualsCategory()");
         assertNotNull(categoryDaoJDBC);
-        Category category = new Category("Restaurant");
+        Category category = new Category(7, "Restaurant");
         assertThrows(IllegalArgumentException.class, () -> {
             categoryDaoJDBC.create(category);
             categoryDaoJDBC.create(category);
@@ -89,10 +89,10 @@ class CategoryDaoJDBCImplTestIT {
         List<Category> categoryList = categoryDaoJDBC.findAllCategories();
         Category categoryBeforeAdd = categoryList.get(categoryList.size() - 1);
 
-        categoryDaoJDBC.create(new Category("Toys"));
+        categoryDaoJDBC.create(new Category(7,"Toys"));
         Integer idOfLastCategoryAfterAdd = categoryDaoJDBC.getIdOfLastCategory();
         assertNotNull(idOfLastCategoryAfterAdd);
-        assertEquals(categoryBeforeAdd.getCategoryId() +1, idOfLastCategoryAfterAdd);
+        assertEquals(categoryBeforeAdd.getCategoryId() + 2 , idOfLastCategoryAfterAdd);
     }
 
     @Test
@@ -130,7 +130,7 @@ class CategoryDaoJDBCImplTestIT {
     void testDelete() {
 
         logger.debug("Execute IT test delete()");
-        categoryDaoJDBC.create(new Category("Test Category"));
+        categoryDaoJDBC.create(new Category(7, "Test Category"));
         List<Category> categoryList = categoryDaoJDBC.findAllCategories();
 
         categoryDaoJDBC.delete(categoryList.get(categoryList.size()-1).getCategoryId());

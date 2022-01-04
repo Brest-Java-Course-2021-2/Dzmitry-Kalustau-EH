@@ -26,7 +26,6 @@ public class CalculateSumController {
         this.calculateSumDtoService = calculateSumDtoService;
     }
 
-    //TODO make Dates
     @GetMapping("/calculate-sum")
     public final Collection<CalculateSumDto> getSumOfExpenses() {
 
