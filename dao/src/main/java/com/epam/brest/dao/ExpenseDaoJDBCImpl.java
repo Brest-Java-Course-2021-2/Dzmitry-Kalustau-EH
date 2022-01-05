@@ -5,6 +5,7 @@ import com.epam.brest.model.exceptions.IncorrectExpense;
 import com.epam.brest.model.Expense;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -27,13 +28,20 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     private final Logger logger = LogManager.getLogger(ExpenseDaoJDBCImpl.class);
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String SQL_ALL_EXPENSES = "SELECT * FROM expense";
-    private final String SQL_EXPENSE_BY_ID = "SELECT * FROM expense WHERE expense_id = :expenseId";
-    private final String SQL_CREATE_EXPENSE = "INSERT INTO expense(expense_id, date, category_id, price) VALUES (:expense_id, :date, :category_id, :price)";
-    private final String SQL_UPDATE_EXPENSE = "UPDATE expense SET category_id = :categoryId, price = :price WHERE expense_id = :expenseId";
-    private final String SQL_DELETE_EXPENSE_BY_ID = "DELETE FROM expense WHERE expense_id = :expenseId";
-    private final String SQL_ALL_CATEGORIES = "SELECT c.category_id, c.category_name FROM category c ORDER BY c.category_id";
-    private final String SQL_SELECT_COUNT = "SELECT count(*) FROM expense";
+    @Value("${SQL_ALL_EXPENSES}")
+    public String sqlAllExpenses;
+    @Value("${SQL_EXPENSE_BY_ID}")
+    public String sqlExpenseById;
+    @Value("${SQL_CREATE_EXPENSE}")
+    public String sqlCreateExpense;
+    @Value("${SQL_UPDATE_EXPENSE}")
+    public String sqlUpdateExpense;
+    @Value("${SQL_DELETE_EXPENSE_BY_ID}")
+    public String sqlDeleteExpenseById;
+    @Value("${SQL_ALL_CATEGORIES}")
+    public String sqlAllCategories;
+    @Value("${SQL_SELECT_COUNT_EXPENSES}")
+    public String sqlSelectCountExpenses;
 
 
     public ExpenseDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -44,7 +52,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     public List<Expense> findAllExpenses() {
 
         logger.debug("Find all expenses");
-        return namedParameterJdbcTemplate.query(SQL_ALL_EXPENSES, new ExpenseRowMapper());
+        return namedParameterJdbcTemplate.query(sqlAllExpenses, new ExpenseRowMapper());
     }
 
     @Override
@@ -52,7 +60,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
 
         logger.debug("Get expense by id = {}", expenseId);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("expenseId", expenseId);
-        return namedParameterJdbcTemplate.queryForObject(SQL_EXPENSE_BY_ID, sqlParameterSource, new ExpenseRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(sqlExpenseById, sqlParameterSource, new ExpenseRowMapper());
     }
 
     @Override
@@ -77,7 +85,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(mapParams);
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(SQL_CREATE_EXPENSE, sqlParameterSource, keyHolder);
+        namedParameterJdbcTemplate.update(sqlCreateExpense, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
     }
 
@@ -95,7 +103,7 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         paramsOfSql.put("price", expense.getSumOfExpense());
         paramsOfSql.put("expenseId", expense.getExpenseId());
 
-        return namedParameterJdbcTemplate.update(SQL_UPDATE_EXPENSE, paramsOfSql);
+        return namedParameterJdbcTemplate.update(sqlUpdateExpense, paramsOfSql);
     }
 
     @Override
@@ -103,14 +111,14 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
         logger.debug("Delete expense by id = {}", expenseId);
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("expenseId", expenseId);
-        return namedParameterJdbcTemplate.update(SQL_DELETE_EXPENSE_BY_ID, sqlParameterSource);
+        return namedParameterJdbcTemplate.update(sqlDeleteExpenseById, sqlParameterSource);
     }
 
     private boolean isExist(Integer categoryId) {
 
         logger.debug("Check for the passed categoryId = {}", categoryId);
         boolean isExist = false;
-        List<Category> categoryList = namedParameterJdbcTemplate.query(SQL_ALL_CATEGORIES, new CategoryRowMapper());
+        List<Category> categoryList = namedParameterJdbcTemplate.query(sqlAllCategories, new CategoryRowMapper());
         for (Category category : categoryList) {
             if (category.getCategoryId() == categoryId) {
                 isExist = true;
@@ -124,13 +132,13 @@ public class ExpenseDaoJDBCImpl implements ExpenseDao {
     @Override
     public Integer count() {
         logger.debug("count()");
-        return namedParameterJdbcTemplate.queryForObject(SQL_SELECT_COUNT, new MapSqlParameterSource(), Integer.class);
+        return namedParameterJdbcTemplate.queryForObject(sqlSelectCountExpenses, new MapSqlParameterSource(), Integer.class);
     }
 
     @Override
     public Integer getIdOfLastExpense() {
         logger.debug("getIdOfLastExpense");
-        List<Expense> expenseList = namedParameterJdbcTemplate.query(SQL_ALL_EXPENSES, new ExpenseRowMapper());
+        List<Expense> expenseList = namedParameterJdbcTemplate.query(sqlAllExpenses, new ExpenseRowMapper());
         Integer idOfLastExpense = 1;
         if (expenseList.isEmpty()) {
             logger.info("expenseList was empty");

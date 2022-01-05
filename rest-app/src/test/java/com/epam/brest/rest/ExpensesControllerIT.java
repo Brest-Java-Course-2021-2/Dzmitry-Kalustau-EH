@@ -1,6 +1,5 @@
 package com.epam.brest.rest;
 
-import com.epam.brest.model.Category;
 import com.epam.brest.model.Expense;
 import com.epam.brest.rest.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@PropertySource({"classpath:dao.properties"})
 @AutoConfigureMockMvc
 @Transactional
 public class ExpensesControllerIT {
