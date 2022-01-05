@@ -36,7 +36,6 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@Disabled
 class ExpensesControllerTest {
 
     private static final String EXPENSES_URL = "http://localhost:8088/expenses";

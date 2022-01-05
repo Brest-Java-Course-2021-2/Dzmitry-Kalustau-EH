@@ -42,7 +42,6 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@Disabled
 class CalculateSumControllerTest {
 
     private static final String CALCULATESUM_URL = "http://localhost:8088/calculate-sum";

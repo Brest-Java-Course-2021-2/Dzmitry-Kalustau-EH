@@ -35,7 +35,6 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@Disabled
 class CategoriesControllerTest {
 
     private static final String CATEGORIES_URL = "http://localhost:8088/categories";
