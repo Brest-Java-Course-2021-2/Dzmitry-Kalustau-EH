@@ -5,48 +5,28 @@ import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
 @Component
-public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
+public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao, InitializingBean {
 
     private final Logger logger = LogManager.getLogger(CalculateSumDtoDaoJdbc.class);
 
-    private final String SQL_FIND_ALL_SUM_OF_EXPENSES = "SELECT\n" +
-            "\tc.category_name AS categoryName,\n" +
-            "\tsum(e.price) AS sumOfExpense\n" +
-            "FROM\n" +
-            "\texpense e\n" +
-            "INNER JOIN category c ON\n" +
-            "\te.category_id = c.category_id\n" +
-            "GROUP BY\n" +
-            "\te.category_id\n" +
-            "ORDER BY\n" +
-            "sumOfExpense";
+    @Value("${SQL_FIND_ALL_SUM_OF_EXPENSES}")
+    public String sqlFindAllSumOfExpenses;
 
+    @Value("${SQL_FIND_SUM_OF_EXPENSES_BETWEEN_DATES}")
+    public String sqlFindSumOfExpensesBetweenDates;
 
-    private final String SQL_FIND_SUM_OF_EXPENSES_BETWEEN_DATES = "SELECT\n" +
-            "\tc.category_name AS categoryName,\n" +
-            "\tsum(e.price) AS sumOfExpense\n" +
-            "FROM\n" +
-            "\texpense e\n" +
-            "INNER JOIN category c ON\n" +
-            "\te.category_id = c.category_id\n" +
-            "WHERE date BETWEEN\n" +
-            "\t:dateFrom AND :dateTo\n" +
-            "GROUP BY\n" +
-            "\te.category_id\n" +
-            "ORDER BY\n" +
-            "sumOfExpense";
-
-    private final String SQL_ALL_EXPENSES = "SELECT * FROM expense";
+    @Value("${SQL_ALL_EXPENSES}")
+    public String SQL_ALL_EXPENSES;
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private LocalDateContainer localDateContainer;
@@ -54,6 +34,10 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
 
     public CalculateSumDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
         this.localDateContainer = new LocalDateContainer(getAllExpenseDates().first(), getAllExpenseDates().last());
     }
 
@@ -69,7 +53,7 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao {
         paramsOfSQL.put("dateFrom", localDateFrom);
         paramsOfSQL.put("dateTo",  localDateTo);
 
-        List<CalculateSumDto> calculateSumDtoList = namedParameterJdbcTemplate.query(SQL_FIND_SUM_OF_EXPENSES_BETWEEN_DATES,
+        List<CalculateSumDto> calculateSumDtoList = namedParameterJdbcTemplate.query(sqlFindSumOfExpensesBetweenDates,
         paramsOfSQL, BeanPropertyRowMapper.newInstance(CalculateSumDto.class));
         addTotalSum(calculateSumDtoList);
         return calculateSumDtoList;

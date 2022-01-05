@@ -3,6 +3,7 @@ package com.epam.brest.dao;
 import com.epam.brest.model.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +26,20 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String SQL_ALL_CATEGORIES = "SELECT c.category_id, c.category_name FROM category c ORDER BY c.category_id";
-    private final String SQL_CREATE_CATEGORY = "INSERT INTO category(category_id, category_name) VALUES (:categoryId, :categoryName)";
-    private final String SQL_CHECK_UNIQUE_CATEGORY_NAME = "SELECT count(c.category_name) FROM category c WHERE lower(c.category_name) = lower(:categoryName)";
-    private final String SQL_SELECT_COUNT = "SELECT count(*) FROM category";
-    private final String SQL_UPDATE_CATEGORY = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
-    private final String SQL_CATEGORY_BY_ID = "SELECT c.category_id, c.category_name FROM category c WHERE c.category_id = :categoryId";
-    private final String SQL_DELETE_CATEGORY_BY_ID = "DELETE FROM category WHERE category_id = :categoryId";
+    @Value("${SQL_ALL_CATEGORIES}")
+    public String sqlAllCategories;
+    @Value("${SQL_CREATE_CATEGORY}")
+    public String sqlCreateCategory;
+    @Value("${SQL_CHECK_UNIQUE_CATEGORY_NAME}")
+    public String sqlCheckUniqueCategoryName;
+    @Value("${SQL_SELECT_COUNT}")
+    public String sqlSelectCount;
+    @Value("${SQL_UPDATE_CATEGORY}")
+    public String sqlUpdateCategory;
+    @Value("${SQL_CATEGORY_BY_ID}")
+    public String sqlCategoryById;
+    @Value("${SQL_DELETE_CATEGORY_BY_ID}")
+    public String sqlDeleteCategoryById;
 
     public CategoryDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -41,7 +48,7 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
     @Override
     public List<Category> findAllCategories() {
         logger.debug("Start: findAllCategories()");
-        return namedParameterJdbcTemplate.query(SQL_ALL_CATEGORIES, new CategoryRowMapper());
+        return namedParameterJdbcTemplate.query(sqlAllCategories, new CategoryRowMapper());
     }
 
     @Override
@@ -59,21 +66,21 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(paramsOfSql);
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(SQL_CREATE_CATEGORY, sqlParameterSource, keyHolder);
+        namedParameterJdbcTemplate.update(sqlCreateCategory, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
     }
 
     private boolean isCategoryUnique(String categoryName) {
         logger.debug("Check categoryName : {} on unique", categoryName);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("categoryName", categoryName);
-        return namedParameterJdbcTemplate.queryForObject(SQL_CHECK_UNIQUE_CATEGORY_NAME, sqlParameterSource, Integer.class) == 0;
+        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueCategoryName, sqlParameterSource, Integer.class) == 0;
     }
 
     @Override
     public Category getCategoryById(Integer categoryId) {
         logger.debug("Get category by id = {}", categoryId);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("categoryId", categoryId);
-        return namedParameterJdbcTemplate.queryForObject(SQL_CATEGORY_BY_ID, sqlParameterSource, new CategoryRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(sqlCategoryById, sqlParameterSource, new CategoryRowMapper());
 
     }
 
@@ -85,27 +92,27 @@ public class CategoryDaoJDBCImpl implements CategoryDao {
         paramsOfSql.put("categoryName", category.getCategoryName());
         paramsOfSql.put("categoryId", category.getCategoryId());
 
-        return namedParameterJdbcTemplate.update(SQL_UPDATE_CATEGORY, paramsOfSql);
+        return namedParameterJdbcTemplate.update(sqlUpdateCategory, paramsOfSql);
     }
 
     @Override
     public Integer delete(Integer categoryId) {
         logger.debug("Delete category on id {}", categoryId);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("categoryId", categoryId);
-        return namedParameterJdbcTemplate.update(SQL_DELETE_CATEGORY_BY_ID, sqlParameterSource);
+        return namedParameterJdbcTemplate.update(sqlDeleteCategoryById, sqlParameterSource);
     }
 
     @Override
     public Integer count() {
         logger.debug("count()");
-        return namedParameterJdbcTemplate.queryForObject(SQL_SELECT_COUNT, new MapSqlParameterSource(), Integer.class);
+        return namedParameterJdbcTemplate.queryForObject(sqlSelectCount, new MapSqlParameterSource(), Integer.class);
     }
 
     @Override
     public Integer getIdOfLastCategory() {
         logger.debug("getIdOfLastCategory");
 
-        List<Category> categoryList = namedParameterJdbcTemplate.query(SQL_ALL_CATEGORIES, new CategoryRowMapper());
+        List<Category> categoryList = namedParameterJdbcTemplate.query(sqlAllCategories, new CategoryRowMapper());
         Integer idOfLastCategory = 1;
         if (categoryList.isEmpty()) {
             logger.info("categoryList was empty");

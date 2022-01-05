@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
 @Import({CategoryDaoJDBCImpl.class})
-@ExtendWith(SpringExtension.class)
+@PropertySource({"classpath:dao.properties"})
 @ContextConfiguration(classes = SpringJdbcConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
