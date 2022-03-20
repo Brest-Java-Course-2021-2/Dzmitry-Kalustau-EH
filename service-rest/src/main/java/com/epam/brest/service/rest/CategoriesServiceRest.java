@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 
 @Service
 public class CategoriesServiceRest implements CategoryService {
@@ -65,7 +66,6 @@ public class CategoriesServiceRest implements CategoryService {
         ResponseEntity<Integer> result = restTemplate.exchange(url, HttpMethod.PUT, entity, Integer.class);
         return result.getBody();
     }
-
 
 
     @Override
