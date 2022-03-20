@@ -31,7 +31,7 @@ public class CategoriesController {
     }
 
     @GetMapping(value="/categories/{id}")
-    public final Category getIdOfLastCategory(@PathVariable Integer id) {
+    public final Category getCategoryById(@PathVariable Integer id) {
 
         logger.debug("get category by id");
         return categoryService.getCategoryById(id);
