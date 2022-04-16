@@ -39,13 +39,24 @@ public class CategoriesController {
     }
 
     @GetMapping(value="/categories/{id}")
-    public final Category getCategoryById(@PathVariable Integer id) {
+    @ApiOperation(value = "Get category by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "The resource not found")
+    }
+    )
+    public final Category getCategoryById(@PathVariable @ApiParam(name = "Category id", example = "1") Integer id) {
 
         logger.debug("get category by id");
         return categoryService.getCategoryById(id);
     }
 
     @PostMapping(path = "categories", consumes = "application/json", produces = "application/json")
+    @ApiOperation(value = "Add category")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK")
+    }
+    )
     public ResponseEntity<Integer> addCategory(@RequestBody Category category) {
 
         logger.debug("add Category({})", category);
@@ -54,6 +65,11 @@ public class CategoriesController {
     }
 
     @PutMapping(value = "/categories", consumes = {"application/json"}, produces = {"application/json"})
+    @ApiOperation(value = "Update category")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK")
+    }
+    )
     public ResponseEntity<Integer> updateCategory(@RequestBody Category category) {
 
         logger.debug("update Category({})", category);
@@ -63,6 +79,11 @@ public class CategoriesController {
 
 
     @DeleteMapping(value = "/categories", consumes = {"application/json"}, produces = {"application/json"})
+    @ApiOperation(value = "Delete category by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK")
+    }
+    )
     public ResponseEntity<Integer> deleteCategory(@RequestBody Integer id) {
 
         logger.debug("delete Category({})", id);
@@ -71,6 +92,12 @@ public class CategoriesController {
     }
 
     @GetMapping(value="/categories/last_id")
+    @ApiOperation(value = "Get id of last category")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "The resource not found")
+    }
+    )
     public final Integer getIdOfLastCategory() {
 
         logger.debug("get id of last category");
