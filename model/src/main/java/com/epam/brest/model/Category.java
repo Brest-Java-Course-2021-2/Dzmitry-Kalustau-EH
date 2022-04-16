@@ -1,9 +1,13 @@
 package com.epam.brest.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Category {
 
+    @ApiModelProperty(notes = "Category id", example = "1")
     private Integer categoryId;
 
+    @ApiModelProperty(notes = "Category name", example = "Fuel")
     private String categoryName;
 
     public Category() {

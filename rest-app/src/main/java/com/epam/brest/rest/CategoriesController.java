@@ -2,6 +2,7 @@ package com.epam.brest.rest;
 
 import com.epam.brest.model.Category;
 import com.epam.brest.service.CategoryService;
+import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.Collection;
 
 @RestController
 @CrossOrigin
+@Api(value = "categories", tags = "Categories API")
 public class CategoriesController {
 
     private static final Logger logger = LogManager.getLogger(CategoriesController.class);
@@ -24,6 +26,12 @@ public class CategoriesController {
     }
 
     @GetMapping(value = "/categories")
+    @ApiOperation(value = "Find all categories")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "The resource not found")
+    }
+    )
     public final Collection<Category> findAll() {
 
         logger.debug("findAll()");
