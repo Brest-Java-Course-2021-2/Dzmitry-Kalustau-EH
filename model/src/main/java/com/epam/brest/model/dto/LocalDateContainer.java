@@ -1,10 +1,16 @@
 package com.epam.brest.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.LocalDate;
 
 public class LocalDateContainer {
 
-    private LocalDate dateFrom, dateTo;
+    @ApiModelProperty(notes = "Date from", example = "2021-09-10")
+    private LocalDate dateFrom;
+
+    @ApiModelProperty(notes = "Date to", example = "2021-10-12")
+    private LocalDate dateTo;
 
     public LocalDateContainer() {
     }

@@ -1,11 +1,15 @@
 package com.epam.brest.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 
 public class CalculateSumDto {
 
+    @ApiModelProperty(notes = "Category name", example = "Food")
     private String categoryName;
 
+    @ApiModelProperty(notes = "Sum of expense", example = "15.5")
     private BigDecimal sumOfExpense;
 
     public CalculateSumDto() {

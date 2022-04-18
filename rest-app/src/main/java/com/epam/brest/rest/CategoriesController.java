@@ -87,7 +87,7 @@ public class CategoriesController {
             @ApiResponse(code = 500, message = "Error")
     }
     )
-    public ResponseEntity<Integer> deleteCategory(@ApiParam("Id of the category to be deleted.") @RequestBody Integer id) {
+    public ResponseEntity<Integer> deleteCategory(@ApiParam(value = "Id of the category to be deleted.", example = "6") @RequestBody Integer id) {
 
         logger.debug("delete Category({})", id);
         int result = categoryService.delete(id);

@@ -1,18 +1,24 @@
 package com.epam.brest.model;
 
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
 public class Expense {
 
+    @ApiModelProperty(notes = "Expense id", example = "1")
     private Integer expenseId;
 
+    @ApiModelProperty(notes = "Date of expense")
     private LocalDate dateOfExpense;
 
+    @ApiModelProperty(notes = "Category id", example = "1")
     private Integer categoryId;
 
+    @ApiModelProperty(notes = "Sum of expense", example = "10.2")
     private BigDecimal sumOfExpense;
 
     public Expense() {
