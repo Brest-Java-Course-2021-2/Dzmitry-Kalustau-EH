@@ -25,13 +25,13 @@ public class SpringFoxConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Springfox API specification",
-                "Spring REST APIs",
+                "ExpenseHelper API specification",
+                "Expense Helper REST APIs",
                 "",
                 "",
                 null,
-                "License of API",
-                "API license URL",
+                "Apache-2.0 License",
+                "https://www.apache.org/licenses/LICENSE-2.0",
                 Collections.emptyList());
     }
 }

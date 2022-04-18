@@ -54,10 +54,11 @@ public class CategoriesController {
     @PostMapping(path = "categories", consumes = "application/json", produces = "application/json")
     @ApiOperation(value = "Add category")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK")
+            @ApiResponse(code = 200, message = "OK", examples = @Example(@ExampleProperty(value = "1", mediaType = "application/json"))),
+            @ApiResponse(code = 500, message = "Error")
     }
     )
-    public ResponseEntity<Integer> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Integer> addCategory(@ApiParam("Category information for a new category to be created.") @RequestBody Category category) {
 
         logger.debug("add Category({})", category);
         Integer id = categoryService.create(category);
@@ -67,10 +68,11 @@ public class CategoriesController {
     @PutMapping(value = "/categories", consumes = {"application/json"}, produces = {"application/json"})
     @ApiOperation(value = "Update category")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK")
+            @ApiResponse(code = 200, message = "OK", examples = @Example(@ExampleProperty(value = "1", mediaType = "application/json"))),
+            @ApiResponse(code = 500, message = "Error")
     }
     )
-    public ResponseEntity<Integer> updateCategory(@RequestBody Category category) {
+    public ResponseEntity<Integer> updateCategory(@ApiParam("Category information for a category to be updated.") @RequestBody Category category) {
 
         logger.debug("update Category({})", category);
         int result = categoryService.update(category);
@@ -81,10 +83,11 @@ public class CategoriesController {
     @DeleteMapping(value = "/categories", consumes = {"application/json"}, produces = {"application/json"})
     @ApiOperation(value = "Delete category by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK")
+            @ApiResponse(code = 200, message = "OK", examples = @Example(@ExampleProperty(value = "1", mediaType = "application/json"))),
+            @ApiResponse(code = 500, message = "Error")
     }
     )
-    public ResponseEntity<Integer> deleteCategory(@RequestBody Integer id) {
+    public ResponseEntity<Integer> deleteCategory(@ApiParam("Id of the category to be deleted.") @RequestBody Integer id) {
 
         logger.debug("delete Category({})", id);
         int result = categoryService.delete(id);
@@ -94,7 +97,7 @@ public class CategoriesController {
     @GetMapping(value="/categories/last_id")
     @ApiOperation(value = "Get id of last category")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 200, message = "OK", examples = @Example(@ExampleProperty(value = "6", mediaType = "application/json"))),
             @ApiResponse(code = 404, message = "The resource not found")
     }
     )
