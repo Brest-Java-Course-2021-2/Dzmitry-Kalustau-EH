@@ -12,12 +12,12 @@ import com.epam.brest.service.dto.CalculateSumDtoService;
 import com.epam.brest.service.impl.CategoryServiceImpl;
 import com.epam.brest.service.impl.ExpenseServiceImpl;
 import com.epam.brest.service.impl.dto.CalculateSumDtoServiceImpl;
-import com.epam.brest.testdb.SpringJdbcConfig;
+import com.epam.brest.testdb.SpringTestJdbcConfig;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 @TestConfiguration
-public class ServiceTestConfig extends SpringJdbcConfig {
+public class ServiceTestConfig extends SpringTestJdbcConfig {
 
     @Bean
     CategoryDao categoryDao() {

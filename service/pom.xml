@@ -37,6 +37,10 @@
             <groupId>com.epam.brest</groupId>
             <artifactId>test-db</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.epam.brest</groupId>
+            <artifactId>mysql-db</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

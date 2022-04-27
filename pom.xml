@@ -21,6 +21,7 @@
         <module>web-app</module>
         <module>test-db</module>
         <module>service-rest</module>
+        <module>mysql-db</module>
     </modules>
 
     <properties>
@@ -43,6 +44,7 @@
         <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
         </jacoco.ut.execution.data.file>
         <jackson-datatype-jsr310.version>2.13.0</jackson-datatype-jsr310.version>
+        <spring-boot-starter-jdbc.version>2.6.3</spring-boot-starter-jdbc.version>
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
     </properties>
 
@@ -67,6 +69,12 @@
             <dependency>
                 <groupId>com.epam.brest</groupId>
                 <artifactId>test-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.epam.brest</groupId>
+                <artifactId>mysql-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -122,6 +130,12 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot-starter-jdbc.version}</version>
             </dependency>
 
             <dependency>
