@@ -1,5 +1,6 @@
 package com.epam.brest.mysqldb;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,8 @@ public class SpringMysqlJdbcConfig {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
 
         dataSourceBuilder.url("jdbc:mysql://localhost/expense_helper");
-        dataSourceBuilder.username("root");
-        dataSourceBuilder.password("5310Defender");
+        dataSourceBuilder.username("user@localhost");
+        dataSourceBuilder.password("password");
         return dataSourceBuilder.build();
     }
 
