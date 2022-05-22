@@ -40,5 +40,12 @@ public class CalculateSumDto {
         this.sumOfExpense = sumOfExpense;
     }
 
+    @Override
+    public String toString() {
+        return "CalculateSumDto{" +
+                "categoryName='" + categoryName + '\'' +
+                ", sumOfExpense=" + sumOfExpense +
+                '}';
+    }
 }
 

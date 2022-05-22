@@ -83,4 +83,11 @@ public class CalculateSumController {
         return calculateSumDtoTotalSum;
     }
 
+    @PostMapping(path = "calculate-sum/report", consumes = "application/json")
+    public void createReport(@RequestBody Integer months) {
+
+        logger.debug("create report for {} months", months);
+        calculateSumDtoService.createReport(months);
+    }
+
 }

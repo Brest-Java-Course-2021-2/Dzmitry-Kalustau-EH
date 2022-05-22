@@ -35,4 +35,10 @@ public interface CalculateSumDtoDao {
      * @return CalculateSumDto object with Total SUm
      */
     CalculateSumDto getTotalSum();
+
+    /**
+     * Get all categories with total expenses between dates
+     * @return CalculateSumDto list
+     */
+    List<CalculateSumDto> findSumOfExpensesByDates(LocalDate dateFrom, LocalDate dateTo);
 }

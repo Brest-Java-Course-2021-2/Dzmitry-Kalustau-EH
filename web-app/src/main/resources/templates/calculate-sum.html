@@ -148,6 +148,29 @@
             </div>
         </div>
     </div>
+
+
+    <div class="card-body">
+        <form
+                action="#"
+                th:action="@{/calculate-sum/report}"
+                th:object="${localDate}"
+                method="post">
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Generate a report"/>
+            </div>
+        </form>
+    </div>
+
+
+<!--    <div class="container-fluid">-->
+<!--        <div class="col">-->
+<!--            <button type="button" class="btn "><a class="navbar-brand btn btn-primary" href="calculate-sum.html"-->
+<!--                                                  th:href="@{/calculate-sum}">Generate a report</a></button>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
 </section>
 
 <footer>

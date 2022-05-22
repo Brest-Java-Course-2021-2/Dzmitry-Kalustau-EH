@@ -59,6 +59,20 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao, InitializingB
         return calculateSumDtoList;
     }
 
+    @Override
+    public List<CalculateSumDto> findSumOfExpensesByDates(LocalDate dateFrom, LocalDate dateTo) {
+
+        logger.debug("find dates between {} and {}", dateFrom, dateTo);
+        Map<String, LocalDate> paramsOfSQL = new HashMap<>();
+
+        paramsOfSQL.put("dateFrom", dateFrom);
+        paramsOfSQL.put("dateTo",  dateTo);
+
+        List<CalculateSumDto> calculateSumDtoList = namedParameterJdbcTemplate.query(sqlFindSumOfExpensesBetweenDates,
+        paramsOfSQL, BeanPropertyRowMapper.newInstance(CalculateSumDto.class));
+        return calculateSumDtoList;
+    }
+
     //Add final Sum of all expenses (Total Sum in the table)
     private void addTotalSum(List<CalculateSumDto> calculateSumDtoList) {
 

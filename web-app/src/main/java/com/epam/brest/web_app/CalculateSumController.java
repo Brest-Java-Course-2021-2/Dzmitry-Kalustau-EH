@@ -24,11 +24,14 @@ public class CalculateSumController {
 
     private static final Logger logger = LogManager.getLogger(CalculateSumController.class);
 
-    private CalculateSumDtoService calculateSumDtoService;;
+    private CalculateSumDtoService calculateSumDtoService;
+
+    private Integer reportMonthsNumber;
 
     @Autowired
     public CalculateSumController(CalculateSumDtoService calculateSumDtoService) {
         this.calculateSumDtoService = calculateSumDtoService;
+        this.reportMonthsNumber = 3;
     }
 
     @GetMapping("/calculate-sum")
@@ -52,8 +55,16 @@ public class CalculateSumController {
     public String calculateSum(LocalDateContainer localDate) {
 
         logger.debug("calculate sum postMapping");
-
         calculateSumDtoService.editLocalDateContainer(localDate.getDateFrom(), localDate.getDateTo());
+
+        return "redirect:/calculate-sum";
+    }
+
+    @PostMapping("/calculate-sum/report")
+    public String createReport() {
+
+        logger.debug("calculate-sum/report");
+        calculateSumDtoService.createReport(reportMonthsNumber);
 
         return "redirect:/calculate-sum";
     }

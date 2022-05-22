@@ -40,4 +40,16 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
     public CalculateSumDto getTotalSum() {
         return calculateSumDtoDao.getTotalSum();
     }
+
+    @Override
+    public void createReport(Integer months) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate previousDate = currentDate.minusMonths(months);
+
+        List<CalculateSumDto> dtoList = calculateSumDtoDao.findSumOfExpensesByDates(previousDate, currentDate);
+
+        for (CalculateSumDto dto : dtoList) {
+            System.out.println(dto);
+        }
+    }
 }

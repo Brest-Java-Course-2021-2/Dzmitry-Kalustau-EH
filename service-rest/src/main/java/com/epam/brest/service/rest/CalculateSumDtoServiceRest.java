@@ -60,4 +60,11 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
         ResponseEntity responseEntity = restTemplate.getForEntity(url + "/totalsum", CalculateSumDto.class);
         return (CalculateSumDto) responseEntity.getBody();
     }
+
+    @Override
+    public void createReport(Integer months) {
+
+        logger.debug("create report for {} months", months);
+        restTemplate.postForObject(url + "/report", months, Integer.class);
+    }
 }

@@ -35,4 +35,9 @@ public interface CalculateSumDtoService {
      * @return CalculateSumDto object with Total SUm
      */
     CalculateSumDto getTotalSum();
+
+    /**
+     * Create report in MongoDB
+     */
+    void createReport(Integer months);
 }
