@@ -28,6 +28,8 @@
             <artifactId>mysql-db</artifactId>
         </dependency>
 
+
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -62,6 +64,13 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
 
     </dependencies>
 

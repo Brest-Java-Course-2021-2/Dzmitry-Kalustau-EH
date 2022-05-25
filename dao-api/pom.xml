@@ -17,6 +17,8 @@
             <groupId>com.epam.brest</groupId>
             <artifactId>model</artifactId>
         </dependency>
+
+
     </dependencies>
 
 </project>

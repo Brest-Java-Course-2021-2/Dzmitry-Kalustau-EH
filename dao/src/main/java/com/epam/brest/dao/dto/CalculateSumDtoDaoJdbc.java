@@ -108,7 +108,7 @@ public class CalculateSumDtoDaoJdbc implements CalculateSumDtoDao, InitializingB
         return calculateSumDtoTotalSum;
     }
 
-    //find all dates from expeses
+    //find all dates from expenses
     private TreeSet<LocalDate> getAllExpenseDates() {
 
         logger.debug("get all expense dates");

@@ -1,10 +1,14 @@
 package com.epam.brest.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.math.BigDecimal;
 
 public class CalculateSumDto {
+
 
     @ApiModelProperty(notes = "Category name", example = "Food")
     private String categoryName;

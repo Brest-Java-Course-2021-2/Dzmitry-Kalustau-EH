@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("h2")
+@Profile("dev")
 public class SpringTestJdbcConfig {
 
     @Bean

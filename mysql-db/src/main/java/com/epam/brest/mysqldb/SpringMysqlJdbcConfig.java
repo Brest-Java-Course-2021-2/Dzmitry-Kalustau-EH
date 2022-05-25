@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("mysql")
+@Profile("prod")
 public class SpringMysqlJdbcConfig {
 
     @Bean
