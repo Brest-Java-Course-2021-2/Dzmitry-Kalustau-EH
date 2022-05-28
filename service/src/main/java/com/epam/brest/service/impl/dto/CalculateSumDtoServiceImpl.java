@@ -63,13 +63,15 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
 
         reportRepository.save(reportDto);
 
-
     }
 
     private ReportDto createReportDto(LocalDate dateFrom, LocalDate dateTo, List<CalculateSumDto> dtoList) {
 
         BigDecimal totalSum = createTotalSum(dtoList);
-        return new ReportDto(dateFrom, dateTo, dtoList, totalSum);
+        ReportDto reportDto = new ReportDto(dateFrom, dateTo, dtoList, totalSum);
+        reportDto.setId("6291e05599f911029f33c695");
+
+        return reportDto;
     }
 
 
@@ -78,10 +80,12 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
             return new BigDecimal("0");
         }
 
-        BigDecimal finalSumOfExpenses = new BigDecimal(0);
-        for (CalculateSumDto sum : dtoList) {
-            finalSumOfExpenses = finalSumOfExpenses.add(sum.getSumOfExpense());
-        }
+
+        BigDecimal finalSumOfExpenses = dtoList.stream().map((s) -> s.getSumOfExpense()).
+                                                         reduce((s1, s2) -> s1.add(s2)).
+                                                         orElse(new BigDecimal(0));
+
+
         return finalSumOfExpenses;
     }
 

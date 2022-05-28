@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @Rollback
-@ActiveProfiles("h2")
+@ActiveProfiles("dev")
 public class ExpenseDaoJDBCImplTestIT {
 
     private final Logger logger = LogManager.getLogger(ExpenseDaoJDBCImplTestIT.class);

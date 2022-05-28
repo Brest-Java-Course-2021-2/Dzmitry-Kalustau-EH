@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @PropertySource({"classpath:dao.properties"})
 @AutoConfigureMockMvc
 @Transactional
-@ActiveProfiles("h2")
+@ActiveProfiles("dev")
 public class ExpensesControllerIT {
 
     private static final Logger logger = LoggerFactory.getLogger(ExpensesControllerIT.class);

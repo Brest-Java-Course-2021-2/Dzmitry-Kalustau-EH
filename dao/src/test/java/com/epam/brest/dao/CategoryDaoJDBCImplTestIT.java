@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @Rollback
-@ActiveProfiles("h2")
+@ActiveProfiles("dev")
 class CategoryDaoJDBCImplTestIT {
 
     private final Logger logger = LogManager.getLogger(CategoryDaoJDBCImplTestIT.class);

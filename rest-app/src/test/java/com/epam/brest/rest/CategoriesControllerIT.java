@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @PropertySource({"classpath:dao.properties"})
 @AutoConfigureMockMvc
 @Transactional
-@ActiveProfiles("h2")
+@ActiveProfiles("dev")
 public class CategoriesControllerIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoriesControllerIT.class);

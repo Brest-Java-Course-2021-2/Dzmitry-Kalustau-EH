@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @Rollback
-@ActiveProfiles("h2")
+@ActiveProfiles("dev")
 class CalculateSumDtoDaoJDBCTestIT {
 
     private final Logger logger = LogManager.getLogger(CalculateSumDtoDaoJDBCTestIT.class);
