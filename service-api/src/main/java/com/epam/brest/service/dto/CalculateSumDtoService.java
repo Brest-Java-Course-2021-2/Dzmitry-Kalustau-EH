@@ -2,6 +2,7 @@ package com.epam.brest.service.dto;
 
 import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
+import com.epam.brest.model.dto.ReportDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,5 +40,5 @@ public interface CalculateSumDtoService {
     /**
      * Create report in MongoDB
      */
-    void createReport(Integer months);
+    ReportDto createReport(Integer months);
 }

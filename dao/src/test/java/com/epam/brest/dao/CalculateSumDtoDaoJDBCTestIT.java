@@ -49,6 +49,15 @@ class CalculateSumDtoDaoJDBCTestIT {
     }
 
     @Test
+    void testFindSumOfExpensesByDates() {
+
+        logger.debug("Execute IT test: findSumOfExpensesByDates()");
+        assertNotNull(calculateSumDtoDaoJdbc);
+        assertNotNull(calculateSumDtoDaoJdbc.findSumOfExpensesByDates(LocalDate.of(2021,9,01),
+                LocalDate.of(2021, 11, 04)));
+    }
+
+    @Test
     void testGetTotalSum() {
 
         logger.debug("Execute IT test: getTotalSum()");
