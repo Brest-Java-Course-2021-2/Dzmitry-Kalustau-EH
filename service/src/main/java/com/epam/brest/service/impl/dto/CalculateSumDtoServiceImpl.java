@@ -1,6 +1,7 @@
 package com.epam.brest.service.impl.dto;
 
 import com.epam.brest.dao.dto.CalculateSumDtoDao;
+import com.epam.brest.dao.report.CustomReportRepository;
 import com.epam.brest.dao.report.ReportRepository;
 import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
@@ -21,17 +22,14 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
 
     private final CalculateSumDtoDao calculateSumDtoDao;
 
-    private ReportRepository reportRepository;
+    private final ReportRepository reportRepository;
 
     @Autowired
-    public CalculateSumDtoServiceImpl(CalculateSumDtoDao calculateSumDtoDao) {
+    public CalculateSumDtoServiceImpl(CalculateSumDtoDao calculateSumDtoDao, ReportRepository reportRepository) {
         this.calculateSumDtoDao = calculateSumDtoDao;
-    }
-
-    @Autowired
-    public void setReportRepository(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
+
 
     @Override
     public List<CalculateSumDto> findAllWithSumOfExpenses() {
@@ -54,15 +52,15 @@ public class CalculateSumDtoServiceImpl implements CalculateSumDtoService {
     }
 
     @Override
-    public void createReport(Integer months) {
+    public ReportDto createReport(Integer months) {
         LocalDate currentDate = LocalDate.now();
         LocalDate previousDate = currentDate.minusMonths(months);
 
         List<CalculateSumDto> dtoList = calculateSumDtoDao.findSumOfExpensesByDates(previousDate, currentDate);
         ReportDto reportDto = createReportDto(previousDate, currentDate, dtoList);
 
-        reportRepository.save(reportDto);
-
+        return reportRepository.save(reportDto);
+//        return customReportRepository.saveOrUpdate(reportDto);
     }
 
     private ReportDto createReportDto(LocalDate dateFrom, LocalDate dateTo, List<CalculateSumDto> dtoList) {

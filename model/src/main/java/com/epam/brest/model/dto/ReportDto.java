@@ -82,4 +82,16 @@ public class ReportDto {
     public void setTotalExpense(BigDecimal totalExpense) {
         this.totalExpense = totalExpense;
     }
+
+    @Override
+    public String toString() {
+        return "ReportDto{" +
+                "id='" + id + '\'' +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", expensesList=" + expensesList +
+                ", totalName='" + totalName + '\'' +
+                ", totalExpense=" + totalExpense +
+                '}';
+    }
 }

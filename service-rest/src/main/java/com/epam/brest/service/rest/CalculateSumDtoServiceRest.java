@@ -2,6 +2,7 @@ package com.epam.brest.service.rest;
 
 import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
+import com.epam.brest.model.dto.ReportDto;
 import com.epam.brest.service.dto.CalculateSumDtoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -62,9 +63,10 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
     }
 
     @Override
-    public void createReport(Integer months) {
+    public ReportDto createReport(Integer months) {
 
         logger.debug("create report for {} months", months);
         restTemplate.postForObject(url + "/report", months, Integer.class);
+        return new ReportDto();
     }
 }

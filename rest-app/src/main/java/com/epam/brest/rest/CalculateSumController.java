@@ -2,6 +2,7 @@ package com.epam.brest.rest;
 
 import com.epam.brest.model.dto.CalculateSumDto;
 import com.epam.brest.model.dto.LocalDateContainer;
+import com.epam.brest.model.dto.ReportDto;
 import com.epam.brest.service.dto.CalculateSumDtoService;
 import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
@@ -84,10 +85,10 @@ public class CalculateSumController {
     }
 
     @PostMapping(path = "calculate-sum/report", consumes = "application/json")
-    public void createReport(@RequestBody Integer months) {
+    public ReportDto createReport(@RequestBody Integer months) {
 
         logger.debug("create report for {} months", months);
-        calculateSumDtoService.createReport(months);
+        return calculateSumDtoService.createReport(months);
     }
 
 }
