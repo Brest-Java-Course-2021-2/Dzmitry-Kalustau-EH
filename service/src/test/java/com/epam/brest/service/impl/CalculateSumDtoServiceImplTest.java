@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.math.BigDecimal;
@@ -20,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-
 @ExtendWith(MockitoExtension.class)
 public class CalculateSumDtoServiceImplTest {
 
@@ -35,8 +36,6 @@ public class CalculateSumDtoServiceImplTest {
     @Mock
     CalculateSumDtoDao calculateSumDtoDao;
 
-    @Captor
-    private ArgumentCaptor<RowMapper<ReportDto>> captorMapper;
 
     @Test
     void testCreateReport() {
@@ -46,7 +45,7 @@ public class CalculateSumDtoServiceImplTest {
         ReportDto reportDto = getReportDto();
         Integer monthCount = 3;
 
-        Mockito.when(reportRepository.save(reportDto)).thenReturn(reportDto);
+        Mockito.when(reportRepository.save(any())).thenReturn(reportDto);
         ReportDto report = calculateSumDtoService.createReport(monthCount);
         Mockito.verify(reportRepository).save(any());
 
@@ -54,6 +53,7 @@ public class CalculateSumDtoServiceImplTest {
         Assertions.assertNotNull(report);
         Assertions.assertSame(reportDto.getTotalExpense(), report.getTotalExpense());
     }
+
 
     @Test
     void testFindAllWithSumOfExpenses() {
@@ -75,9 +75,9 @@ public class CalculateSumDtoServiceImplTest {
         ReportDto reportDto = new ReportDto();
         CalculateSumDto calculateSumDto = new CalculateSumDto();
 
-        reportDto.setId("5");
-        reportDto.setDateFrom(LocalDate.of(2021, 9, 1));
-        reportDto.setDateTo(LocalDate.of(2021, 11, 4));
+        reportDto.setId("6291e05599f911029f33c695");
+        reportDto.setDateFrom(LocalDate.of(2022, 4, 5));
+        reportDto.setDateTo(LocalDate.of(2022, 7, 5));
         reportDto.setExpensesList(Collections.singletonList(calculateSumDto));
         reportDto.setTotalName("Test total name");
         reportDto.setTotalExpense(new BigDecimal("2"));
