@@ -47,6 +47,7 @@ public class CalculateSumDtoServiceImplTest {
 
         Mockito.when(reportRepository.save(any())).thenReturn(reportDto);
         ReportDto report = calculateSumDtoService.createReport(monthCount);
+
         Mockito.verify(reportRepository).save(any());
 
 
