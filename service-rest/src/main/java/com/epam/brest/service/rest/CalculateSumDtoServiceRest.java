@@ -66,7 +66,7 @@ public class CalculateSumDtoServiceRest implements CalculateSumDtoService {
     public ReportDto createReport(Integer months) {
 
         logger.debug("create report for {} months", months);
-        restTemplate.postForObject(url + "/report", months, Integer.class);
+        restTemplate.postForObject(url + "/report", months, ReportDto.class);
         return new ReportDto();
     }
 }
