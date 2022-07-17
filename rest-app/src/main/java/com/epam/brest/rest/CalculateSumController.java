@@ -22,7 +22,7 @@ public class CalculateSumController {
 
     private static final Logger logger = LogManager.getLogger(CalculateSumController.class);
 
-    private CalculateSumDtoService calculateSumDtoService;;
+    private CalculateSumDtoService calculateSumDtoService;
 
     @Autowired
     public CalculateSumController(CalculateSumDtoService calculateSumDtoService) {
